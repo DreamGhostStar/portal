@@ -1,0 +1,88 @@
+.myInfoMessageContent {
+    background-color: #fff;
+    box-shadow: 1px 1px 21px #ccc;
+    border-radius: 10px;
+    padding: 0px 20px;
+    margin-bottom: 40px;
+
+    .piece {
+        height: 80px;
+        width: 780px;
+        padding-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-around;
+
+        .avatar {
+            border-radius: 50%;
+            margin-right: 10px;
+            width: 60px;
+            height: 60px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .headerInfo {
+                width: 700px;
+                height: 40px;
+                display: flex;
+                justify-content: space-between;
+
+                .formUser {
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+
+                .operation {
+                    display: flex;
+                    justify-content: space-between;
+                    height: 20px;
+                    width: 130px;
+                    position: relative;
+
+                    .menuIcon {
+                        margin-top: 3px;
+                        height: 14px;
+                    }
+
+                    .menuContent {
+                        width: 120px;
+                        position: absolute;
+                        right: -130px;
+                        z-index: 101;
+                        background-color: #fff;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+                        border-radius: 5;
+
+                        .menuItem {
+                            text-align: center;
+                            height: 40px;
+                            line-height: 40px;
+                            cursor: pointer;
+                            background-color: #fff;
+
+                            &:hover {
+                                background-color: #ddd;
+                            }
+                        }
+
+                        .menuItem:nth-child(1) {
+                            margin-top: 5px;
+                        }
+
+                        .menuItem:nth-child(2) {
+                            margin-bottom: 5px;
+                        }
+                    }
+                }
+            }
+
+            .myMessageContent {
+                color: #bbb;
+            }
+        }
+    }
+}

@@ -1,0 +1,33 @@
+.ant-upload {
+    border: none !important;
+    width: 160px !important;
+    height: 160px !important;
+    border-radius: 50% !important;
+    position: relative !important;
+
+    .uploadAvator {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+    }
+
+    .upload_shadow {
+        width: 176px;
+        height: 176px;
+        border-radius: 50%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        text-align: center;
+        line-height: 176px;
+        color: #fff;
+        font-size: 20px;
+        background-color: rgba($color: #000, $alpha: 0.5);
+        opacity: 0;
+        transition-duration: .3s;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

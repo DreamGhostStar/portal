@@ -1,0 +1,39 @@
+.myInfoPage {
+    width: 100%;
+    background-color: #eee;
+
+    .myInfoPage_sider {
+        margin-top: 50px;
+        position: relative;
+        left: 50%;
+        display: flex;
+        justify-content: space-between;
+
+        .myInfoPage_subitem {
+            height: 120px;
+            box-shadow: 1px 1px 21px #ccc;
+        }
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .myInfoPage_sider {
+        width: 1200px;
+        margin-left: -600px;
+
+        .myInfoPage_subitem {
+            width: 300px;
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .myInfoPage_sider {
+        width: 1100px;
+        margin-left: -550px;
+
+        .myInfoPage_subitem {
+            width: 230px;
+        }
+    }
+}

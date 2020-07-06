@@ -1,0 +1,32 @@
+.element {
+    top: 50%;
+    margin-top: -300px;
+    right: 0;
+    position: absolute;
+    transform: translate(-50%, -50%);
+
+    .front,
+    .back {
+        position: absolute;
+        backface-visibility: hidden;
+        transition: 0.3s linear;
+    }
+}
+
+.front {
+    transform: rotateY(0deg);
+}
+
+.back {
+    transform: rotateY(-180deg);
+}
+
+.middle-flip {
+    .front {
+        transform: rotateY(180deg);
+    }
+
+    .back {
+        transform: rotateY(0deg);
+    }
+}

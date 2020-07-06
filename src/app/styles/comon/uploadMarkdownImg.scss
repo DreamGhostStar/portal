@@ -1,0 +1,20 @@
+.ant-upload {
+    border: none !important;
+    width: 20px !important;
+    height: 20px !important;
+    top: 5px !important;
+    left: 128px !important;
+    position: absolute !important;
+    z-index: 1000 !important;
+
+    .uploadImgIcon {
+        font-size: 17px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+}
+
+.ant-upload-select-picture-card {
+    background-color: transparent !important;
+}

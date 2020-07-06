@@ -1,0 +1,53 @@
+.avatarShow {
+    float: right;
+    height: 60px;
+    padding-left: 10px;
+    cursor: pointer;
+    position: relative;
+
+    .avatarImg {
+        border-radius: 50%;
+        float: right;
+        margin-top: 6px;
+        width: 48px;
+        height: 48px;
+    }
+
+    .avatarMenu {
+        float: right;
+        position: absolute;
+        right: 0px;
+        width: 133px;
+        background-color: #fff;
+        border-radius: 2px;
+        box-shadow: 0 0 40px #ccc;
+        z-index: 99;
+    }
+
+    .avatarItem {
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        display: block;
+        color: #000;
+    }
+
+    @for $i from 1 through 2 {
+        .avatarItem:nth-child(#{$i}) {
+            background-color: #fff;
+
+            &:hover {
+                background-color: #eee;
+            }
+        }
+    }
+
+    .avatarItem:nth-child(1) {
+        border-bottom: 1px solid #eee;
+    }
+
+    .avatarItem:nth-child(3) {
+        background-color: #f00;
+        color: #fff;
+    }
+}

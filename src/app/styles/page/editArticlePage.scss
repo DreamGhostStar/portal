@@ -1,0 +1,13 @@
+.background {
+    background-color: #eeeeee;
+
+    .content {
+        width: 100%;
+        padding-left: 100px;
+        padding-right: 100px;
+        display: flex;
+        justify-content: space-between;
+        padding-top: 50px;
+        padding-bottom: 20px;
+    }
+}

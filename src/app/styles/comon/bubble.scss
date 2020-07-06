@@ -1,0 +1,27 @@
+$color: rgba($color: #000000, $alpha: 0.3);
+
+.tag {
+    width: 300px;
+    height: 40px;
+    position: relative;
+    background-color: $color;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+}
+
+.tag:after {
+    content: "";
+    display: block;
+    border-width: 10px;
+    position: absolute;
+    bottom: 8px;
+    right: -20px;
+    border-style: solid dashed dashed;
+    border-color: transparent transparent transparent $color;
+    font-size: 0;
+    line-height: 0;
+}

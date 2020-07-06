@@ -1,0 +1,22 @@
+.tableShow {
+    width: 1200px;
+    height: 600px;
+    border-radius: 10;
+
+    .tableShow_piece {
+        display: flex;
+        justify-content: space-between;
+        box-shadow: rgba(26, 26, 26, 0.1) 0px 9px 7px;
+
+        .tableShow_sider {
+            height: 550px;
+            width: 150px;
+            overflow-x: hidden;
+            overflow-y: hidden;
+
+            &:hover {
+                overflow-y: scroll;
+            }
+        }
+    }
+}

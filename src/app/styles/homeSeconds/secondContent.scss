@@ -1,0 +1,47 @@
+@media screen and (min-width: 500px) {
+    .secondContent_title {
+        color: #ccc;
+        text-align: center;
+        font-size: 36px;
+        position: relative;
+        transition-duration: 1s;
+    }
+
+    .secondContent_titleLabel {
+        color: #fff;
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: 50px;
+        position: relative;
+    }
+
+    .secondContent_cardPiece {
+        display: flex;
+        width: 1200px;
+        margin: 0 auto;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .secondContent_title {
+        color: #ccc;
+        text-align: center;
+        font-size: 36px;
+        position: relative;
+        transition-duration: 1s;
+    }
+
+    .secondContent_titleLabel {
+        color: #fff;
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: 50px;
+        position: relative;
+    }
+
+    .secondContent_cardPiece {
+        display: flex;
+        justify-content: space-around;
+    }
+}

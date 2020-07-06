@@ -1,0 +1,59 @@
+.subItem {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px 0;
+    position: relative;
+
+    .subItem_label {
+        font-size: 20px;
+        display: inline-block;
+        height: 100%;
+        min-width: 100px;
+        font-weight: 600;
+        text-align: justify;
+        text-align-last: justify;
+    }
+
+    .subItem_value {
+        font-size: 16px;
+        width: 140px;
+        text-align: center;
+
+        &:hover+.alter {
+            opacity: 1;
+        }
+    }
+
+    .subItem_alter {
+        position: absolute;
+        right: -80px;
+        width: 50px;
+        line-height: 30px;
+        display: flex;
+        justify-content: space-between;
+        color: #175199;
+        opacity: 0;
+        transition-duration: .3s;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        .subItem_icon {
+            margin-top: 8px;
+        }
+    }
+
+    .subItem_operation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .subItem_input {
+        width: 200px;
+    }
+}

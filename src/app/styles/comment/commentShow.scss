@@ -1,0 +1,32 @@
+.comment {
+    .emptyComment {
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+        font-size: 30px;
+        color: #ccc;
+        font-weight: bold;
+    }
+
+    .operatePiece {
+        width: 200px;
+        position: relative;
+        left: 50%;
+        margin-left: -100px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+
+        .button {
+            width: 100px;
+            position: relative;
+            left: 50px;
+        }
+    }
+}
+
+.input {
+    margin-left: 50px;
+    width: 800px;
+    margin-bottom: 30px;
+}

@@ -1,0 +1,32 @@
+#components-layout-demo-side .logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+}
+
+.layoutContent {
+    display: flex;
+    justify-content: space-between;
+    width: 1200px;
+}
+
+@media screen and (min-width: 500px) {
+    .layoutContent {
+        margin: 0 auto;
+        width: 1200px;
+
+        .layoutContent_show {
+            width: 900px;
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .layoutContent {
+        width: 1100px;
+
+        .layoutContent_show {
+            width: 800px;
+        }
+    }
+}

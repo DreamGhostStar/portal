@@ -1,0 +1,31 @@
+$space: 50px;
+$height: 60px;
+
+.header {
+    height: $height;
+    padding-left: $space;
+    padding-right: $space;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(26,26,26,.1);
+
+    .logo {
+        height: $height;
+        width: 216px;
+        cursor: pointer;
+        transition: 0.3s;
+
+        &:hover {
+            box-shadow: 0px 6px 10px #ccc;
+        }
+    }
+
+    .label {
+        line-height: $height;
+        font-size: 30px;
+        font-weight: bold;
+        position: relative;
+        left: -65px;
+    }
+}

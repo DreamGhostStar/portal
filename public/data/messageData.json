@@ -1,0 +1,32 @@
+[
+    {
+        "id": 0,
+        "fromUser": "用户1",
+        "content": "内容1",
+        "type": "comment",
+        "createTime": "1579498523305",
+        "bool": false,
+        "avatorURL": "https://upload.jianshu.io/users/upload_avatars/16731485/57e8d966-65d7-47c2-9b54-b5605f8bc548.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240",
+        "isRead": true
+    },
+    {
+        "id": 1,
+        "fromUser": "用户2",
+        "content": "内容2",
+        "type": "comment",
+        "createTime": "1579498523305",
+        "bool": false,
+        "avatorURL": "https://upload.jianshu.io/users/upload_avatars/16731485/57e8d966-65d7-47c2-9b54-b5605f8bc548.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240",
+        "isRead": false
+    }, 
+    {
+        "id": 2,
+        "fromUser": "用户3",
+        "content": "内容3",
+        "type": "addFriend",
+        "createTime": "1579498523305",
+        "bool": false,
+        "avatorURL": "https://upload.jianshu.io/users/upload_avatars/16731485/57e8d966-65d7-47c2-9b54-b5605f8bc548.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240",
+        "isRead": true
+    }
+]

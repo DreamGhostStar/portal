@@ -1,0 +1,24 @@
+.inputField {
+    width: 313px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    outline: none;
+    background-color: transparent;
+    height: 40px;
+    text-indent: 20px;
+    color: white;
+    background-color: #bbb;
+    font-size: 18px;
+}
+
+.inputField::-webkit-input-placeholder {
+    color: white;
+}
+
+.icon {
+    font-size: 30px;
+    padding-top: 5px;
+    background-color: #bbb;
+    color: #fff;
+    padding-right: 10px;
+}

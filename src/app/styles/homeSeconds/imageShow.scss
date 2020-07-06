@@ -1,0 +1,25 @@
+.imageShow {
+    $imgWidth: 1200px;
+
+    width: $imgWidth;
+    position: absolute;
+    height: 500px;
+    float: left;
+    transition-duration: .8s;
+
+    .imageShow_img {
+        width: $imgWidth;
+        height: 600px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .imageShow {
+        $imgWidth: 1000px;
+        width: $imgWidth;
+
+        .imageShow_img {
+            width: $imgWidth;
+        }
+    }
+}

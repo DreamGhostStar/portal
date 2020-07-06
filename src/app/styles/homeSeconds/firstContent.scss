@@ -1,0 +1,37 @@
+@media screen and (min-width: 500px) {
+    .firstContent {
+        position: absolute;
+        left: 50%;
+        margin-left: -450px;
+        width: 900px;
+        top: 400px;
+
+        .firstContent_text {
+            color: #fff;
+            font-size: 30px;
+        }
+
+        .firstContent_text:nth-child(1) {
+            font-size: 80px;
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .firstContent {
+        position: absolute;
+        left: 50%;
+        width: 900px;
+        top: 360px;
+
+        .firstContent_text {
+            color: #fff;
+            font-size: 30px;
+        }
+
+        .firstContent_text:nth-child(1) {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+    }
+}

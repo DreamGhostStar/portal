@@ -1,0 +1,9 @@
+.blogPage {
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 500px) {
+    .blogPage {
+        margin-left: 50px;
+    }
+}

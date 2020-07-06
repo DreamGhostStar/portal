@@ -1,0 +1,40 @@
+.footer {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+
+    .footer_text {
+        color: #fff;
+        line-height: 150px;
+    }
+
+    .footer_textRight {
+        font-weight: bold;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .footer_image {
+        width: 150px;
+        height: 40px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .footer {
+        padding: 0 100px;
+
+        .footer_text {
+            font-size: 30px;
+        }
+
+        .footer_image {
+            padding-left: 30px;
+            width: 200px;
+            height: 60px;
+            position: relative;
+            top: -10px;
+        }
+    }
+}
