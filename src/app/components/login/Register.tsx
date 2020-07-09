@@ -93,8 +93,10 @@ export default function Register({ enterEnroll }: { enterEnroll: any }, props: a
         obj.key = username;
         obj.password = password;
 
+        console.log(obj)
         const res = await _login(obj);
 
+        console.log(res)
         if (res) {
             if (res.data.code === 0) {
                 // 向redux传递用户信息

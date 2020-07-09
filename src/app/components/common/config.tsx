@@ -17,6 +17,29 @@ export function info(msg: string) {
     message.info(msg);
 };
 
+const test = (tables: string[], argKeys: string[], argValues: any[]): string => {
+    let sqlTable = ''
+    tables.map((table, index) => {
+        const prefix = ', '
+        if (index >= 1) { // 索引从0开始
+            sqlTable += prefix + table
+        } else {
+            sqlTable += table
+        }
+        return null
+    })
+
+    let query = '';
+    if (argKeys.length !== argValues.length) {
+        throw new Error("key value数量要一致"); // 抛出错误
+    }
+    argKeys.map((key, index) => {
+        query += `${key} = ${argValues[index]}`
+        return null;
+    })
+    return `select * form ${sqlTable} where ${query}`
+}
+
 // 在进入页面时，需要进行token验证，并且需将返回数据传给store
 // transform_user为redux传递数据函数，history为react-router-dom的路由函数，isMustCallback表示当前页面是否需要用户信息
 export async function getUser(transform_user: any, history: any, isMustCallback: any) {
@@ -37,12 +60,15 @@ export async function getUser(transform_user: any, history: any, isMustCallback:
 }
 
 // 通过id获取year字符串
-export function getYearStr(years: Array<any>, id: number) {
+export function getYearStr(years: Array<any>, id: number): string {
+    let yearStr: string = '';
     for (let index = 0; index < years.length; index++) {
         if (years[index].id === id) {
-            return years[index].content
+            yearStr = years[index].content
+            break;
         }
     }
+    return yearStr;
 }
 
 export const IconFont = createFromIconfontCN({

@@ -32,9 +32,9 @@ const loginPage = Loadable({
 //     loader: () => import('./app/Page/blogPage'),
 // });
 
-// const HomePage = Loadable({
-//     loader: () => import('./containers/page_container/homePage_container'),
-// });
+const HomePage = Loadable({
+    loader: () => import('../containers/homePage_container'),
+});
 
 // const page_404 = Loadable({
 //     loader: () => import('./app/Page/page_404'),
@@ -48,7 +48,7 @@ export default class Entry extends Component {
             <Provider store={store}>
                 <HashRouter>
                     <Switch>
-                        {/* <Route path='/home' component={HomePage} /> */}
+                        <Route path='/home' component={HomePage} />
                         <Route path='/login' component={loginPage} />
                         {/* <Route path='/blog/:articleID' component={blogPage} />
                         <Route path='/edit/:articleID' component={EditArticlePage} />
@@ -56,7 +56,7 @@ export default class Entry extends Component {
                         <Route path='/my/:type' component={myInfoPage} />
                         <Route path='/createQuestion' component={createQuestionNaire} />
                         <Route path='/404' component={page_404} /> */}
-                        <Redirect to='/login' />
+                        <Redirect to='/home' />
                     </Switch>
                 </HashRouter>
             </Provider>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import cookies from 'react-cookies'
 
-const backIP: string = 'http://47.93.201.127:5748/api'
+// const backIP: string = 'http://47.93.201.127:5748/api'
 
 // 获取token
 function getToken() {
@@ -32,21 +32,21 @@ export function _verificationCode() {
 
 // 注册接口
 export function _enroll(data: any) {
-    return axios.post(`${backIP}/user/register`, data).catch(function (error) {
+    return axios.post(`/api/user/register`, data).catch(function (error) {
         entry404()
     })
 }
 
 // 登录接口
 export function _login(data: any) {
-    return axios.post(`${backIP}/user/login`, data).catch(function (error) {
+    return axios.post('/api/user/login', data).catch(function (error) {
         entry404()
     })
 }
 
 // 获取列表文章接口
 export function _getBlog(data: any) {
-    return axios.get(`${backIP}/blog`, {
+    return axios.get(`/api/blog`, {
         params: data,
         headers: getToken()
     }).catch(function (error) {
@@ -56,7 +56,7 @@ export function _getBlog(data: any) {
 
 // 删除指定文章接口
 export function _deleteArticle(data: any) {
-    return axios.post(`${backIP}/blog/delete`, data, {
+    return axios.post(`/api/blog/delete`, data, {
         headers: getToken()
     }).catch(function (error) {
         entry404()
@@ -65,7 +65,7 @@ export function _deleteArticle(data: any) {
 
 // 新增文章接口
 export function _addArticle(data: any) {
-    return axios.post(`${backIP}/blog/add`, data, {
+    return axios.post(`/api/blog/add`, data, {
         headers: getToken()
     }).catch(function (error) {
         entry404()
@@ -74,7 +74,7 @@ export function _addArticle(data: any) {
 
 // 获取文章具体信息接口
 export function _getArticleDetail(data: any) {
-    return axios.get(`${backIP}/blog/article`, {
+    return axios.get(`/api/blog/article`, {
         params: data,
         headers: getToken()
     }).catch(function (error) {
@@ -84,14 +84,14 @@ export function _getArticleDetail(data: any) {
 
 // 获用户具体信息接口
 export function _getUserDetail() {
-    return axios.get(`${backIP}/user/info`, {
+    return axios.get(`/api/user/info`, {
         headers: getToken()
     })
 }
 
 // 获取评论接口
 export function _getCommentList(data: any) {
-    return axios.get(`${backIP}/blog/comments`, {
+    return axios.get(`/api/blog/comments`, {
         params: data,
         headers: getToken()
     }).catch(function (error) {
@@ -101,7 +101,7 @@ export function _getCommentList(data: any) {
 
 // 发表评论接口
 export function _publishComment(data: any) {
-    return axios.post(`${backIP}/blog/comment/publish`, data, {
+    return axios.post(`/api/blog/comment/publish`, data, {
         headers: getToken()
     }).catch(function (error) {
         entry404()
@@ -110,7 +110,7 @@ export function _publishComment(data: any) {
 
 // 修改用户信息接口
 export function _alterUserInfo(data: any) {
-    return axios.post(`${backIP}/user/alter`, data, {
+    return axios.post(`/api/user/alter`, data, {
         headers: getToken()
     }).catch(function (error) {
         entry404()
@@ -119,7 +119,7 @@ export function _alterUserInfo(data: any) {
 
 // 获取上传图片token接口
 export function _getPictureToken() {
-    return axios.get(`${backIP}/pictureToken`, {
+    return axios.get(`/api/pictureToken`, {
         headers: getToken()
     }).catch(function (error) {
         entry404()
@@ -128,7 +128,7 @@ export function _getPictureToken() {
 
 // 获取消息列表接口
 export function _getMessageData() {
-    return axios.get(`${backIP}/blog/message/list`, {
+    return axios.get(`/api/blog/message/list`, {
         headers: getToken()
     }).catch(function (error) {
         entry404()
@@ -137,7 +137,7 @@ export function _getMessageData() {
 
 // 获取未读消息数量接口
 export function _getMessageNum() {
-    return axios.get(`${backIP}/blog/home/unread`, {
+    return axios.get(`/api/blog/home/unread`, {
         headers: getToken()
     }).catch(function (error) {
         entry404()
@@ -146,7 +146,7 @@ export function _getMessageNum() {
 
 // 将消息已读接口
 export function _readMessage(data: any) {
-    return axios.post(`${backIP}/blog/message/material`, data, {
+    return axios.post(`/api/blog/message/material`, data, {
         headers: getToken()
     }).catch(function (error) {
         entry404()
