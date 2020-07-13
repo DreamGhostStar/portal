@@ -1,25 +1,13 @@
 import React from 'react'
 import TableShow from './TableShow'
+import 'app/styles/homeSeconds/fourContent.scss'
+const stylePrefix = 'home-fourContent'
 
 export default function FourContent() {
     return (
-        <div style={{
-            height: 600,
-            width: 1200,
-            margin: '0 auto'
-        }}>
-            <div style={{
-                textAlign: 'center',
-                fontSize: 40,
-                marginBottom: 30,
-                paddingTop: 30
-            }}>英才聚集</div>
-            <div style={{
-                textAlign: 'center',
-                fontSize: 20,
-                color: '#bbb',
-                paddingBottom: 20
-            }}>那些年相遇的我们</div>
+        <div className={`${stylePrefix}-main`}>
+            <div className={`${stylePrefix}-title`}>英才聚集</div>
+            <div className={`${stylePrefix}-decoration`}>那些年相遇的我们</div>
             <TableShow />
         </div>
     )

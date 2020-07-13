@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { _verificationCode } from '../common/Api';
 import { IconFont } from '../common/config';
+import 'app/styles/login/verifyImageShow.scss'
+const stylePrefix = 'login-verifyImg'
 
 export default function VerifyImageShow() {
     const [verifyImage, setVerifyImage] = useState('')
@@ -26,45 +28,30 @@ export default function VerifyImageShow() {
     useEffect(() => {
         getVerificationCode();
     }, [])
-    
+
     return (
         <div
-            style={{
-                position: 'relative',
-                width: 150,
-                height: 50,
-                cursor: 'pointer'
-            }}
-            onMouseOver={()=>{setIsMouse(true)}}
-            onMouseOut={()=>{setIsMouse(false)}}
+            className={`${stylePrefix}-layout`}
+            onMouseOver={() => { setIsMouse(true) }}
+            onMouseOut={() => { setIsMouse(false) }}
             onClick={handleClick}
         >
-            <img src={verifyImage} alt="验证码" style={{
-                width: 150,
-                height: 50,
-                position: 'absolute',
-                left: 0,
-                zIndex: 3
-            }} />
-            <div style={{
-                position: 'absolute',
-                width: 150,
-                height: 50,
-                left: 0,
-                backgroundColor: '#fff',
-                opacity: (isMouse ? 0.7 : 0),
-                zIndex: 4
-            }}></div>
-            <IconFont type='anticonjiazai' style={{
-                position: 'absolute',
-                zIndex: 6,
-                fontSize: 40,
-                color: '#fff',
-                transitionDuration: '.5s',
-                transform: (loading ? 'rotate(180deg)' : 'rotate(0deg)'),
-                opacity: (isMouse ? 1 : 0),
-                margin: '5px 55px'
-            }}/>
+            <img src={verifyImage} alt="验证码" className={`${stylePrefix}-img`} />
+            <div
+                style={{
+                    opacity: (isMouse ? 0.7 : 0),
+                }}
+                className={`${stylePrefix}-shadow`}
+            ></div>
+            <IconFont
+                type='anticonjiazai'
+                style={{
+                    animationName: (loading ? 'rotateIcon' : 'none'),
+                    // transform: (loading ? 'rotate(180deg)' : 'rotate(0deg)'),
+                    opacity: (isMouse ? 1 : 0),
+                }}
+                className={`${stylePrefix}-icon`}
+            />
         </div>
     )
 }

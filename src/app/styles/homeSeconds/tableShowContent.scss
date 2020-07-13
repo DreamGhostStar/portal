@@ -1,0 +1,18 @@
+$file-prefix: 'home-tableShowContent';
+
+.#{$file-prefix}-layout {
+    width: 1050px;
+    height: 550px;
+    background-color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+
+    .#{$file-prefix}-white {
+        color: #bbb;
+        font-size: 30px;
+        text-align: center;
+        line-height: 550px;
+        width: 100%;
+        height: 100%;
+    }
+}

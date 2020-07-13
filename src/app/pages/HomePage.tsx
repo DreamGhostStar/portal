@@ -52,16 +52,13 @@ const pos = [
 
 export default function HomePage(props: any) {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
-    const [screenHeight, setScreenHeight] = useState(window.innerHeight)
     const [isFixed, setIsFixed] = useState(false)
     const [scrollIndex, setScrollIndex] = useState(0)
     let history = useHistory();
 
     const updateWindowStyle = (e: any) => {
         const screenWidthTemp = e.target.innerWidth;
-        const screenHeightTemp = e.target.innerHeight;
         setScreenWidth(screenWidthTemp)
-        setScreenHeight(screenHeightTemp)
     }
     const updateHeaderPos = (e: any) => {
         const scrollTop = document.documentElement.scrollTop;
@@ -113,13 +110,15 @@ export default function HomePage(props: any) {
     }
     useEffect(() => {
         getUser(props.transform_user, history, false);
+    }, [])
+    useEffect(() => {
         window.addEventListener('resize', updateWindowStyle);
         window.addEventListener('scroll', updateHeaderPos);
         return () => {
             window.removeEventListener('resize', updateWindowStyle)
             window.removeEventListener('scroll', updateHeaderPos)
         }
-    }, [])
+    }, [scrollIndex])
     return (
         <>
             <BackTop visibilityHeight={900} />

@@ -1,24 +1,63 @@
-.inputField {
-    width: 313px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    outline: none;
-    background-color: transparent;
-    height: 40px;
-    text-indent: 20px;
-    color: white;
-    background-color: #bbb;
-    font-size: 18px;
-}
+$file-prefix: 'login-inputField';
 
-.inputField::-webkit-input-placeholder {
-    color: white;
-}
+.#{$file-prefix}-layout {
+    position: relative;
 
-.icon {
-    font-size: 30px;
-    padding-top: 5px;
-    background-color: #bbb;
-    color: #fff;
-    padding-right: 10px;
+    .#{$file-prefix}-tip {
+        position: absolute;
+        left: -313px;
+        top: 0px;
+    }
+
+    .#{$file-prefix}-main {
+        display: flex;
+        width: 350px;
+        margin-left: 25px;
+        justify-content: space-between;
+        border: 2px solid white;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+
+        .#{$file-prefix}-show-icon {
+            font-size: 30px;
+            padding-top: 5px;
+            background-color: #bbb;
+            color: #fff;
+            padding-right: 10px;
+        }
+
+        .#{$file-prefix}-icon-layout {
+            padding-right: 10px;
+            height: 40;
+            border-radius: 2px solid white;
+            background-color: #bbb;
+        }
+
+        .#{$file-prefix}-icon {
+            font-size: 20px;
+            color: #fff;
+            margin-top: 9px;
+            margin-left: 8px;
+        }
+    }
+
+    .#{$file-prefix}-input {
+        width: 313px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        outline: none;
+        background-color: transparent;
+        height: 40px;
+        text-indent: 20px;
+        color: white;
+        background-color: #bbb;
+        font-size: 18px;
+        border: none !important;
+    }
+
+    .#{$file-prefix}-input::-webkit-input-placeholder {
+        color: white;
+    }
+
 }

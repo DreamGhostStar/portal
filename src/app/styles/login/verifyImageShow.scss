@@ -1,0 +1,47 @@
+$file-prefix: 'login-verifyImg';
+
+
+.#{$file-prefix}-layout {
+    position: relative;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+
+    .#{$file-prefix}-img {
+        width: 150px;
+        height: 50px;
+        position: absolute;
+        left: 0px;
+        z-index: 3;
+    }
+
+    .#{$file-prefix}-shadow {
+        position: absolute;
+        width: 150px;
+        height: 50px;
+        left: 0px;
+        background-color: #fff;
+        z-index: 4;
+    }
+
+    .#{$file-prefix}-icon {
+        position: absolute;
+        z-index: 6;
+        font-size: 40px;
+        color: #fff;
+        margin: 5px 55px;
+        animation-iteration-count: infinite;
+        animation-duration: .5s;
+        animation-timing-function: linear;
+    }
+}
+
+@keyframes rotateIcon {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

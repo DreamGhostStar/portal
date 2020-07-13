@@ -7,6 +7,7 @@ import cookies from 'react-cookies'
 import '../../styles/login/Register.scss'
 import md5 from 'md5'
 import { error, success } from '../common/config';
+const stylePrefix = 'login-register'
 
 export interface formConfig {
     placeholder: string;
@@ -93,10 +94,8 @@ export default function Register({ enterEnroll }: { enterEnroll: any }, props: a
         obj.key = username;
         obj.password = password;
 
-        console.log(obj)
         const res = await _login(obj);
 
-        console.log(res)
         if (res) {
             if (res.data.code === 0) {
                 // 向redux传递用户信息
@@ -117,74 +116,28 @@ export default function Register({ enterEnroll }: { enterEnroll: any }, props: a
     }
 
     return (
-        <div style={{
-            width: 400,
-            height: 600,
-            position: 'relative',
-        }}>
-            <div style={{
-                backgroundColor: 'rgba(33, 33, 33, 0.3)',
-                height: 400,
-                borderRadius: 5
-            }}>
-                <div style={{
-                    width: 350,
-                    margin: '0 auto',
-                    paddingTop: 20,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    paddingBottom: 20
-                }}>
-                    <div style={{
-                        color: '#fff',
-                        width: 150,
-                        textAlign: 'center',
-                        fontSize: 30,
-                        borderBottom: '3px solid white',
-                        paddingBottom: 10,
-                        cursor: 'pointer'
-                    }}>登录</div>
-                    <div style={{
-                        color: '#ddd',
-                        width: 150,
-                        textAlign: 'center',
-                        fontSize: 30,
-                        paddingBottom: 10,
-                        cursor: 'pointer'
-                    }} onClick={enterEnroll}>注册</div>
+        <div className={`${stylePrefix}-layout`}>
+            <div className={`${stylePrefix}-main`}>
+                <div className={`${stylePrefix}-words`}>
+                    <div className={`${stylePrefix}-word-register`}>登录</div>
+                    <div className={`${stylePrefix}-word-enroll`} onClick={enterEnroll}>注册</div>
                 </div>
                 <InputField data={form[0]} transfornFun={handleTransformData} />
                 <InputField data={form[1]} transfornFun={handleTransformData} />
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    marginLeft: 25,
-                    marginRight: 25
-                }}>
+                <div className={`${stylePrefix}-other-layout`}>
                     <Checkbox style={{
                         marginTop: 0,
                         marginBottom: 20,
                     }}>
-                        <span style={{
-                            color: '#fff',
-                            fontSize: 18
-                        }}>
+                        <span className={`${stylePrefix}-other-word`}>
                             记住密码
                         </span>
                     </Checkbox>
-                    <div style={{
-                        color: '#fff',
-                        fontSize: 18
-                    }}>
+                    <div className={`${stylePrefix}-other-word`}>
                         忘记密码？
                     </div>
                 </div>
-                <Button type="primary" style={{
-                    marginLeft: 25,
-                    width: 350,
-                    height: 40,
-                    fontSize: 20
-                }} onClick={() => hanleClick()}>登录</Button>
+                <Button type="primary" className={`${stylePrefix}-register-btn`} onClick={() => hanleClick()}>登录</Button>
             </div>
         </div>
     )

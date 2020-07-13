@@ -1,0 +1,52 @@
+$file-prefix: 'home-onlyCard';
+
+.#{$file-prefix}-main {
+    height: 600px;
+    text-align: center;
+    width: 300px;
+    position: relative;
+    border-radius: 20px;
+    box-shadow: none;
+
+    &:hover {
+        box-shadow: 0px 0px 10px #888888;
+    }
+
+    .#{$file-prefix}-img {
+        width: 300px;
+        height: 600px;
+        border-radius: 20px;
+    }
+
+    .#{$file-prefix}-words {
+        position: absolute;
+        top: 50%;
+
+        .#{$file-prefix}-title {
+            font-size: 30px;
+            margin: 20px 0px;
+            color: white;
+            position: relative;
+            transition-duration: .5s;
+            z-index: 4;
+        }
+
+        .#{$file-prefix}-description {
+            color: white;
+            position: relative;
+            transition-duration: .5s;
+            z-index: 4;
+            padding-bottom: 20px;
+        }
+
+        .#{$file-prefix}-shadow {
+            width: 300px;
+            top: 0px;
+            position: absolute;
+            height: 100%;
+            background-color: #000;
+            opacity: 0.5;
+            z-index: 3;
+        }
+    }
+}

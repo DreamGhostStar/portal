@@ -1,0 +1,25 @@
+$file-prefix: 'home-fiveContent';
+
+.#{$file-prefix}-title {
+    padding-top: 30px;
+    text-align: center;
+    font-size: 30px;
+    padding-bottom: 80px;
+    font-weight: 700;
+
+    .#{$file-prefix}-word1 {
+        text-decoration: line-through;
+        color: #bbb;
+        font-size: 20px;
+    }
+    .#{$file-prefix}-word2 {
+        color: #f00;
+    }
+}
+
+.#{$file-prefix}-cards-layout {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between
+}

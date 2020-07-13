@@ -1,0 +1,61 @@
+$file-prefix: 'login-enroll';
+
+.#{$file-prefix}-layout {
+    width: 400px;
+    height: 600px;
+    position: relative;
+
+    .#{$file-prefix}-main {
+        background-color: rgba(33, 33, 33, 0.3);
+        height: 450px;
+        border-radius: 5px;
+
+        .#{$file-prefix}-words {
+            width: 350px;
+            margin: 0 auto;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 20px;
+
+            .#{$file-prefix}-word-enroll {
+                color: #fff;
+                width: 150px;
+                text-align: center;
+                font-size: 30px;
+                border-bottom: 3px solid white;
+                cursor: pointer;
+                padding-bottom: 10px;
+            }
+
+            .#{$file-prefix}-word-register {
+                color: #ddd;
+                width: 150px;
+                text-align: center;
+                font-size: 30px;
+                cursor: pointer
+            }
+        }
+
+        .#{$file-prefix}-verify-layout {
+            display: flex;
+            justify-content: space-between;
+            margin-right: 25px;
+
+            .#{$file-prefix}-verify-input {
+                width: 137px;
+                height: 50px;
+                margin-top: 0px;
+                margin-bottom: 20px;
+                margin-left: 25px;
+            }
+        }
+
+        .#{$file-prefix}-enroll-btn {
+            margin-left: 25px;
+            width: 350px;
+            height: 40px;
+            font-size: 20px;
+        }
+    }
+}

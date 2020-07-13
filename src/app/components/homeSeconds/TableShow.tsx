@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import axios from "axios"
+import React, { useState } from 'react'
 import TableShowContent from './TableShowContent';
 import ColumnPiece from './ColumnPiece';
 import { getYearStr } from '../common/config';
 import '../../styles/homeSeconds/TableShow.scss'
+import years from 'static/memberYear.json'
 
 export default function TableShow() {
     const [isMouse, setIsMouse] = useState(false)
     const [clickColumnID, setClickColumnID] = useState(0)
-    const [years, setYears] = useState<any[]>([])
     const [yearStr, setYearStr] = useState('')
 
     const handleColumnClick = (id: number) => {
@@ -24,19 +23,6 @@ export default function TableShow() {
             setYearStr(yearStr)
         }
     }
-
-    useEffect(() => {
-        axios.get('/data/memberYear.json').then(res => {
-            let years: any[] = [];
-
-            res.data.map((item: any, index: any) => {
-                years.push(item);
-                return index;
-            });
-
-            setYears(years)
-        })
-    }, [])
     return (
         <div className='tableShow'>
             <div className='tableShow_piece'>

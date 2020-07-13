@@ -6,6 +6,8 @@ import { _enroll } from '../common/Api';
 import md5 from 'md5'
 import { formConfig, registerInputDataConfig } from './Register';
 import { error, success } from '../common/config';
+import 'app/styles/login/enroll.scss'
+const stylePrefix = 'login-enroll'
 
 const form: formConfig[] = [
     {
@@ -122,70 +124,27 @@ export default function Enroll({ enterRegister }: { enterRegister: any }) {
         verifyObjTemp[3] = obj;
         setVerifyObj(verifyObjTemp)
     }
-    return (<div style={{
-        width: 400,
-        height: 600,
-        position: 'relative',
-    }}>
-        <div style={{
-            backgroundColor: 'rgba(33, 33, 33, 0.3)',
-            height: 450,
-            borderRadius: 5
-        }}>
-            <div style={{
-                width: 350,
-                margin: '0 auto',
-                paddingTop: 20,
-                display: 'flex',
-                justifyContent: 'space-between',
-                paddingBottom: 20
-            }}>
-                <div style={{
-                    color: '#ddd',
-                    width: 150,
-                    textAlign: 'center',
-                    fontSize: 30,
-                    cursor: 'pointer'
-                }} onClick={enterRegister}>登录</div>
-                <div style={{
-                    color: '#fff',
-                    width: 150,
-                    textAlign: 'center',
-                    fontSize: 30,
-                    borderBottom: '3px solid white',
-                    cursor: 'pointer',
-                    paddingBottom: 10
-                }}>注册</div>
+    return (
+    <div className={`${stylePrefix}-layout`}>
+        <div className={`${stylePrefix}-main`}>
+            <div className={`${stylePrefix}-words`}>
+                <div className={`${stylePrefix}-word-register`} onClick={enterRegister}>登录</div>
+                <div className={`${stylePrefix}-word-enroll`}>注册</div>
             </div>
             <InputField data={form[0]} transfornFun={handleTransformData} />
             <InputField data={form[1]} transfornFun={handleTransformData} />
             <InputField data={form[2]} transfornFun={handleTransformData} />
-            <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                marginRight: 25
-            }}>
+            <div className={`${stylePrefix}-verify-layout`}>
                 <Input
                     placeholder="验证码"
-                    style={{
-                        width: 137,
-                        height: 50,
-                        marginTop: 0,
-                        marginBottom: 20,
-                        marginLeft: 25
-                    }}
+                    className={`${stylePrefix}-verify-input`}
                     ref={verifyNumberRef}
                     onBlur={saveVerifyData}
                     onPressEnter={saveVerifyData}
                 />
                 <VerifyImageShow />
             </div>
-            <Button type="primary" style={{
-                marginLeft: 25,
-                width: 350,
-                height: 40,
-                fontSize: 20
-            }} onClick={hanleClick}>注册</Button>
+            <Button type="primary" className={`${stylePrefix}-enroll-btn`} onClick={hanleClick}>注册</Button>
         </div>
     </div>
     )

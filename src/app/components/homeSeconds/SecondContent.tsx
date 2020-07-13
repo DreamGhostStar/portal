@@ -2,39 +2,43 @@
  * 第二部分三张卡片模型
 */
 import React, { useState, useEffect } from 'react'
-import axios from "axios"
 import CardDemo from './OnlyCard'
 import '../../styles/homeSeconds/secondContent.scss'
 import art from '../../../images/art.jpg'
 import security from '../../../images/security.jpg'
 import software from '../../../images/software.jpg'
+import data from 'static/secondContent.json'
+
+interface secondContentConfig {
+    title: string;
+    description: string;
+    URL?: string
+}
 
 export default function SecondContent({ scrollIndex }: { scrollIndex: number }) {
-    const [secondData, setSecondData] = useState<any[]>([])
+    const [secondData, setSecondData] = useState<secondContentConfig[]>([])
     useEffect(() => {
-        axios.get('/data/secondContent.json').then(res => {
-            let data: any[] = [];
+        let temp: any[] = [];
 
-            res.data.map((item: { URL: string }, index: any) => {
-                switch (index) {
-                    case 0:
-                        item.URL = security
-                        break;
-                    case 1:
-                        item.URL = software
-                        break;
-                    case 2:
-                        item.URL = art
-                        break;
-                    default:
-                }
+        data.map((item: secondContentConfig, index) => {
+            switch (index) {
+                case 0:
+                    item.URL = security
+                    break;
+                case 1:
+                    item.URL = software
+                    break;
+                case 2:
+                    item.URL = art
+                    break;
+                default:
+            }
 
-                data.push(item);
-                return index;
-            });
+            temp.push(item);
+            return null;
+        });
 
-            setSecondData(data)
-        })
+        setSecondData(data)
     }, [])
     return (
         <>

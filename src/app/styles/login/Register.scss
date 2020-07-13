@@ -1,8 +1,60 @@
-// .registerRotate {
-//     cursor: pointer;
-//     transition: 0.8s;
+$file-prefix: 'login-register';
 
-//     &:hover {
-//         transform: rotateY(180deg);
-//     }
-// }
+.#{$file-prefix}-layout {
+    width: 400px;
+    height: 600px;
+    position: relative;
+
+    .#{$file-prefix}-main {
+        background-color: rgba(33, 33, 33, 0.3);
+        height: 400px;
+        border-radius: 5px;
+    }
+
+    .#{$file-prefix}-words {
+        width: 350px;
+        margin: 0px auto;
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 20px;
+
+        .#{$file-prefix}-word-register {
+            color: #fff;
+            width: 150px;
+            text-align: center;
+            font-size: 30px;
+            border-bottom: 3px solid white;
+            padding-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .#{$file-prefix}-word-enroll {
+            color: #ddd;
+            width: 150px;
+            text-align: center;
+            font-size: 30px;
+            padding-bottom: 10px;
+            cursor: pointer;
+        }
+    }
+
+    .#{$file-prefix}-other-layout {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 25px;
+        margin-right: 25px;
+
+        .#{$file-prefix}-other-word {
+            color: #fff;
+            font-size: 18px;
+        }
+    }
+
+    .#{$file-prefix}-register-btn {
+        margin-left: 25px;
+        width: 350px;
+        height: 40px;
+        font-size: 20px;
+    }
+}

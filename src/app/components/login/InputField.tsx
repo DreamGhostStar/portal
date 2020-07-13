@@ -3,8 +3,9 @@ import '../../styles/login/InputField.scss'
 import Bubble from '../common/Bubble';
 import { IconFont } from '../common/config';
 import { registerInputDataConfig, formConfig } from './Register';
+const stylePrefix = 'login-inputField';
 
-export default function InputField({ data, transfornFun }: {data: any, transfornFun: any}) {
+export default function InputField({ data, transfornFun }: { data: any, transfornFun: any }) {
     const [verifyResult, setVerifyResult] = useState(true)
     const [tip, setTip] = useState("")
     const [isShowPassword, setIsShowPassword] = useState(data.isPassword)
@@ -43,7 +44,7 @@ export default function InputField({ data, transfornFun }: {data: any, transforn
     const handleShowPasswordIcon = (data: formConfig) => {
         if (data.isPassword) {
             return <IconFont
-                className='icon'
+                className={`${stylePrefix}-show-icon`}
                 onClick={() => { setIsShowPassword(!isShowPassword) }}
                 type={isShowPassword ? 'anticonxianshi' : 'anticontubiao-'}
             />
@@ -52,48 +53,35 @@ export default function InputField({ data, transfornFun }: {data: any, transforn
         }
     }
     return (
-        <div style={{
-            position: 'relative'
-        }}>
-            <div style={{
-                position: 'absolute',
-                left: -313,
-                top: 0,
-                display: (tip ? 'block' : 'none')
-            }}>
+        <div className={`${stylePrefix}-layout`}>
+            <div
+                className={`${stylePrefix}-tip`}
+                style={{
+                    display: (tip ? 'block' : 'none')
+                }}
+            >
                 <Bubble tip={tip} />
             </div>
-            <div style={{
-                display: 'flex',
-                width: 350,
-                marginLeft: 25,
-                justifyContent: 'space-between',
-                border: '2px solid white',
-                marginTop: 10,
-                marginBottom: 20,
-                borderRadius: 5,
-                boxShadow: (verifyResult ? 'none' : '0px 0px 3px #f00')
-            }}>
-                <div style={{
-                    paddingRight: 10,
-                    height: 40,
-                    borderRight: '2px solid white',
-                    backgroundColor: '#bbb',
-                    borderLeftColor: (verifyResult ? '#fff' : '#f00')
-                }}>
-                    <IconFont type={data.icon} style={{
-                        fontSize: 20,
-                        color: '#fff',
-                        marginTop: 9,
-                        marginLeft: 8
-                    }} />
+            <div
+                className={`${stylePrefix}-main`}
+                style={{
+                    boxShadow: (verifyResult ? 'none' : '0px 0px 3px #f00')
+                }}
+            >
+                <div
+                    style={{
+                        borderLeftColor: (verifyResult ? '#fff' : '#f00')
+                    }}
+                    className={`${stylePrefix}-icon-layout`}
+                >
+                    <IconFont
+                        type={data.icon}
+                        className={`${stylePrefix}-icon`}
+                    />
                 </div>
                 <input
                     type={isShowPassword ? 'password' : 'text'}
-                    className='inputField'
-                    style={{
-                        border: 'none'
-                    }}
+                    className={`${stylePrefix}-input`}
                     placeholder={data.placeholder}
                     ref={inputRef}
                     onBlur={() => handleData(data)}
