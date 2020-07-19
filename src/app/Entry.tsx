@@ -20,17 +20,17 @@ const loginPage = Loadable({
 //     loader: () => import('./app/Page/questionnaire'),
 // });
   
-// const myInfoPage = Loadable({
-//     loader: () => import('./app/Page/myInfoPage'),
-// });
+const myInfoPage = Loadable({
+    loader: () => import('./pages/MyInfoPage'),
+});
   
 // const createQuestionNaire = Loadable({
 //     loader: () => import('./app/Page/createQuestionNaire'),
 // });
 
-// const blogPage = Loadable({
-//     loader: () => import('./app/Page/blogPage'),
-// });
+const blogPage = Loadable({
+    loader: () => import('./pages/blogPage'),
+});
 
 const HomePage = Loadable({
     loader: () => import('../containers/homePage_container'),
@@ -50,12 +50,12 @@ export default class Entry extends Component {
                     <Switch>
                         <Route path='/home' component={HomePage} />
                         <Route path='/login' component={loginPage} />
-                        {/* <Route path='/blog/:articleID' component={blogPage} />
-                        <Route path='/edit/:articleID' component={EditArticlePage} />
-                        <Route path='/question' component={Questionnaire} />
+                        <Route path='/blog/:articleID' component={blogPage} />
+                        {/* <Route path='/edit/:articleID' component={EditArticlePage} /> */}
+                        {/* <Route path='/question' component={Questionnaire} /> */}
                         <Route path='/my/:type' component={myInfoPage} />
-                        <Route path='/createQuestion' component={createQuestionNaire} />
-                        <Route path='/404' component={page_404} /> */}
+                        {/* <Route path='/createQuestion' component={createQuestionNaire} /> */}
+                        {/* <Route path='/404' component={page_404} /> */}
                         <Redirect to='/home' />
                     </Switch>
                 </HashRouter>
