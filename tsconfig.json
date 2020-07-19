@@ -20,7 +20,6 @@
     "jsx": "react",
     "suppressImplicitAnyIndexErrors":true,
     "baseUrl": "src",
-    "noUnusedParameters": true
   },
   "include": [
     "src"

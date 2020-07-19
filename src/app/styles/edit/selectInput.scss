@@ -1,0 +1,36 @@
+.selectInput {
+    width: 300px;
+    height: 70px;
+    border: solid 5px #fff;
+    text-align: center;
+    line-height: 60px;
+    font-size: 30px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+}
+
+.selectIcon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    outline: none;
+}
+
+.selectMenu {
+    .selectItem {
+        color: #0099FF;
+        font-weight: bold;
+        font-size: 20px;
+        text-align: center;
+        line-height: 50px;
+        background-color: #fff;
+        cursor: pointer;
+        transition-duration: .3s;
+
+        &:hover {
+            background-color: #ddd;
+        }
+    }
+}

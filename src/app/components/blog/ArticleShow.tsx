@@ -116,15 +116,15 @@ export default function ArticleShow({ articleID }: ArticleShowConfig) {
                         top: 20,
                         right: 20
                     }}>
-                        <IconFont type="anticonzengjia" theme="filled" style={{
+                        <IconFont type="anticonzengjia" style={{
                             fontSize: 20,
                             marginRight: 19
                         }} onClick={() => { history.push("/edit/undefiend") }} />
-                        <IconFont type="anticonxiugai" theme="filled" style={{
+                        <IconFont type="anticonxiugai" style={{
                             fontSize: 20,
                             marginRight: 19
                         }} />
-                        <IconFont type="anticonshanchu" theme="filled" style={{
+                        <IconFont type="anticonshanchu" style={{
                             fontSize: 20,
                             marginRight: 19
                         }} onClick={() => { setVisible(true) }} />

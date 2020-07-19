@@ -48,7 +48,7 @@ export default function MenuItem({ handleItemData, display, index, clickIndex, i
                 height: (display[index] ? 47 : 0),
             }}>
                 {display[index]
-                    ? <IconFont type={item.icon} theme="filled" style={{
+                    ? <IconFont type={item.icon} style={{
                         fontSize: 20,
                         marginRight: 19
                     }} />

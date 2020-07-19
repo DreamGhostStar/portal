@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../components/blog/BlogHeader'
 import ArticleShow from '../components/blog/ArticleShow'
-import '../componentStyle/page/blogPage.scss'
-import PaginationContainer from '../../containers/Pagination_container.js'
+import '../styles/page/blogPage.scss'
+import PaginationContainer from '../../containers/Pagination_container'
 import LayoutContentContainer from '../../containers/LayoutContent_container'
 import store from '../../redux/store'
 import { Provider } from 'react-redux'
 
-export default function blogPage(props: any) {
+export default function BlogPage(props: any) {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const monitor = (e: any) => {
         const tempScreenWidth = e.target.innerWidth;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import store from '../../../redux/store'
 import { Provider } from 'react-redux'
-import PaginationItem_container from '../../../containers/PaginationItem_container.jsx'
+import PaginationItem_container from '../../../containers/PaginationItem_container'
 import staticData from 'static/articleContentList.json'
 import { IconFont, info } from '../common/config'
 
@@ -60,7 +60,6 @@ export default function Pagination(props: any) {
                 items.push(
                     <IconFont
                         type='anticonshenglve'
-                        theme="filled"
                         style={{
                             width: 32,
                             height: 32,
@@ -81,7 +80,6 @@ export default function Pagination(props: any) {
                         items.push(
                             <IconFont
                                 type='anticonshenglve'
-                                theme="filled"
                                 style={{
                                     width: 32,
                                     height: 32,
@@ -136,7 +134,6 @@ export default function Pagination(props: any) {
             items.push(
                 <IconFont
                     type='anticonshenglve'
-                    theme="filled"
                     style={{
                         width: 32,
                         height: 32,
@@ -177,7 +174,6 @@ export default function Pagination(props: any) {
             }}>
                 <IconFont
                     type='anticonqianjin-copy'
-                    theme="filled"
                     style={{
                         width: 32,
                         height: 32,
@@ -199,7 +195,6 @@ export default function Pagination(props: any) {
                 }
                 <IconFont
                     type='anticonqianjin'
-                    theme="filled"
                     style={{
                         width: 32,
                         height: 32,

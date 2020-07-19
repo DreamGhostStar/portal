@@ -91,15 +91,15 @@ export default function ArticleContent({ item, articleID, deleteAssignArticle }:
                 top: 20,
                 right: 20
             }}>
-                <IconFont type="anticonzengjia" theme="filled" style={{
+                <IconFont type="anticonzengjia" style={{
                     fontSize: 20,
                     marginRight: 19
                 }} onClick={() => handleAdd()} />
-                <IconFont type="anticonxiugai" theme="filled" style={{
+                <IconFont type="anticonxiugai" style={{
                     fontSize: 20,
                     marginRight: 19
                 }} onClick={() => handleEdit()} />
-                <IconFont type="anticonshanchu" theme="filled" style={{
+                <IconFont type="anticonshanchu" style={{
                     fontSize: 20,
                     marginRight: 19
                 }} onClick={showModal} />
