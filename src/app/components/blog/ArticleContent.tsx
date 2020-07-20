@@ -1,15 +1,17 @@
 import React, { useState, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
-import '../../styles/blog/blogSider.scss'
+import '../../styles/blog/articleContent.scss'
 import { Modal, Button } from 'antd';
 import avatorURL from '../../../images/profile photo.jpg'
 import store from '../../../redux/store';
 import { error, IconFont } from '../common/config';
 import { getReduxUser, simpleFormatTime } from '../common/utils';
 
+const stylePrefix = 'blog-articleContent'
+
 interface ArticleContentConfig {
-    item: any, 
-    articleID: number, 
+    item: any,
+    articleID: number,
     deleteAssignArticle: any
 }
 
@@ -60,18 +62,9 @@ export default function ArticleContent({ item, articleID, deleteAssignArticle }:
     };
 
     return (
-        <div style={{
-            backgroundColor: '#fff',
-            borderBottom: '1px solid #DDDDDD',
-            height: 200,
-            position: 'relative'
-        }}>
+        <div className={`${stylePrefix}-layout`}>
             <a
-                style={{
-                    fontSize: 30,
-                    marginLeft: 30,
-                    color: '#000'
-                }}
+                className={`${stylePrefix}-title`}
                 ref={titleRef}
                 onMouseOver={() => { setLineWidth((titleRef.current as any).offsetWidth) }}
                 onMouseOut={() => { setLineWidth(0) }}
@@ -79,59 +72,28 @@ export default function ArticleContent({ item, articleID, deleteAssignArticle }:
             >
                 {item.title}
             </a>
-            <div style={{
-                height: 2,
-                width: (lineWidth),
-                backgroundColor: '#CCCCCC',
-                marginLeft: 30,
-                transitionDuration: '.3s'
-            }}></div>
-            <div style={{
-                position: 'absolute',
-                top: 20,
-                right: 20
-            }}>
-                <IconFont type="anticonzengjia" style={{
-                    fontSize: 20,
-                    marginRight: 19
-                }} onClick={() => handleAdd()} />
-                <IconFont type="anticonxiugai" style={{
-                    fontSize: 20,
-                    marginRight: 19
-                }} onClick={() => handleEdit()} />
-                <IconFont type="anticonshanchu" style={{
-                    fontSize: 20,
-                    marginRight: 19
-                }} onClick={showModal} />
+            <div
+                style={{
+                    width: (lineWidth),
+                }}
+                className={`${stylePrefix}-line`}
+            ></div>
+            <div className={`${stylePrefix}-icon-layout`}>
+                <IconFont type="anticonzengjia" className={`${stylePrefix}-icon`} onClick={() => handleAdd()} />
+                <IconFont type="anticonxiugai" className={`${stylePrefix}-icon`} onClick={() => handleEdit()} />
+                <IconFont type="anticonshanchu" className={`${stylePrefix}-icon`} onClick={showModal} />
             </div>
-            <div style={{
-                marginLeft: 30,
-                marginTop: 10
-            }} className="removeFloat">
-                <img src={avatorURL} alt="头像" width={48} height={48} style={{
-                    borderRadius: '50%',
-                    float: 'left'
-                }} />
-                <div style={{
-                    marginLeft: 30,
-                    float: 'left',
-                    color: 'grey'
-                }}>
+            <div className={`${stylePrefix}-info-layout removeFloat`}>
+                <img src={avatorURL} alt="头像" className={`${stylePrefix}-avatar`} />
+                <div className={`${stylePrefix}-nickname`}>
                     {item.author['nickname']}
                 </div>
                 <br />
-                <div style={{
-                    marginLeft: 30,
-                    float: 'left',
-                    color: 'grey'
-                }}>
+                <div className={`${stylePrefix}-createTime`}>
                     {simpleFormatTime(item.createTime)}
                 </div>
             </div>
-            <div style={{
-                marginTop: 5,
-                marginLeft: 25
-            }}>
+            <div className={`${stylePrefix}-content`}>
                 {item.content}
             </div>
             <Modal
@@ -143,10 +105,7 @@ export default function ArticleContent({ item, articleID, deleteAssignArticle }:
                     <Button key="back" onClick={() => { setVisible(false) }}>
                         取消
                     </Button>,
-                    <Button key="submit" type="primary" loading={loading} onClick={handleOk} style={{
-                        backgroundColor: '#f00',
-                        border: '1px solid #f00'
-                    }}>
+                    <Button key="submit" type="primary" loading={loading} onClick={handleOk} className={`${stylePrefix}-remove-btn`}>
                         删除
                     </Button>,
                 ]}

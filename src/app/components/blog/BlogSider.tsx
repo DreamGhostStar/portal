@@ -6,6 +6,8 @@ import { Provider } from 'react-redux'
 import menuData from 'static/articleKindList.json'
 import { deepCopy } from '../common/utils'
 
+const stylePrefix = 'blog-blogSider'
+
 export default function BlogSider() {
     const [isFixed, setIsFixed] = useState(false)
     const [clickIndex, setClickIndex] = useState(store.getState().type)
@@ -78,23 +80,12 @@ export default function BlogSider() {
             style={{
                 top: (isFixed ? 20 : 80),
             }}
-            className='blogSider'
+            className={`${stylePrefix}-layout`}
         >
-            <div className='blogSider_search'>
+            <div className={`${stylePrefix}-search-layout`}>
                 <input
                     type="text"
-                    style={{
-                        width: 214,
-                        height: 30,
-                        backgroundColor: '#66CCFF',
-                        border: '1px solid #fff',
-                        borderRadius: '15px',
-                        marginTop: 10,
-                        marginLeft: 22,
-                        outline: 'none',
-                        textIndent: 15,
-                        color: '#fff'
-                    }}
+                    className={`${stylePrefix}-search-input`}
                     ref={inputRef}
                     onChange={handleChange}
                 />

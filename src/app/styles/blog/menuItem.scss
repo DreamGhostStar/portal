@@ -1,0 +1,23 @@
+$file-prefix: 'blog-menuItem';
+
+.#{$file-prefix}-layout {
+    width: 260;
+    text-align: center;
+    line-height: 47px;
+    color: #fff;
+    transition-duration: .5s;
+    cursor: pointer;
+
+    .#{$file-prefix}-main {
+        color: #fff;
+        float: left;
+        margin-left: 22px;
+        width: 237px;
+        text-align: left;
+
+        .#{$file-prefix}-icon {
+            font-size: 20px;
+            margin-right: 19px;
+        }
+    }
+}

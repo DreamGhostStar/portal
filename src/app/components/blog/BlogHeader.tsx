@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import BlogNavContainer from 'containers/BlogNav_container'
 
 import store from '../../../redux/store'

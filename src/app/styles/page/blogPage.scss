@@ -1,9 +1,26 @@
-.blogPage {
-    margin-top: 20px;
+$file-prefix: 'page-blog';
+
+.#{$file-prefix}-layout {
+    position: relative;
+    z-index: 99px;
+
+    .#{$file-prefix}-main {
+        margin-top: 20px;
+    }
+}
+
+.#{$file-prefix}-background {
+    background-color: #eee;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
 }
 
 @media screen and (max-width: 500px) {
-    .blogPage {
+    .#{$file-prefix}-main {
         margin-left: 50px;
     }
 }

@@ -1,0 +1,11 @@
+$file-prefix: 'blog-joinButton';
+
+.#{$file-prefix}-layout {
+    width: 100px;
+    height: 40px;
+    position: relative;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

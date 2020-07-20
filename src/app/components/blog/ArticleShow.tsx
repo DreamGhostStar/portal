@@ -17,7 +17,10 @@ import { _getArticleDetail, _deleteArticle } from '../common/Api';
 // import 'highlight.js/styles/github.css';
 
 import '../../styles/blog/articleShow.scss'
+import 'app/styles/blog/markdown.scss'
 import { simpleFormatTime } from '../common/utils';
+
+const stylePrefix = 'blog-articleShow'
 
 interface ArticleShowConfig {
     articleID: number
@@ -77,26 +80,14 @@ export default function ArticleShow({ articleID }: ArticleShowConfig) {
         }
     }
     return (
-        <div className='articleShow'>
+        <div className={`${stylePrefix}-layout`}>
             <Provider store={store}>
                 <BlogSiderContainer />
             </Provider>
-            <div style={{
-                float: 'right',
-                width: 900
-            }}>
-                <div style={{
-                    backgroundColor: '#fff',
-                    borderBottom: '1px solid #DDDDDD',
-                    position: 'relative'
-                }}>
+            <div className={`${stylePrefix}-main-layout`}>
+                <div className={`${stylePrefix}-main`}>
                     <span
-                        style={{
-                            fontSize: 30,
-                            marginLeft: 30,
-                            color: '#000',
-                            cursor: 'pointer'
-                        }}
+                        className={`${stylePrefix}-title`}
                         ref={titleRef}
                         onMouseOver={() => { setLineWidth((titleRef.current as any).offsetWidth) }}
                         onMouseOut={() => { setLineWidth(0) }}
@@ -104,61 +95,29 @@ export default function ArticleShow({ articleID }: ArticleShowConfig) {
                     >
                         {article.title}
                     </span>
-                    <div style={{
-                        height: 2,
-                        width: (lineWidth),
-                        backgroundColor: '#CCCCCC',
-                        marginLeft: 30,
-                        transitionDuration: '.3s'
-                    }}></div>
-                    <div style={{
-                        position: 'absolute',
-                        top: 20,
-                        right: 20
-                    }}>
-                        <IconFont type="anticonzengjia" style={{
-                            fontSize: 20,
-                            marginRight: 19
-                        }} onClick={() => { history.push("/edit/undefiend") }} />
-                        <IconFont type="anticonxiugai" style={{
-                            fontSize: 20,
-                            marginRight: 19
-                        }} />
-                        <IconFont type="anticonshanchu" style={{
-                            fontSize: 20,
-                            marginRight: 19
-                        }} onClick={() => { setVisible(true) }} />
+                    <div
+                        style={{
+                            width: (lineWidth),
+                        }}
+                        className={`${stylePrefix}-line`}
+                    ></div>
+                    <div className={`${stylePrefix}-icon-layout`}>
+                        <IconFont type="anticonzengjia" className={`${stylePrefix}-icon`} onClick={() => { history.push("/edit/undefiend") }} />
+                        <IconFont type="anticonxiugai" className={`${stylePrefix}-icon`} />
+                        <IconFont type="anticonshanchu" className={`${stylePrefix}-icon`} onClick={() => { setVisible(true) }} />
                     </div>
-                    <div style={{
-                        marginLeft: 30,
-                        marginTop: 10
-                    }}>
-                        <img src={avatar} alt="头像" width={48} height={48} style={{
-                            borderRadius: '50%',
-                            float: 'left'
-                        }} />
-                        <div style={{
-                            marginLeft: 30,
-                            float: 'left',
-                            color: 'grey'
-                        }}>
+                    <div className={`${stylePrefix}-info-layout`}>
+                        <img src={avatar} alt="头像" className={`${stylePrefix}-avatar`} />
+                        <div className={`${stylePrefix}-author`}>
                             {article.author}
                         </div>
                         <br />
-                        <div style={{
-                            marginLeft: 30,
-                            float: 'left',
-                            color: 'grey'
-                        }}>
+                        <div className={`${stylePrefix}-createTime`}>
                             {simpleFormatTime(article.createTime)}
                         </div>
                     </div>
                     <div
-                        style={{
-                            marginTop: 5,
-                            marginLeft: 25
-                        }}
-                        className="for-preview for-markdown-preview"
+                        className={`for-preview for-markdown-preview ${stylePrefix}-content`}
                         dangerouslySetInnerHTML={{ __html: article.content }}
                     >
                     </div>
@@ -172,10 +131,7 @@ export default function ArticleShow({ articleID }: ArticleShowConfig) {
                             <Button key="back" onClick={() => { setVisible(false) }}>
                                 取消
                             </Button>,
-                            <Button key="submit" type="primary" loading={loading} onClick={handleOk} style={{
-                                backgroundColor: '#f00',
-                                border: '1px solid #f00'
-                            }}>
+                            <Button key="submit" type="primary" loading={loading} onClick={handleOk} className={`${stylePrefix}-remove-btn`}>
                                 删除
                             </Button>,
                         ]}

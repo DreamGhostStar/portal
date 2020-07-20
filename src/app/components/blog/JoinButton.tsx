@@ -2,6 +2,8 @@ import React from 'react'
 import { Button } from 'antd';
 import { useHistory } from 'react-router-dom'
 import { error } from '../common/config';
+import 'app/styles/blog/joinButton.scss'
+const stylePrefix = 'blog-joinButton'
 
 interface JoinButtonConfig {
     lastTime: string
@@ -10,9 +12,7 @@ interface JoinButtonConfig {
 export default function JoinButton({ lastTime }: JoinButtonConfig) {
     let history = useHistory();
     const handleLastTime = () => {
-        console.log(lastTime);
         var today = new Date();
-        console.log(today.getTime().toString());
         if (today.getTime() > Number(lastTime)) {
             error('活动已结束');
             return;
@@ -23,15 +23,7 @@ export default function JoinButton({ lastTime }: JoinButtonConfig) {
     return (
         <Button
             type="primary"
-            style={{
-                width: 100,
-                height: 40,
-                position: 'relative',
-                left: '50%',
-                marginLeft: -50,
-                marginTop: 50,
-                marginBottom: 50
-            }}
+            className={`${stylePrefix}-layout`}
             onClick={handleLastTime}
         >
             参加活动

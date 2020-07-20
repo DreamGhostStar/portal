@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../../styles/blog/pagination.scss'
+import '../../styles/blog/paginationItem.scss'
 
 interface PaginationItemConfig {
     currentPage: number,

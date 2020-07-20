@@ -7,6 +7,8 @@ import LayoutContentContainer from '../../containers/LayoutContent_container'
 import store from '../../redux/store'
 import { Provider } from 'react-redux'
 
+const stylePrefix = 'page-blog'
+
 export default function BlogPage(props: any) {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const monitor = (e: any) => {
@@ -48,12 +50,9 @@ export default function BlogPage(props: any) {
     const articleID = props.match.params.articleID;
     return (
         <>
-            <div style={{
-                position: 'relative',
-                zIndex: 99
-            }}>
+            <div className={`${stylePrefix}-layout`}>
                 <Header activeIndex={1} />
-                <div className='blogPage'>
+                <div className={`${stylePrefix}-main`}>
                     {
                         judgeArticle(articleID)
                     }
@@ -65,16 +64,7 @@ export default function BlogPage(props: any) {
                     height: 40
                 }}></div>
             </div>
-            <div style={{
-                backgroundColor: '#eee',
-                backgroundSize: 'cover',
-                position: 'fixed',
-                top: 0,
-                bottom: 0,
-                width: '100%',
-                height: '100%'
-            }}>
-            </div>
+            <div className={`${stylePrefix}-background`}></div>
         </>
     )
 }

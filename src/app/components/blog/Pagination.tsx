@@ -4,6 +4,9 @@ import { Provider } from 'react-redux'
 import PaginationItem_container from '../../../containers/PaginationItem_container'
 import staticData from 'static/articleContentList.json'
 import { IconFont, info } from '../common/config'
+import 'app/styles/blog/pagination.scss'
+
+const stylePrefix = 'blog-pagination'
 
 export default function Pagination(props: any) {
     const [pages, setPages] = useState(staticData.pages) // TODO: 需要获取后端分页数量的数据
@@ -48,7 +51,6 @@ export default function Pagination(props: any) {
             return;
         }
         setCurrentPage(currentPage + 1)
-
         props.transfrom_currentPage(currentPage + 1)
     }
     const generatePaginnation = () => {
@@ -60,15 +62,7 @@ export default function Pagination(props: any) {
                 items.push(
                     <IconFont
                         type='anticonshenglve'
-                        style={{
-                            width: 32,
-                            height: 32,
-                            lineHeight: '32px',
-                            textAlign: 'center',
-                            backgroundColor: '#fff',
-                            border: '1px solid #ddd',
-                            borderRadius: '5px',
-                        }}
+                        className={`${stylePrefix}-omit-icon`}
                         key={6}
                     />
                 )
@@ -80,15 +74,7 @@ export default function Pagination(props: any) {
                         items.push(
                             <IconFont
                                 type='anticonshenglve'
-                                style={{
-                                    width: 32,
-                                    height: 32,
-                                    lineHeight: '32px',
-                                    textAlign: 'center',
-                                    backgroundColor: '#fff',
-                                    border: '1px solid #ddd',
-                                    borderRadius: '5px',
-                                }}
+                                className={`${stylePrefix}-omit-icon`}
                                 key={6}
                             />
                         )
@@ -134,15 +120,7 @@ export default function Pagination(props: any) {
             items.push(
                 <IconFont
                     type='anticonshenglve'
-                    style={{
-                        width: 32,
-                        height: 32,
-                        lineHeight: '32px',
-                        textAlign: 'center',
-                        backgroundColor: '#fff',
-                        border: '1px solid #ddd',
-                        borderRadius: '5px',
-                    }}
+                    className={`${stylePrefix}-omit-icon`}
                     key={8}
                 />
             )
@@ -160,31 +138,15 @@ export default function Pagination(props: any) {
         return items
     }
     return (
-        <div style={{
-            width: 1200,
-            margin: '0 auto'
-        }} className="removeFloat">
-            <div style={{
-                height: 32,
-                display: 'flex',
-                width: 433,
-                justifyContent: 'space-between',
-                marginTop: 40,
-                marginLeft: 533
-            }}>
+        <div className={`removeFloat ${stylePrefix}-layout`}>
+            <div className={`${stylePrefix}-main`}>
                 <IconFont
                     type='anticonqianjin-copy'
                     style={{
-                        width: 32,
-                        height: 32,
-                        lineHeight: '32px',
-                        textAlign: 'center',
-                        backgroundColor: '#fff',
                         border: (isMouse[0] ? '1px solid #00CCFF' : '1px solid #ddd'),
-                        borderRadius: '5px',
                         color: (isMouse[0] ? '#00CCFF' : '#000'),
-                        cursor: 'pointer'
                     }}
+                    className={`${stylePrefix}-go-icon`}
                     onMouseOver={() => handleMosueOver(0)}
                     onMouseOut={() => { new Array(2).fill(false) }}
                     onClick={retreatOnePage}
@@ -196,16 +158,10 @@ export default function Pagination(props: any) {
                 <IconFont
                     type='anticonqianjin'
                     style={{
-                        width: 32,
-                        height: 32,
-                        lineHeight: '32px',
-                        textAlign: 'center',
-                        backgroundColor: '#fff',
                         border: (isMouse[1] ? '1px solid #00CCFF' : '1px solid #ddd'),
-                        borderRadius: '5px',
                         color: (isMouse[1] ? '#00CCFF' : '#000'),
-                        cursor: 'pointer'
                     }}
+                    className={`${stylePrefix}-go-icon`}
                     onMouseOver={() => handleMosueOver(1)}
                     onMouseOut={() => { setIsMouse(new Array(2).fill(false)) }}
                     onClick={advanceOnePage}
@@ -213,7 +169,7 @@ export default function Pagination(props: any) {
             </div>
         </div>
     )
-} 
+}
 // componentWillReceiveProps(nextProps) {
 //     var data;
 

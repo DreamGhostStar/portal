@@ -12,6 +12,7 @@ import Loading2 from '../common/Loading2';
 
 export default function LayoutContent({}) {
     const [article, setArticle] = useState<any[]>([])
+    // TODO: state中的page与type应该不需要，等后端服务开启后需要检查
     const [page, setPage] = useState(store.getState().page)
     const [type, setType] = useState(store.getState().type)
     const [loading, setLoading] = useState(true)

@@ -1,0 +1,66 @@
+$file-prefix: 'blog-articleContent';
+
+.#{$file-prefix}-layout {
+    background-color: #fff;
+    border-bottom: 1px solid #DDDDDD;
+    height: 200px;
+    position: relative;
+
+    .#{$file-prefix}-title {
+        font-size: 30px;
+        margin-left: 30px;
+        color: #000;
+    }
+
+    .#{$file-prefix}-line {
+        height: 2px;
+        background-color: #CCCCCC;
+        margin-left: 30px;
+        transition-duration: .3s;
+    }
+
+    .#{$file-prefix}-icon-layout {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+
+        .#{$file-prefix}-icon {
+            font-size: 20px;
+            margin-right: 19px;
+        }
+    }
+
+    .#{$file-prefix}-info-layout {
+        margin-left: 30px;
+        margin-top: 10px;
+
+        .#{$file-prefix}-avatar {
+            border-radius: 50%;
+            float: left;
+            width: 48px;
+            height: 48px;
+        }
+
+        .#{$file-prefix}-nickname {
+            margin-left: 30px;
+            float: left;
+            color: grey;
+        }
+
+        .#{$file-prefix}-createTime {
+            margin-left: 30px;
+            float: left;
+            color: grey;
+        }
+    }
+
+    .#{$file-prefix}-content {
+        margin-top: 5px;
+        margin-left: 25px;
+    }
+}
+
+.#{$file-prefix}-remove-btn {
+    background-color: #f00;
+    border: 1px solid #f00;
+}
