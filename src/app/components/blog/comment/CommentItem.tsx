@@ -7,6 +7,7 @@ import ChildrenComment from './ChildrenComment';
 import store from '../../../../redux/store'
 import { formatTime } from 'app/components/common/utils';
 import { info, IconFont } from 'app/components/common/config';
+const stylePrefix = 'blog-commentShow'
 interface CommentItemConfig {
     item: any,
     articleID: number,
@@ -57,68 +58,43 @@ export default function CommentItem({ item, articleID, callback }: CommentItemCo
     return (
         <>
             <Divider />
-            <div className='commentItem'>
-                <img src={avatorURL} alt="头像" width={50} height={50} style={{
-                    borderRadius: '50%',
-                    marginRight: 10
-                }} />
-                <div style={{
-                    width: 800
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between'
-                    }}>
-                        <div style={{
-                            color: '#bbb',
-                            marginBottom: 5,
-                            fontSize: 18
-                        }}>{item.commentNickname}</div>
-                        <div style={{
-                            width: 100,
-                            color: '#ddd'
-                        }}>{formatTime(item.createTime)}</div>
+            <div className={`${stylePrefix}-layout`}>
+                <img src={avatorURL} alt="头像" className={`${stylePrefix}-avatar`} />
+                <div className={`${stylePrefix}-main`}>
+                    <div className={`${stylePrefix}-info`}>
+                        <div className={`${stylePrefix}-nickname`}>{item.commentNickname}</div>
+                        <div className={`${stylePrefix}-createTime`}>{formatTime(item.createTime)}</div>
                     </div>
-                    <div style={{
-                        width: 800,
-                        marginBottom: 10
-                    }}>{item.content}</div>
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        marginBottom: 10
-                    }}>
-                        <div style={{
-                            color: '#bbb',
-                            cursor: 'pointer'
-                        }} onClick={() => { setIsShowChildrenComments(true) }}>{`${item.childrenComments.length} 评论`}</div>
+                    <div className={`${stylePrefix}-content`}>{item.content}</div>
+                    <div className={`${stylePrefix}-footer`}>
+                        <div
+                            className={`${stylePrefix}-comment-number`}
+                            onClick={() => { setIsShowChildrenComments(true) }}
+                        >{`${item.childrenComments.length} 评论`}</div>
                         <div>
-                            <IconFont type="anticonpinglun" style={{
-                                fontSize: 20,
-                                color: '#ddd',
-                                marginRight: 5
-                            }} />
-                            <span style={{
-                                color: '#ddd',
-                                fontSize: 16,
-                                lineHeight: '6px',
-                                cursor: 'pointer'
-                            }} onClick={() => { handleComment(item.userID, item.commentNickname) }}>评论</span>
+                            <IconFont type="anticonpinglun" className={`${stylePrefix}-icon`} />
+                            <span
+                                className={`${stylePrefix}-word-comment`}
+                                onClick={() => { handleComment(item.userID, item.commentNickname) }}
+                            >评论</span>
                         </div>
                     </div>
                     {
                         judgeShowChildrenComments(item)
                     }
-                    <div style={{
-                        display: (isComment ? 'flex' : 'none'),
-                        justifyContent: 'space-between',
-                        paddingTop: 20,
-                    }}>
-                        <Input placeholder={
-                            commentObjUserNickName.length ? `回复 ${commentObjUserNickName}：` : '写下你的评论'
-                        } style={{
-                            width: 700
-                        }} ref={inputRef} />
+                    <div
+                        style={{
+                            display: (isComment ? 'flex' : 'none'),
+                        }}
+                        className={`${stylePrefix}-input-layout`}
+                    >
+                        <Input
+                            placeholder={
+                                commentObjUserNickName.length ? `回复 ${commentObjUserNickName}：` : '写下你的评论'
+                            }
+                            ref={inputRef}
+                            className={`${stylePrefix}-input`}
+                        />
                         <Button type="primary" onClick={handlePublishComment}>回复</Button>
                     </div>
                 </div>

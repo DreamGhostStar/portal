@@ -6,6 +6,8 @@ import '../../../styles/comment/commentShow.scss'
 import { error, success } from '../../common/config';
 import Loading2 from '../../common/Loading2';
 
+const stylePrefix = 'blog-commentShow'
+
 interface CommentShowConfig {
     articleID: number
 }
@@ -130,18 +132,8 @@ export default function CommentShow({ articleID }: CommentShowConfig) {
 
     return (
         <div>
-            <div style={{
-                height: 50,
-                width: '100%',
-                backgroundColor: '#eee'
-            }}></div>
-            <div style={{
-                borderRadius: 20,
-                paddingLeft: 20,
-                fontWeight: 'bold',
-                fontSize: 20,
-                paddingTop: 20
-            }}>评论</div>
+            <div className={`${stylePrefix}-background`}></div>
+            <div className={`${stylePrefix}-title`}>评论</div>
             {
                 generateCommentList()
             }

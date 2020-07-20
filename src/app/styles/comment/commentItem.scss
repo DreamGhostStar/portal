@@ -1,7 +1,74 @@
-.commentItem {
+$file-prefix: 'blog-commentShow';
+
+.#{$file-prefix}-layout {
     display: flex;
     justify-content: space-between;
     padding-left: 20px;
     padding-right: 20px;
     margin-bottom: 20px;
+
+    .#{$file-prefix}-avatar {
+        border-radius: 50%;
+        margin-right: 10px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .#{$file-prefix}-main {
+        width: 800px;
+
+        .#{$file-prefix}-info {
+            display: flex;
+            justify-content: space-between;
+
+            .#{$file-prefix}-nickname {
+                color: #bbb;
+                margin-bottom: 5px;
+                font-size: 18px;
+            }
+
+            .#{$file-prefix}-createTime {
+                width: 100px;
+                color: #ddd;
+            }
+        }
+
+        .#{$file-prefix}-content {
+            width: 800px;
+            margin-bottom: 10px;
+        }
+
+        .#{$file-prefix}-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            .#{$file-prefix}-comment-number {
+                color: #bbb;
+                cursor: pointer;
+            }
+
+            .#{$file-prefix}-icon {
+                font-size: 20px;
+                color: #ddd;
+                margin-right: 5px;
+            }
+
+            .#{$file-prefix}-word-comment {
+                color: #ddd;
+                font-size: 16;
+                line-height: 6px;
+                cursor: pointer;
+            }
+        }
+
+        .#{$file-prefix}-input-layout {
+            justify-content: space-between;
+            padding-top: 20px;
+
+            .#{$file-prefix}-input {
+                width: 700px;
+            }
+        }
+    }
 }
