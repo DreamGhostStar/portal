@@ -10,6 +10,8 @@ import UploadAvator from '../common/UploadAvator';
 import '../common/config'
 import Loading2 from '../common/Loading2';
 
+const stylePrefix = 'my-myInfo';
+
 export default function MyInfo() {
     const [myInfo, setMyInfo] = useState<any>(null)
     const [isAlter, setIsAlter] = useState(false)
@@ -105,51 +107,49 @@ export default function MyInfo() {
         }
 
         if (!myInfo) {
-            return <div className='empty'>
+            return <div className={`${stylePrefix}-empty`}>
                 用户信息为空
             </div>
         } else {
-            return <div style={{
-                position: 'relative',
-            }}>
-                <div className='imgSelectPos'>
+            return <div className={`${stylePrefix}-layout`}>
+                <div className={`${stylePrefix}-imgSelectPos`}>
                     <UploadAvator img={myInfo.avatar} saveImg={saveImg} />
                 </div>
-                <div className='content'>
+                <div className={`${stylePrefix}-content`}>
                     <div
-                        className='nickname'
+                        className={`${stylePrefix}-nickname`}
                         style={{
                             display: (isAlter ? 'none' : 'block')
                         }}
                     >
-                        <div className='value'>{myInfo.nickname}</div>
-                        <div className='tip'>
-                            <IconFont type='anticonxiugai1' className='icon' onClick={() => { setIsAlter(true) }} />
-                            <span onClick={() => { setIsAlter(true) }}>修改</span>
+                        <div className={`${stylePrefix}-value`}>{myInfo.nickname}</div>
+                        <div className={`${stylePrefix}-tip`}>
+                            <IconFont type='anticonxiugai1' className={`${stylePrefix}-icon`} onClick={() => setIsAlter(true)} />
+                            <span onClick={() => setIsAlter(true)}>修改</span>
                         </div>
                     </div>
                     <div
                         style={{
                             display: (isAlter ? 'block' : 'none')
                         }}
-                        className='alterNickname'
+                        className={`${stylePrefix}-alterNickname`}
                     >
                         <Input
                             ref={inputRef}
-                            className='input'
+                            className={`${stylePrefix}-input`}
                             maxLength={maxLength}
                             onChange={handleNickNameMaxLength}
                         />
-                        <div className='operation'>
+                        <div className={`${stylePrefix}-operation`}>
                             <Button type="primary" onClick={saveNickNameData}>保存</Button>
-                            <Button onClick={() => { setIsAlter(false) }}>取消</Button>
+                            <Button onClick={() => setIsAlter(false)}>取消</Button>
                         </div>
                     </div>
                     <MyInfoSubItem label='年级' transformValue={myInfo.year} type='year' saveOtherInfo={saveOtherInfo} />
                     <MyInfoSubItem label='座右铭' transformValue={myInfo.motto} type='motto' saveOtherInfo={saveOtherInfo} />
                     <MyInfoSubItem label='邮箱' transformValue={myInfo.email} type='email' saveOtherInfo={saveOtherInfo} />
                     <Driver height={2} />
-                    <Button type="primary" className='myInfoButton' onClick={saveData}>保存</Button>
+                    <Button type="primary" className={`${stylePrefix}-myInfoButton`} onClick={saveData}>保存</Button>
                 </div>
             </div>
         }

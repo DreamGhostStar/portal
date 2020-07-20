@@ -8,6 +8,7 @@ import Driver from '../common/Driver'
 import '../common/config'
 import { error, IconFont } from '../common/config';
 const { TextArea } = Input;
+const stylePrefix = 'my-myInfoSubItem'
 interface MyInfoSubItemConfig {
     transformValue: string | number,
     label: string,
@@ -54,12 +55,10 @@ export default function MyInfoSubItem({ transformValue, label, type, saveOtherIn
     return (
         <>
             <Driver height={2} />
-            <div
-                className='subItem'
-            >
-                <div className='subItem_label'>{label}</div>
+            <div className={`${stylePrefix}-layout`}>
+                <div className={`${stylePrefix}-label`}>{label}</div>
                 <div
-                    className='subItem_value'
+                    className={`${stylePrefix}-value`}
                     style={{
                         display: (isAlter ? 'none' : 'block'),
                         color: (value ? '#000' : '#ccc')
@@ -67,10 +66,10 @@ export default function MyInfoSubItem({ transformValue, label, type, saveOtherIn
                 >
                     {value || '空'}
                 </div>
-                <div className='subItem_alter' style={{
+                <div className={`${stylePrefix}-alter`} style={{
                     display: (isAlter ? 'none' : 'flex')
                 }}>
-                    <IconFont type='anticonxiugai1' className='subItem_icon' onClick={() => { setIsAlter(true) }} />
+                    <IconFont type='anticonxiugai1' className={`${stylePrefix}-icon`} onClick={() => { setIsAlter(true) }} />
                     <div onClick={() => { setIsAlter(true) }}>修改</div>
                 </div>
                 <div style={{
@@ -79,7 +78,7 @@ export default function MyInfoSubItem({ transformValue, label, type, saveOtherIn
                     {
                         judgeInputType()
                     }
-                    <div className='subItem_operation'>
+                    <div className={`${stylePrefix}-operation`}>
                         <Button type="primary" onClick={saveData}>保存</Button>
                         <Button onClick={handleCancel}>取消</Button>
                     </div>

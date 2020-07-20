@@ -1,0 +1,11 @@
+$file-prefix: 'my-myInfoSider';
+
+.#{$file-prefix}-layout {
+    height: 60px;
+    line-height: 60px;
+    cursor: pointer;
+
+    .#{$file-prefix}-word {
+        font-size: 20px;
+    }
+}

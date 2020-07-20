@@ -4,6 +4,8 @@ import { _getMessageData, _readMessage } from '../common/Api';
 import { error, IconFont } from '../common/config';
 import Loading2 from '../common/Loading2';
 
+const stylePrefix = 'my-myInfoMessageContent'
+
 export default function MyInfoMessageContent() {
     const [clickIndex, setClickIndex] = useState<number | null>(null)
     const [mouseIndex, setMouseIndex] = useState(null)
@@ -49,39 +51,40 @@ export default function MyInfoMessageContent() {
                 let temp;
 
                 if (!item.readed) {
-                    temp = (<IconFont type='anticonweidu' style={{
-                        position: 'absolute',
-                        top: 0,
-                        color: '#f00',
-                        left: 0,
-                        fontSize: 16
-                    }} />)
+                    temp = (
+                        <IconFont type='anticonweidu' style={{
+                            position: 'absolute',
+                            top: 0,
+                            color: '#f00',
+                            left: 0,
+                            fontSize: 16
+                        }} />)
                 }
                 return (
-                    <div key={index} className='piece'>
+                    <div key={index} className={`${stylePrefix}-piece`}>
                         <div style={{
                             position: 'relative'
                         }}>
-                            <img src={item.avator} alt="头像" className='avatar' />
+                            <img src={item.avator} alt="头像" className={`${stylePrefix}-avatar`} />
                             {temp}
                         </div>
-                        <div className='info'>
-                            <div className='headerInfo'>
-                                <div className='formUser'>
+                        <div className={`${stylePrefix}-info`}>
+                            <div className={`${stylePrefix}-headerInfo`}>
+                                <div className={`${stylePrefix}-formUser`}>
                                     {item.fromUser}
                                 </div>
-                                <div className='operation'>
+                                <div className={`${stylePrefix}-operation`}>
                                     {`${year}-${month}-${date} ${hour}:${minute}`}
-                                    <IconFont type="anticoncaidan" className='menuIcon' onClick={() => handleClick(index)} />
-                                    <div className='menuContent' style={{
+                                    <IconFont type="anticoncaidan" className={`${stylePrefix}-menuIcon`} onClick={() => handleClick(index)} />
+                                    <div className={`${stylePrefix}-menuContent`} style={{
                                         display: (clickIndex === index ? 'block' : 'none')
                                     }}>
-                                        <div className='menuItem' onClick={() => readMessage(item.id)}>已读</div>
-                                        <div className='menuItem' >删除该消息</div>
+                                        <div className={`${stylePrefix}-menuItem`} onClick={() => readMessage(item.id)}>已读</div>
+                                        <div className={`${stylePrefix}-menuItem`} >删除该消息</div>
                                     </div>
                                 </div>
                             </div>
-                            <div className='myMessageContent'>
+                            <div className={`${stylePrefix}-myMessageContent`}>
                                 {item.content}
                             </div>
                         </div>
@@ -111,7 +114,7 @@ export default function MyInfoMessageContent() {
         }
     }
     return (
-        <div className='myInfoMessageContent' style={{
+        <div className={`${stylePrefix}-layout`} style={{
             width: (loading ? 820 : 'auto'),
             height: (loading ? 400 : 'auto')
         }}>

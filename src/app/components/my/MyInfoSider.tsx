@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { IconFont } from '../common/config'
+import 'app/styles/my/myInfoSider.scss'
+
+const stylePrefix = 'my-myInfoSider'
 
 interface MyInfoSiderConfig {
     siderData: any[],
@@ -48,22 +51,18 @@ export default function MyInfoSider({ siderData, siderIndex }: MyInfoSiderConfig
                             key={index}
                             style={{
                                 backgroundColor: (mouseIndex === index || siderIndex === index ? '#00CCFF' : '#fff'),
-                                height: 60,
-                                lineHeight: '60px',
-                                cursor: 'pointer',
                                 borderTopLeftRadius: (index === 0 ? 5 : 0),
                                 borderTopRightRadius: (index === 0 ? 5 : 0),
                                 borderBottomLeftRadius: (index === 0 ? 0 : 5),
                                 borderBottomRightRadius: (index === 0 ? 0 : 5)
                             }}
+                            className={`${stylePrefix}-layout`}
                             onMouseOver={() => setMouseIndex(index)}
                             onMouseOut={() => { setMouseIndex(siderIndex) }}
                             onClick={() => handleClick(index)}
                         >
                             {temp}
-                            <span style={{
-                                fontSize: 20
-                            }}>{item}</span>
+                            <span className={`${stylePrefix}-word`}>{item}</span>
                         </div>
                     );
                 })

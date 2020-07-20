@@ -1,4 +1,6 @@
-.subItem {
+$file-prefix: 'my-myInfoSubItem';
+
+.#{$file-prefix}-layout {
     display: flex;
     justify-content: space-between;
     width: 400px;
@@ -6,7 +8,7 @@
     padding: 20px 0;
     position: relative;
 
-    .subItem_label {
+    .#{$file-prefix}-label {
         font-size: 20px;
         display: inline-block;
         height: 100%;
@@ -16,17 +18,17 @@
         text-align-last: justify;
     }
 
-    .subItem_value {
+    .#{$file-prefix}-value {
         font-size: 16px;
         width: 140px;
         text-align: center;
 
-        &:hover+.alter {
+        &:hover+.#{$file-prefix}-alter {
             opacity: 1;
         }
     }
 
-    .subItem_alter {
+    .#{$file-prefix}-alter {
         position: absolute;
         right: -80px;
         width: 50px;
@@ -42,18 +44,14 @@
             opacity: 1;
         }
 
-        .subItem_icon {
+        .#{$file-prefix}-icon {
             margin-top: 8px;
         }
     }
 
-    .subItem_operation {
+    .#{$file-prefix}-operation {
         display: flex;
         justify-content: space-between;
         margin-top: 10px;
-    }
-
-    .subItem_input {
-        width: 200px;
     }
 }

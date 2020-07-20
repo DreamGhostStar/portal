@@ -1,81 +1,39 @@
 import React, { useState } from 'react'
 import avatorURL from '../../../images/profile photo.jpg'
 import { IconFont } from './config';
+import 'app/styles/comon/personDetailShow.scss'
 interface personDetailShowDataConfig {
     cancelShowDetail: any,
     item: any
 }
+const stylePrefix = 'blog-commentShow'
 
 export default function PersonDetailShow({ cancelShowDetail, item }: personDetailShowDataConfig) {
     const [isMouse, setIsMouse] = useState(false)
     return (
-        <div style={{
-            width: 300,
-            height: 600,
-            position: 'fixed',
-            top: '60%',
-            marginTop: -300,
-            left: '50%',
-            marginLeft: -150,
-            zIndex: 200
-        }}>
-            <div style={{
-                backgroundColor: '#fff',
-                width: 300,
-                height: 450,
-                borderRadius: 20,
-                position: 'relative'
-            }}>
-                <div style={{
-                    position: 'absolute',
-                    top: 10,
-                    right: 10,
-                    cursor: 'pointer',
-                    backgroundColor: (isMouse ? '#f00' : 'transparent')
-                }}
+        <div className={`${stylePrefix}-layout`}>
+            <div className={`${stylePrefix}-main`}>
+                <div
+                    style={{
+                        backgroundColor: (isMouse ? '#f00' : 'transparent')
+                    }}
                     onMouseOver={() => { setIsMouse(true) }}
                     onMouseOut={() => { setIsMouse(false) }}
+                    className={`${stylePrefix}-close-layout`}
                 >
-                    <IconFont type="anticoncha" style={{
-                        fontSize: 20
-                    }} onClick={cancelShowDetail} />
+                    <IconFont type="anticoncha" className={`${stylePrefix}-close-icon`} onClick={cancelShowDetail} />
                 </div>
-                <img src={avatorURL} alt="头像" style={{
-                    width: 200,
-                    height: 200,
-                    borderRadius: '50%',
-                    marginLeft: 50,
-                    border: '2px solid #f00',
-                    position: 'absolute',
-                    top: -100
-                }} />
-                <div style={{
-                    paddingTop: 110,
-                    textAlign: 'center',
-                    fontWeight: 'bold',
-                    fontSize: 40
-                }}>{item.realName}</div>
-                <div style={{
-                    textAlign: 'center',
-                    fontSize: 20,
-                    color: '#ccc'
-                }}>
+                <img src={avatorURL} alt="头像" className={`${stylePrefix}-avatar`} />
+                <div className={`${stylePrefix}-realName`}>{item.realName}</div>
+                <div className={`${stylePrefix}-type`}>
                     <span>类别：</span>
                     {item.type}
                 </div>
-                <div style={{
-                    textAlign: 'center',
-                    fontSize: 20,
-                    color: '#ccc'
-                }}>
+                <div className={`${stylePrefix}-year`}>
                     <span>年份：</span>
                     {item.year}
                 </div>
-                <div style={{
-                    textAlign: 'center',
-                    fontSize: 18,
-                    paddingTop: 50
-                }}>
+                <div className={`${stylePrefix}-motto`}>
                     {item.motto}
                 </div>
             </div>
