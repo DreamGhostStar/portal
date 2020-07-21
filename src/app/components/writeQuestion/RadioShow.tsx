@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Radio } from 'antd';
 import { WriteQuestionInputConfig } from './QuestionContent';
+import 'app/styles/createQuestion/commonShow.scss'
+
+const stylePrefix = 'create-common'
 
 export default function RadioShow({ index, title, options, isSubmit, handleData, id, isRequired }: WriteQuestionInputConfig) {
     const [value, setValue] = useState(null)
@@ -37,9 +40,7 @@ export default function RadioShow({ index, title, options, isSubmit, handleData,
                 {
                     options && options.map((item, index) => {
                         return (
-                            <div key={index} style={{
-                                paddingBottom: 20
-                            }}>
+                            <div key={index} className={`${stylePrefix}-radio-item`}>
                                 <Radio value={index}>{item}</Radio>
                             </div>
                         )

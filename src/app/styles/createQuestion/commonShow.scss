@@ -1,0 +1,37 @@
+$file-prefix: 'create-common';
+
+.#{$file-prefix}-radio-check-layout {
+    font-size: 30px;
+    padding-left: 50px;
+}
+
+.#{$file-prefix}-single-multiline-layout {
+    font-size: 30px;
+    padding-left: 50px;
+    padding-bottom: 50px;
+}
+
+.#{$file-prefix}-header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .#{$file-prefix}-number {
+        font-weight: bold;
+    }
+
+    .#{$file-prefix}-stress-sign {
+        color: #f00;
+    }
+}
+
+.#{$file-prefix}-check-item {
+    padding-bottom: 10px;
+}
+
+.#{$file-prefix}-radio-item {
+    padding-bottom: 20px;
+}
+
+.#{$file-prefix}-single-multiline-input {
+    width: 900px;
+}

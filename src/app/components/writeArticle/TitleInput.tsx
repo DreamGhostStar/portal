@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
+import 'app/styles/edit/titleInput.scss'
+
+const stylePrefix = 'edit-titleInput'
 
 interface TitleInputConfig {
     title: string,
@@ -39,58 +42,27 @@ export default function TitleInput({ title, saveTitle }: TitleInputConfig) {
         event.preventDefault()
     }
     return (
-        <div style={{
-            width: 1000,
-            marginBottom: 50,
-            position: 'relative',
-        }}>
+        <div className={`${stylePrefix}-layout`}>
             <div
                 style={{
-                    width: 100,
-                    fontSize: 30,
-                    textIndent: 40,
-                    position: 'absolute',
                     top: (isFocus ? -45 : 20),
-                    transitionDuration: '.3s',
-                    zIndex: 3,
-                    cursor: 'auto'
                 }}
+                className={`${stylePrefix}-title`}
                 onMouseDown={(event) => handleMouseDown(event)}
                 onClick={handleClick}
             >
                 标题
             </div>
-            <div style={{
-                width: 1000,
-                backgroundColor: '#000',
-                height: 2,
-                marginBottom: 10,
-                position: 'relative',
-                zIndex: 5
-            }}></div>
+            <div className={`${stylePrefix}-back-1`}></div>
             <input
                 type="text"
-                style={{
-                    width: 1000,
-                    outline: 0,
-                    border: 0,
-                    textIndent: 40,
-                    height: 60,
-                    fontSize: 30,
-                    backgroundColor: '#eee'
-                }}
+                className={`${stylePrefix}-input`}
                 defaultValue={title}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 ref={inputRef}
             />
-            <div style={{
-                width: 1000,
-                backgroundColor: '#000',
-                height: 2,
-                marginTop: 10,
-                marginBottom: 40
-            }}></div>
+            <div className={`${stylePrefix}-back-2`}></div>
         </div>
     )
 }

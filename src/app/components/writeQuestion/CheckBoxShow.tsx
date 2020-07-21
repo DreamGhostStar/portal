@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Checkbox } from 'antd';
 import { deepCopy } from '../common/utils';
 import { WriteQuestionInputConfig } from './QuestionContent';
+import 'app/styles/createQuestion/commonShow.scss'
+import 'app/styles/createQuestion/checkBoxShow.scss'
+
+const stylePrefix = 'create-common'
+const styleUniquePrefix = 'create-checkBox'
 
 export default function CheckBoxShow({ index, title, options, isSubmit, handleData, id, isRequired }: WriteQuestionInputConfig) {
     const [value, setValue] = useState<any[]>([])
@@ -21,21 +26,12 @@ export default function CheckBoxShow({ index, title, options, isSubmit, handleDa
         }
     }, [isSubmit])
     return (
-        <div style={{
-            fontSize: 30,
-            paddingLeft: 50
-        }}>
-            <div style={{
-                paddingTop: 20,
-            }}>
-                <span style={{
-                    fontWeight: 'bold'
-                }}>{`${index + 1}. `}</span>
+        <div className={`${stylePrefix}-radio-check-layout`}>
+            <div className={`${styleUniquePrefix}-header`}>
+                <span className={`${styleUniquePrefix}-number`}>{`${index + 1}. `}</span>
                 <span>{title}</span>
                 {
-                    isRequired && <span style={{
-                        color: '#f00'
-                    }}>
+                    isRequired && <span className={`${styleUniquePrefix}-stress-sign`}>
                         *
                     </span>
                 }
@@ -43,9 +39,7 @@ export default function CheckBoxShow({ index, title, options, isSubmit, handleDa
             {
                 options && options.map((item: any, index: number) => {
                     return (
-                        <div key={index} style={{
-                            paddingBottom: 10
-                        }}>
+                        <div key={index} className={`${styleUniquePrefix}-check-item`}>
                             <Checkbox onChange={() => onChange(index)}>{item}</Checkbox>
                         </div>
                     )

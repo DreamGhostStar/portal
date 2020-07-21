@@ -1,0 +1,16 @@
+$file-prefix: 'create-questionContent';
+
+.#{$file-prefix}-layout {
+    background-color: #efe;
+    width: 1200px;
+    margin: 0 auto;
+
+    .#{$file-prefix}-btn {
+        width: 100px;
+        height: 40px;
+        position: relative;
+        left: 50%;
+        margin-left: -50px;
+        margin-bottom: 50px;
+    }
+}

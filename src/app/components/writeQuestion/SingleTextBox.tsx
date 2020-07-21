@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Input } from 'antd';
 import { WriteQuestionInputConfig } from './QuestionContent';
+import 'app/styles/createQuestion/commonShow.scss'
+
+const stylePrefix = 'create-common'
 
 export default function SingleTextBox({ index, title, isSubmit, handleData, id, isRequired }: WriteQuestionInputConfig) {
     const [value, setValue] = useState('')
@@ -13,30 +16,21 @@ export default function SingleTextBox({ index, title, isSubmit, handleData, id, 
         }
     }, [isSubmit])
     return (
-        <div style={{
-            fontSize: 30,
-            paddingLeft: 50,
-            paddingBottom: 50
-        }}>
-            <div style={{
-                paddingTop: 20,
-                paddingBottom: 20
-            }}>
-                <span style={{
-                    fontWeight: 'bold'
-                }}>{`${index + 1}. `}</span>
+        <div className={`${stylePrefix}-single-multiline-layout`}>
+            <div className={`${stylePrefix}-header`}>
+                <span className={`${stylePrefix}-header`}>{`${index + 1}. `}</span>
                 <span>{title}</span>
                 {
-                    isRequired && <span style={{
-                        color: '#f00'
-                    }}>
+                    isRequired && <span className={`${stylePrefix}-stress-sign`}>
                         *
                     </span>
                 }
             </div>
-            <Input placeholder='写点什么吧' style={{
-                width: 900
-            }} onChange={(e) => onChange(e)} />
+            <Input
+                placeholder='写点什么吧'
+                className={`${stylePrefix}-single-multiline-input`}
+                onChange={(e) => onChange(e)}
+            />
         </div>
     )
 }

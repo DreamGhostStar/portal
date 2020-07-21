@@ -5,18 +5,21 @@ import SingleTextBox from './SingleTextBox';
 import MultilineShow from './MultilineShow';
 import { Button } from 'antd';
 import { deepCopy } from '../common/utils';
+import 'app/styles/createQuestion/questionContent.scss'
+
+const stylePrefix = 'create-questionContent'
 
 interface QuestionContentConfig {
     questionContent: any
 }
 
 export interface WriteQuestionInputConfig {
-    index: number, 
-    title: string, 
-    options?: any[], 
-    isSubmit: boolean, 
-    handleData: any, 
-    id: number, 
+    index: number,
+    title: string,
+    options?: any[],
+    isSubmit: boolean,
+    handleData: any,
+    id: number,
     isRequired: boolean
 }
 
@@ -43,11 +46,7 @@ export default function QuestionContent({ questionContent }: QuestionContentConf
         setQuestionResult(tempQuestionResult)
     }
     return (
-        <div style={{
-            backgroundColor: '#efe',
-            width: 1200,
-            margin: '0 auto'
-        }}>
+        <div className={`${stylePrefix}-layout`}>
             {
                 // 判断渲染各基本组件
                 questionContent.map((item: any, index: number) => {
@@ -105,14 +104,7 @@ export default function QuestionContent({ questionContent }: QuestionContentConf
                     return temp;
                 })
             }
-            <Button type="primary" style={{
-                width: 100,
-                height: 40,
-                position: 'relative',
-                left: '50%',
-                marginLeft: -50,
-                marginBottom: 50
-            }} onClick={() => { setIsSubmit(true) }}>提交</Button>
+            <Button type="primary" className={`${stylePrefix}-btn`} onClick={() => { setIsSubmit(true) }}>提交</Button>
         </div>
     )
 }

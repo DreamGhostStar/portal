@@ -1,0 +1,17 @@
+$file-prefix: 'create-checkBox';
+
+.#{$file-prefix}-header {
+    padding-top: 20px;
+
+    .#{$file-prefix}-number {
+        font-weight: bold;
+    }
+
+    .#{$file-prefix}-stress-sign {
+        color: #f00;
+    }
+}
+
+.#{$file-prefix}-check-item {
+    padding-bottom: 10px;
+}

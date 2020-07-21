@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Input } from 'antd';
 import { WriteQuestionInputConfig } from './QuestionContent';
+import 'app/styles/createQuestion/commonShow.scss'
 
+const stylePrefix = 'create-common'
 const { TextArea } = Input;
 
 export default function MultilineShow({ index, title, isSubmit, handleData, id, isRequired }: WriteQuestionInputConfig) {
@@ -37,9 +39,12 @@ export default function MultilineShow({ index, title, isSubmit, handleData, id, 
                     </span>
                 }
             </div>
-            <TextArea rows={5} placeholder="写点什么吧" style={{
-                width: 900
-            }} onChange={(e) => handleChange(e)} />
+            <TextArea
+                rows={5}
+                placeholder="写点什么吧"
+                className={`${stylePrefix}-single-multiline-input`}
+                onChange={(e) => handleChange(e)}
+            />
         </div>
     )
 }
