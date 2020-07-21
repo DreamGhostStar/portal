@@ -2,7 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Select, Tooltip } from 'antd';
 import { deepCopy } from '../common/utils';
 import { IconFont } from '../common/config';
+import 'app/styles/question/common.scss'
 
+const styleCommonPrefix = 'question-common'
 const { Option } = Select;
 interface EditSIngleConfig {
     item: any,
@@ -57,26 +59,14 @@ export default function EditSIngle({ item, handleInputData, isSubmit, index }: E
         }
     }, [isSubmit, isSubmitInThis])
     return (
-        <div style={{
-            fontSize: 30,
-            paddingLeft: 50,
-            paddingBottom: 50,
-            position: 'relative'
-        }}>
-            <div style={{
-                paddingTop: 20,
-                paddingBottom: 20
-            }}>
-                <span style={{
-                    fontWeight: 'bold'
-                }}>{`${index + 1}. `}</span>
+        <div className={`${styleCommonPrefix}-layout`}>
+            <div className={`${styleCommonPrefix}-header`}>
+                <span className={`${styleCommonPrefix}-number`}>{`${index + 1}. `}</span>
                 <input
                     style={{
                         backgroundColor: (isTitleClick ? '#eee' : '#fff'),
-                        outline: 'none',
-                        border: 'none',
-                        width: 80
                     }}
+                    className={`${styleCommonPrefix}-title-input`}
                     onClick={() => { setIsTitleClick(true) }}
                     value={obj.title}
                     onChange={(e) => handleTitleChange(e)}
@@ -88,35 +78,15 @@ export default function EditSIngle({ item, handleInputData, isSubmit, index }: E
                     <Option value='必填'>必填</Option>
                 </Select>
             </div>
-            <div style={{
-                border: '1px solid #ccc',
-                height: 30,
-                width: 900,
-                color: '#ccc',
-                borderRadius: 5,
-                fontSize: 14,
-                paddingLeft: 20,
-                lineHeight: '30px'
-            }}>
+            <div className={`${styleCommonPrefix}-placeholder`}>
                 写点什么吧
             </div>
-            <div style={{
-                width: 100,
-                display: 'flex',
-                justifyContent: 'space-between',
-                position: 'absolute',
-                right: 0,
-                marginRight: 40
-            }}>
+            <div className={`${styleCommonPrefix}-footer`}>
                 <Tooltip title="重置">
-                    <IconFont type='anticonzhongzhi' style={{
-                        color: '#ccc'
-                    }} onClick={handleReset} />
+                    <IconFont type='anticonzhongzhi' className={`${styleCommonPrefix}-icon`} onClick={handleReset} />
                 </Tooltip>
                 <Tooltip title="删除">
-                    <IconFont type='anticoncha' style={{
-                        color: '#ccc'
-                    }} />
+                    <IconFont type='anticoncha' className={`${styleCommonPrefix}-icon`} />
                 </Tooltip>
             </div>
         </div>

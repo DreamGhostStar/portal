@@ -2,13 +2,17 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Select, Tooltip } from 'antd';
 import { deepCopy } from '../common/utils';
 import { IconFont } from '../common/config';
+import 'app/styles/question/common.scss'
+import 'app/styles/question/editCheckBox.scss'
 
+const styleCommonPrefix = 'question-common'
+const styleUniquePrefix = 'question-editCheckBox'
 const { Option } = Select;
 
 interface EditCheckBoxConfig {
-    item: any, 
-    handleInputData: any, 
-    isSubmit: boolean, 
+    item: any,
+    handleInputData: any,
+    isSubmit: boolean,
     index: number
 }
 
@@ -73,25 +77,14 @@ export default function EditCheckBox({ item, handleInputData, isSubmit, index }:
         }
     }, [isSubmit, isSubmitInThis])
     return (
-        <div style={{
-            fontSize: 30,
-            paddingLeft: 50,
-            position: 'relative',
-            paddingBottom: 40
-        }}>
-            <div style={{
-                paddingTop: 20,
-            }}>
-                <span style={{
-                    fontWeight: 'bold'
-                }}>{`${obj.index + 1}. `}</span>
+        <div className={`${styleCommonPrefix}-layout`}>
+            <div className={`${styleUniquePrefix}-header`}>
+                <span className={`${styleCommonPrefix}-number`}>{`${obj.index + 1}. `}</span>
                 <input
                     style={{
                         backgroundColor: (isTitleClick ? '#eee' : '#fff'),
-                        outline: 'none',
-                        border: 'none',
-                        width: 80
                     }}
+                    className={`${styleCommonPrefix}-title-input `}
                     onClick={() => { setIsTitleClick(true) }}
                     value={obj.title}
                     onChange={(e) => handleTitleChange(e)}
@@ -106,34 +99,20 @@ export default function EditCheckBox({ item, handleInputData, isSubmit, index }:
             {
                 obj.options.map((item: any, index: number) => {
                     return (
-                        <div key={index} style={{
-                            height: 40,
-                            display: 'flex',
-                            paddingLeft: 30,
-                            paddingTop: 10,
-                            paddingBottom: 10,
-                            justifyContent: 'space-between',
-                            marginBottom: 10,
-                            marginTop: 10,
-                            backgroundColor: (clickIndex === index ? '#eee' : '#fff')
-                        }} onClick={() => { setClickIndex(index) }}>
-                            <div style={{
-                                borderRadius: 3,
-                                width: 20,
-                                height: 20,
-                                border: '1px solid #ccc'
-                            }}></div>
+                        <div
+                            key={index}
+                            style={{
+                                backgroundColor: (clickIndex === index ? '#eee' : '#fff')
+                            }}
+                            className={`${styleCommonPrefix}-main-item`}
+                            onClick={() => setClickIndex(index)}
+                        >
+                            <div className={`${styleCommonPrefix}-value-input-layout`}></div>
                             <input
                                 style={{
-                                    textAlign: 'left',
-                                    fontSize: 18,
-                                    lineHeight: '20px',
-                                    height: 20,
-                                    width: 1080,
-                                    outline: 'none',
-                                    border: 'none',
                                     backgroundColor: (clickIndex === index ? '#eee' : '#fff')
                                 }}
+                                className={`${styleCommonPrefix}-value-input`}
                                 onChange={(e) => onChange(e, index)}
                                 value={item}
                             />
@@ -141,23 +120,12 @@ export default function EditCheckBox({ item, handleInputData, isSubmit, index }:
                     )
                 })
             }
-            <div style={{
-                width: 100,
-                display: 'flex',
-                justifyContent: 'space-between',
-                position: 'absolute',
-                right: 0,
-                marginRight: 40
-            }}>
+            <div className={`${styleCommonPrefix}-footer`}>
                 <Tooltip title="重置">
-                    <IconFont type='anticonzhongzhi' style={{
-                        color: '#ccc'
-                    }} onClick={handleReset} />
+                    <IconFont type='anticonzhongzhi' className={`${styleCommonPrefix}-icon`} onClick={handleReset} />
                 </Tooltip>
                 <Tooltip title="删除">
-                    <IconFont type='anticoncha' style={{
-                        color: '#ccc'
-                    }} />
+                    <IconFont type='anticoncha' className={`${styleCommonPrefix}-icon`} />
                 </Tooltip>
             </div>
         </div>

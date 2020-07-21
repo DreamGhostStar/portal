@@ -99,14 +99,7 @@ export default function CreateQuestionContent() {
                 handleInputData={handleInputData}
                 isSubmit={isSubmit}
             />
-            <div style={{
-                width: 1200,
-                backgroundColor: '#fff',
-                boxShadow: '0 2px 4px 0 rgba(0,0,0,.1)',
-                marginTop: 20,
-                paddingTop: 20,
-                paddingBottom: 20
-            }}>
+            <div className={`${stylePrefix}-main`}>
                 <div
                     style={{
                         border: (addIsMouse ? '2px dashed #00CCFF' : '2px dashed #ccc'),
@@ -147,15 +140,12 @@ export default function CreateQuestionContent() {
                 </Radio>
                 </Radio.Group>
             </Modal>
-            <Button type="primary" disabled={addSubjectList.length > 0 ? false : true} style={{
-                marginBottom: 40,
-                marginTop: 40,
-                height: 30,
-                width: 80,
-                position: 'relative',
-                left: '50%',
-                marginLeft: -40
-            }} onClick={() => { setIsSubmit(true) }}>发布</Button>
+            <Button
+                type="primary"
+                disabled={addSubjectList.length > 0 ? false : true}
+                onClick={() => setIsSubmit(true)}
+                className={`${stylePrefix}-btn`}
+            >发布</Button>
         </div>
     )
 }
