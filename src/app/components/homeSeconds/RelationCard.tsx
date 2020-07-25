@@ -8,7 +8,7 @@ export default function RelationCard({ data }: { data: any }) {
     return (
         <div
             style={{
-                height: (data.id === 1 ? 260 : 220),
+                height: (data.id === 1 ? 270 : 220),
                 top: (mouseIndex === data.id ? -30 : 0)
             }}
             className={`${stylePrefix}-main`}

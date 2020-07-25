@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react'
 import store from '../../../redux/store'
 import { Provider } from 'react-redux'
 import PaginationItem_container from '../../../containers/PaginationItem_container'
-import staticData from 'static/articleContentList.json'
 import { IconFont, info } from '../common/config'
 import 'app/styles/blog/pagination.scss'
+import pageNumber from 'model/page.json' // TODO: 需删除
 
 const stylePrefix = 'blog-pagination'
 
 export default function Pagination(props: any) {
-    const [pages, setPages] = useState(staticData.pages) // TODO: 需要获取后端分页数量的数据
+    const [pages, setPages] = useState(1)
     const [currentPage, setCurrentPage] = useState(1)
     const [type, setType] = useState(0)
-    const [isMouse, setIsMouse] = useState(new Array(2).fill(false))
     useEffect(() => {
         store.subscribe(() => { // 监听redux变化
             let obj = store.getState();
@@ -24,15 +23,14 @@ export default function Pagination(props: any) {
                 setCurrentPage(obj.page)
             }
         })
+        getPages()
     }, [])
+    const getPages = () => {
+        setPages(pageNumber.pages)
+    }
     // 处理分页item传递的数据
     const handlePaginationItemData = (index: number) => {
         setCurrentPage(index)
-    }
-    const handleMosueOver = (index: number) => {
-        let tempIsMouse = new Array(2).fill(false);
-        tempIsMouse[index] = true;
-        setIsMouse(tempIsMouse)
     }
     // 点击后退按钮当前页数减一
     const retreatOnePage = () => {
@@ -60,11 +58,13 @@ export default function Pagination(props: any) {
         if (pages <= 5) {
             for (let index = 1; index < pages + 1; index++) {
                 items.push(
-                    <IconFont
-                        type='anticonshenglve'
-                        className={`${stylePrefix}-omit-icon`}
-                        key={6}
-                    />
+                    <Provider store={store} key={index - 1}>
+                        <PaginationItem_container
+                            index={index}
+                            handlePaginationItemData={handlePaginationItemData}
+                            currentPage={currentPage}
+                        />
+                    </Provider>
                 )
             }
         } else {
@@ -140,44 +140,25 @@ export default function Pagination(props: any) {
     return (
         <div className={`removeFloat ${stylePrefix}-layout`}>
             <div className={`${stylePrefix}-main`}>
-                <IconFont
-                    type='anticonqianjin-copy'
-                    style={{
-                        border: (isMouse[0] ? '1px solid #00CCFF' : '1px solid #ddd'),
-                        color: (isMouse[0] ? '#00CCFF' : '#000'),
-                    }}
-                    className={`${stylePrefix}-go-icon`}
-                    onMouseOver={() => handleMosueOver(0)}
-                    onMouseOut={() => { new Array(2).fill(false) }}
-                    onClick={retreatOnePage}
-                />
+                {
+                    pages !== 1 && <IconFont
+                        type='anticonqianjin-copy'
+                        className={`${stylePrefix}-go-icon`}
+                        onClick={retreatOnePage}
+                    />
+                }
                 {/* 生成分页列表数据 */}
                 {
                     generatePaginnation()
                 }
-                <IconFont
-                    type='anticonqianjin'
-                    style={{
-                        border: (isMouse[1] ? '1px solid #00CCFF' : '1px solid #ddd'),
-                        color: (isMouse[1] ? '#00CCFF' : '#000'),
-                    }}
-                    className={`${stylePrefix}-go-icon`}
-                    onMouseOver={() => handleMosueOver(1)}
-                    onMouseOut={() => { setIsMouse(new Array(2).fill(false)) }}
-                    onClick={advanceOnePage}
-                />
+                {
+                    pages !== 1 && <IconFont
+                        type='anticonqianjin'
+                        className={`${stylePrefix}-go-icon`}
+                        onClick={advanceOnePage}
+                    />
+                }
             </div>
         </div>
     )
 }
-// componentWillReceiveProps(nextProps) {
-//     var data;
-
-//     if (typeof nextProps.data === 'number') {
-//         data = nextProps.data;
-//     }
-
-//     if (data) {
-//         this.handlePaginationItemData(data - 1);
-//     }
-// }

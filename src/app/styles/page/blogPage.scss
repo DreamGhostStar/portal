@@ -2,7 +2,7 @@ $file-prefix: 'page-blog';
 
 .#{$file-prefix}-layout {
     position: relative;
-    z-index: 99px;
+    z-index: 99;
 
     .#{$file-prefix}-main {
         margin-top: 20px;

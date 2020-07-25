@@ -1,0 +1,19 @@
+[
+    {
+        "articleID": 1,
+        "author": {
+            "id": 1,
+            "username": "youchen",
+            "avatar": "http://tf5.youchen-blog.cn/avatar.jpg",
+            "nickname": "youchen昵称",
+            "motto": "座右铭",
+            "year": "2018"
+            },
+        "title": "xxx",
+        "abstract": "概要",
+        "createTime": "1590075162594",
+        "updateTime": "1590075162594",
+        "deleteTime": "1590075162594",
+        "isTop": true
+    }
+]

@@ -10,18 +10,21 @@ interface MenuItemConfig {
     display: any[],
     index: number,
     clickIndex: number,
-    item: any
+    item: any,
+    transfrom_type: any
 }
 
-export default function MenuItem({ handleItemData, display, index, clickIndex, item }: MenuItemConfig, props: any) {
+export default function MenuItem({ handleItemData, display, index, clickIndex, item, transfrom_type }: MenuItemConfig, props: any) {
     let history = useHistory();
     const [isMouse, setIsMouse] = useState(false)
     const handleClick = (index: number) => {
         // 传递给父组件
         handleItemData(index);
         // 传递store
-        props.transfrom_type(index);
-        history.push(`/blog/undefined`);
+        transfrom_type(index);
+        if (window.location.hash !== '#/blog/undefined') {
+            history.push(`/blog/undefined`);
+        }
     }
     return (
         <div

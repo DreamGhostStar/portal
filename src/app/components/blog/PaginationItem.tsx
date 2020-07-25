@@ -4,15 +4,16 @@ import '../../styles/blog/paginationItem.scss'
 interface PaginationItemConfig {
     currentPage: number,
     index: number,
-    handlePaginationItemData: any
+    handlePaginationItemData: any,
+    transfrom_currentPage: any
 }
 
-export default function PaginationItem({ currentPage, index, handlePaginationItemData }: PaginationItemConfig, props: any) {
+export default function PaginationItem({ currentPage, index, handlePaginationItemData, transfrom_currentPage }: PaginationItemConfig) {
     const [isMouse, setIsMouse] = useState(false)
     const handleClick = () => {
         handlePaginationItemData(index);
         // 传给父组件，改变isClick数组的值
-        props.transfrom_currentPage(index);
+        transfrom_currentPage(index);
     }
     return (
         <div

@@ -1,4 +1,5 @@
 import store from "redux/store";
+import cookies from 'react-cookies'
 
 export const formatTime = (createTime: string): string => {
     let tempDate = new Date(Number(createTime));
@@ -27,4 +28,8 @@ export const simpleFormatTime = (createTime: string): string => {
 
 export const deepCopy = (variate: any): any => {
     return JSON.parse(JSON.stringify(variate))
+}
+
+export const getToken = (): string => {
+    return cookies.load('Authorization')
 }

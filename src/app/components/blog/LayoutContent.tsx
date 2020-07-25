@@ -10,18 +10,14 @@ import { _getBlog, _deleteArticle } from '../common/Api';
 import { success, error } from '../common/config';
 import Loading2 from '../common/Loading2';
 
-export default function LayoutContent({}) {
+import articleList from 'model/artileList.json' // TODO: 需删除
+
+export default function LayoutContent({ }) {
     const [article, setArticle] = useState<any[]>([])
-    // TODO: state中的page与type应该不需要，等后端服务开启后需要检查
-    const [page, setPage] = useState(store.getState().page)
-    const [type, setType] = useState(store.getState().type)
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         store.subscribe(() => { // 监听redux变化
             let obj = store.getState();
-
-            setPage(obj.page)
-            setType(obj.type)
             setLoading(true)
 
             getBlog(obj.type + 1, obj.page);
@@ -30,23 +26,26 @@ export default function LayoutContent({}) {
     }, [])
     // 获取列表文章接口
     const getBlog = async (tempType: number, tempPage: number) => {
-        const res = await _getBlog({
-            type: tempType,
-            page: tempPage
-        });
+        // TODO: 与后端对接
+        setArticle(articleList)
+        setLoading(false)
+        // const res = await _getBlog({
+        //     type: tempType,
+        //     page: tempPage
+        // });
 
-        if (res) {
-            if (res.data.code === 0) {
-                if (res.data.data.article.length === 0) {
-                    setArticle([])
-                    setLoading(false)
-                } else {
-                    setArticle(res.data.data.article)
-                    setPage(tempPage)
-                    setLoading(false)
-                }
-            }
-        }
+        // if (res) {
+        //     if (res.data.code === 0) {
+        //         if (res.data.data.article.length === 0) {
+        //             setArticle([])
+        //             setLoading(false)
+        //         } else {
+        //             setArticle(res.data.data.article)
+        //             setPage(tempPage)
+        //             setLoading(false)
+        //         }
+        //     }
+        // }
     }
     // 删除文章文章接口
     const deleteArticle = async (articleID: number, deleteTitle: string) => {

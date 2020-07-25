@@ -2,28 +2,40 @@ import React, { useState, useRef, useEffect } from 'react'
 import { HashRouter as Router, Link } from 'react-router-dom'
 import '../../styles/blog/blogHeader.scss'
 import AvatorShowContainer from '../../../containers/AvatorShow_container';
-import cookies from 'react-cookies'
 import logo from 'images/TechF5veBlack.png'
 
 import store from '../../../redux/store'
 import { Provider } from 'react-redux'
 import { SearchOutlined } from '@ant-design/icons';
-interface activeIndexConfig {
-    activeIndex: number
+import { _getUserDetail } from '../common/Api';
+
+import userInfo from 'model/userInfo.json' // TODO: 假数据，需删除
+interface BlogNavConfig {
+    activeIndex: number,
+    transform_user: any
+}
+interface userConfig {
+    id: number,
+    username: string,
+    avatar: string,
+    motto: string,
+    nickname: string,
+    email: string,
+    year: string,
+    role: number,
+    permissions: string[],
+    token: string
 }
 
-export default function BlogNav({ activeIndex }: activeIndexConfig) {
+export default function BlogNav({activeIndex, transform_user}: BlogNavConfig) {
     const [displayActive, setDisplayActive] = useState(new Array(3).fill(false).fill(true, activeIndex, activeIndex + 1))
     const [isFocus, setIsFoucus] = useState(false)
-    const [isMouse, setIsMouse] = useState(false)
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState<null | userConfig>(store.getState().user)
     const lineRef = useRef(null)
     const inputRef = useRef(null)
 
     useEffect(() => {
-        store.subscribe(() => { // 监听redux变化
-            setUser(store.getState().user)
-        })
+        getUser();
     }, [])
 
     const addActive = (index: number) => {
@@ -51,7 +63,7 @@ export default function BlogNav({ activeIndex }: activeIndexConfig) {
     }
 
     const handleIsLogin = () => {
-        if (cookies.load('Authorization')) {
+        if (user) {
             return (
                 <Provider store={store}>
                     <AvatorShowContainer top={1} labelTop={60} />
@@ -65,6 +77,18 @@ export default function BlogNav({ activeIndex }: activeIndexConfig) {
                 </Link>
             )
         }
+    }
+    const getUser = async () => {
+        transform_user(userInfo)
+        setUser(userInfo)
+        // TODO: 与后端对接
+        // const res = await _getUserDetail();
+
+        // if (res) {
+        //     if (res.data.code === 0) {
+        //         props.transform_user(res.data.data)
+        //     }
+        // }
     }
     return (
         <header className='blogNav'>

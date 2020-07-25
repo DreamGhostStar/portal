@@ -57,3 +57,9 @@ export const maxLength: number = 16
 export const QINIU_SERVER: string = 'http://upload.qiniup.com'
 
 export const BASE_QINIU_URL: string = 'http://q8oal0d13.bkt.clouddn.com/'
+
+export interface storeConfig {
+    type: number,
+    page: number,
+    user: any
+}

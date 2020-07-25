@@ -1,0 +1,12 @@
+{
+    "id": 1,
+    "username": "youchen",
+    "avatar": "http://tf5.youchen-blog.cn/avatar.jpg",
+    "motto": "座右铭",
+    "nickname": "youchen",
+    "email": "邮箱",
+    "year": "2018",
+    "role": 1,
+    "permissions": ["权限1", "权限2"],
+    "token": "xxx"
+}

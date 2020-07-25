@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import '../../styles/blog/layoutContent.scss'
+import '../../styles/blog/blogSider.scss'
 import MenuItem_container from '../../../containers/MenuItem_container'
 import store from '../../../redux/store'
 import { Provider } from 'react-redux'

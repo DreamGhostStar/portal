@@ -2,21 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { HashRouter as Router, Link } from 'react-router-dom'
 import { Badge } from 'antd';
 import cookies from 'react-cookies'
-import { useHistory } from 'react-router-dom'
 import '../../styles/comon/avatarShow.scss'
 
 import { error } from './config';
 import { _getUserDetail, _getMessageNum } from './Api';
+import store from 'redux/store';
 
 interface AvatorShowConfig {
     top?: number, 
-    labelTop?: number
+    labelTop?: number,
+    remove_user: any
 }
 
-export default function AvatorShow({ top, labelTop }: AvatorShowConfig, props: any) {
-    let history = useHistory();
+export default function AvatorShow(props: AvatorShowConfig) {
     const [isMouseAvator, setIsMouseAvator] = useState(false)
-    const [avatar, setAvatar] = useState('')
     const [unreadNum, setUnreadNum] = useState(0)
     const getUnreadNum = async () => {
         const res = await _getMessageNum();
@@ -26,21 +25,6 @@ export default function AvatorShow({ top, labelTop }: AvatorShowConfig, props: a
                 setUnreadNum(res.data.data)
             } else {
                 error(res.data.message)
-            }
-        }
-    }
-    const getUser = async () => {
-        const res = await _getUserDetail();
-
-        if (res) {
-            if (res.data.code === 0) {
-                props.transform_user(res.data.data)
-                setAvatar(res.data.data.avatar)
-            } else {
-                error('token验证失败，页面将在1秒后跳转至登录页面')
-                setTimeout(() => {
-                    history.push('/login')
-                }, 1000);
             }
         }
     }
@@ -54,10 +38,10 @@ export default function AvatorShow({ top, labelTop }: AvatorShowConfig, props: a
     // 判断是否头像处的未读消息数
     const judgeShowUnreadMessageNum = () => {
         if (!unreadNum) {
-            return <img src={avatar} alt="头像" className='avatarImg' />
+            return <img src={(store.getState().user as any).avatar} alt="头像" className='avatarImg' />
         } else {
             return <Badge count={unreadNum} offset={[5, 12]}>
-                <img src={avatar} alt="头像" className='avatarImg' />
+                <img src={(store.getState().user as any).avatar} alt="头像" className='avatarImg' />
             </Badge>
         }
     }
@@ -73,13 +57,12 @@ export default function AvatorShow({ top, labelTop }: AvatorShowConfig, props: a
         }
     }
     useEffect(() => {
-        getUser() // 通过token获取用户数据
         getUnreadNum() // 获取未读消息数量并且更新状态
     }, [])
     return (
         <div
             style={{
-                paddingTop: (top || 10),
+                paddingTop: (props.top || 10),
             }}
             className="removeFloat avatarShow"
             onMouseOver={() => { setIsMouseAvator(true) }}
@@ -90,7 +73,7 @@ export default function AvatorShow({ top, labelTop }: AvatorShowConfig, props: a
             }
             <div
                 style={{
-                    top: (labelTop || 10),
+                    top: (props.labelTop || 10),
                     display: (isMouseAvator ? 'block' : 'none'),
                 }}
                 onMouseOver={() => { setIsMouseAvator(true) }}

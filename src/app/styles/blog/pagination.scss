@@ -32,4 +32,11 @@ $file-prefix: 'blog-pagination';
     background-color: #fff;
     border-radius: 5px;
     cursor: pointer;
+    border: 1px solid #ddd;
+    color: #000;
+
+    &:hover {
+        border: 1px solid #00CCFF;
+        color: #00ccff;
+    }
 }
