@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Upload } from 'antd'
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import { _getPictureToken } from './Api';
 import { error, BASE_QINIU_URL, QINIU_SERVER } from './config';
 import '../../styles/comon/uploadAvator.scss'

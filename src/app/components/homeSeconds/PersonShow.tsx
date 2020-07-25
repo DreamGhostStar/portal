@@ -2,21 +2,29 @@ import React, { useState } from 'react'
 import avatorURL from '../../../images/profile photo.jpg'
 import PersonDetailShow from '../common/PersonDetailShow';
 import 'app/styles/homeSeconds/personShow.scss'
+import { membersConfig } from './TableShowContent';
 const stylePrefix = 'home-personShow';
 
-export default function PersonShow({ item }: { item: any }) {
-    const [showDetail, setShowDetail] = useState(false)
-
-    const handleClick = () => {
-        setShowDetail(true)
+interface PersonShowConfig {
+    item: membersConfig,
+    showDetail: {
+        (member: membersConfig): void
     }
+}
 
-    const cancelShowDetail = () => {
-        setShowDetail(false)
-    }
+export default function PersonShow({ item, showDetail }: PersonShowConfig) {
+    // const [showDetail, setShowDetail] = useState(false)
+
+    // const handleClick = () => {
+    //     setShowDetail(true)
+    // }
+
+    // const cancelShowDetail = () => {
+    //     setShowDetail(false)
+    // }
     return (
         <>
-            <div className={`${stylePrefix}-main`} onClick={(handleClick)}>
+            <div className={`${stylePrefix}-main`} onClick={() => showDetail(item)}>
                 <img src={avatorURL} alt="头像" className={`${stylePrefix}-img`} />
                 <div className={`${stylePrefix}-words`}>
                     <div className={`${stylePrefix}-word-realname`}>
@@ -27,18 +35,11 @@ export default function PersonShow({ item }: { item: any }) {
                     </div>
                 </div>
             </div>
-            <div
-                style={{
-                    opacity: (showDetail ? 0.1 : 0),
-                    display: (showDetail ? 'block' : 'none'),
-                }}
-                className={`${stylePrefix}-shadow`}
-            ></div>
-            <div style={{
+            {/* <div style={{
                 display: (showDetail ? 'block' : 'none')
             }}>
                 <PersonDetailShow item={item} cancelShowDetail={cancelShowDetail} />
-            </div>
+            </div> */}
         </>
     )
 }

@@ -3,6 +3,7 @@ import PersonShow from './PersonShow';
 import Loading2 from '../common/Loading2';
 import membersData from 'static/members.json'
 import 'app/styles/homeSeconds/tableShowContent.scss'
+import PersonDetailShow from '../common/PersonDetailShow';
 const stylePrefix = 'home-tableShowContent';
 
 interface tableShowContentDataConfig {
@@ -10,11 +11,13 @@ interface tableShowContentDataConfig {
     yearStr: string
 }
 
-interface membersConfig { id: number; realName: string; motto: string; year: string; }
+export interface membersConfig { id: number; realName: string; motto: string; year: string; }
 
 export default function TableShowContent({ clickColumnID, yearStr }: tableShowContentDataConfig) {
     const [members, setMembers] = useState<membersConfig[]>([])
     const [loading, setLoading] = useState(false)
+    const [memberDetail, setMemberDetail] = useState<membersConfig | null>(null) // 展示的成员信息
+    const [showDetail, setShowDetail] = useState(false); // 是否打开成员展示
 
     useEffect(() => {
         setLoading(true)
@@ -33,6 +36,12 @@ export default function TableShowContent({ clickColumnID, yearStr }: tableShowCo
         setLoading(false)
     }, [clickColumnID, yearStr])
 
+    // 打开成员展示组件
+    const openMemberDetail = (member: membersConfig) => {
+        setMemberDetail(member);
+        setShowDetail(true)
+    }
+
     const judgeShowMember = () => {
         if (loading) {
             return <Loading2 />
@@ -45,9 +54,29 @@ export default function TableShowContent({ clickColumnID, yearStr }: tableShowCo
         if (members.length !== 0) {
             membersData = [];
             members.map((item, index) => {
-                membersData.push(<PersonShow key={index} item={item} />)
+                membersData.push(<PersonShow key={index} item={item} showDetail={openMemberDetail} />)
                 return null;
             })
+            membersData.push(
+                <>
+                    <div
+                        style={{
+                            opacity: (showDetail ? 0.1 : 0),
+                            display: (showDetail ? 'block' : 'none'),
+                        }}
+                        className={`${stylePrefix}-shadow`}
+                    ></div>
+                    {
+                        showDetail
+                            ? <div style={{
+                                display: (showDetail ? 'block' : 'none')
+                            }}>
+                                <PersonDetailShow item={(memberDetail as membersConfig)} cancelShowDetail={() => setShowDetail(false)} />
+                            </div>
+                            : <div></div>
+                    }
+                </>
+            )
         }
 
         return membersData;

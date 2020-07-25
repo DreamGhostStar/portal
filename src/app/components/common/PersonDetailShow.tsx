@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import avatorURL from '../../../images/profile photo.jpg'
 import { IconFont } from './config';
-import 'app/styles/comon/personDetailShow.scss'
+import 'app/styles/comon/personDatailShow.scss'
+import { membersConfig } from '../homeSeconds/TableShowContent';
 interface personDetailShowDataConfig {
     cancelShowDetail: any,
-    item: any
+    item: membersConfig
 }
 const stylePrefix = 'blog-commentShow'
 
@@ -25,10 +26,6 @@ export default function PersonDetailShow({ cancelShowDetail, item }: personDetai
                 </div>
                 <img src={avatorURL} alt="头像" className={`${stylePrefix}-avatar`} />
                 <div className={`${stylePrefix}-realName`}>{item.realName}</div>
-                <div className={`${stylePrefix}-type`}>
-                    <span>类别：</span>
-                    {item.type}
-                </div>
                 <div className={`${stylePrefix}-year`}>
                     <span>年份：</span>
                     {item.year}

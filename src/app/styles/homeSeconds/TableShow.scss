@@ -11,8 +11,8 @@
         .tableShow_sider {
             height: 550px;
             width: 150px;
-            overflow-x: hidden;
             overflow-y: hidden;
+            overflow-x: hidden;
 
             &:hover {
                 overflow-y: scroll;

@@ -35,13 +35,3 @@ $file-prefix: 'home-personShow';
         }
     }
 }
-
-.#{$file-prefix}-shadow {
-    background-color: #000;
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 199
-}
