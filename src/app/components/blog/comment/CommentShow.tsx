@@ -6,50 +6,83 @@ import '../../../styles/comment/commentShow.scss'
 import { error, success } from '../../common/config';
 import Loading2 from '../../common/Loading2';
 
+import commentList from 'model/comment.json'
+
 const stylePrefix = 'blog-commentShow'
 
 interface CommentShowConfig {
     articleID: number
 }
 
+export interface CommentItemInfoConfig {
+    commentID: number
+    createTime: string
+    content: string
+    commentNickname: string
+    userAvatar: string
+    userID: number
+    childrenComments: CommentItemChildrenInfoConfig[]
+}
+
+export interface CommentItemChildrenInfoConfig {
+    commentID: number
+    createTime: string
+    content: string
+    commentNickname: string
+    userAvatar: string
+    userID: number
+    parentID: number
+    parentuserID: number
+    parentNickname: string
+}
+
+
 export default function CommentShow({ articleID }: CommentShowConfig) {
-    const [commentData, setCommentData] = useState([])
+    const [commentData, setCommentData] = useState<CommentItemInfoConfig[]>([])
     const [isComment, setIsComment] = useState(false)
     const [value, setValue] = useState('')
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     const publishComment = async (articleID: number, content: string, userID: number, parentCommentID: number) => {
-        const res = await _publishComment({
+        console.log({
             articleID,
             content,
             userID,
             parentCommentID
         })
+        // const res = await _publishComment({
+        //     articleID,
+        //     content,
+        //     userID,
+        //     parentCommentID
+        // })
 
-        if (res) {
-            if (res.data.code === 0) {
-                success('评论成功')
-                getCommentList(articleID)
-            } else {
-                error(res.data.message)
-            }
-        }
+        // if (res) {
+        //     if (res.data.code === 0) {
+        //         success('评论成功')
+        //         getCommentList(articleID)
+        //     } else {
+        //         error(res.data.message)
+        //     }
+        // }
     }
 
     // 获取列表评论接口
     const getCommentList = async (articleID: number) => {
-        const res = await _getCommentList({
-            articleID
-        });
+        setCommentData(commentList)
+        // setLoading(true)
+        // const res = await _getCommentList({
+        //     articleID
+        // });
 
-        if (res) {
-            if (res.data.code === 0) {
-                setCommentData(res.data.data)
-                setLoading(false)
-            } else {
-                error(res.data.message)
-            }
-        }
+        // if (res) {
+        //     if (res.data.code === 0) {
+        //         setCommentData(res.data.data)
+        //         setLoading(false)
+        //     } else {
+        //         error(res.data.message)
+        //     }
+        // }
     }
 
     // 在input改变的时候，保存其值

@@ -7,16 +7,16 @@ import ChildrenComment from './ChildrenComment';
 import store from '../../../../redux/store'
 import { formatTime } from 'app/components/common/utils';
 import { info, IconFont } from 'app/components/common/config';
-const stylePrefix = 'blog-commentShow'
+import { CommentItemInfoConfig } from './CommentShow';
+const stylePrefix = 'blog-commentItem'
 interface CommentItemConfig {
-    item: any,
+    item: CommentItemInfoConfig,
     articleID: number,
     callback: any,
 }
 
 export default function CommentItem({ item, articleID, callback }: CommentItemConfig) {
     const [commentObjUserNickName, setCommentObjUserNickName] = useState('')
-    const [commentObjUserID, setCommentObjUserID] = useState<number | null>(null)
     const [isComment, setIsComment] = useState(false)
     const [isShowChildrenComments, setIsShowChildrenComments] = useState(false)
     const [commentParentID, setCommentParentID] = useState(item.commentID)
@@ -35,16 +35,15 @@ export default function CommentItem({ item, articleID, callback }: CommentItemCo
 
     // 处理点击子评论回复
     const handleComment = (id: number, nickname: string, parentID?: number) => { // id为评论人的id
-        setCommentObjUserID(id)
         setCommentObjUserNickName(nickname)
         setIsComment(true)
         setCommentParentID(parentID || commentParentID)
     }
 
     // 是否批量渲染子评论组件
-    const judgeShowChildrenComments = (item: any) => {
+    const judgeShowChildrenComments = (item: CommentItemInfoConfig) => {
         return (
-            item.childrenComments.map((childrenItem: any, index: number) => {
+            item.childrenComments.map((childrenItem, index: number) => {
                 return <ChildrenComment
                     key={index}
                     item={childrenItem}

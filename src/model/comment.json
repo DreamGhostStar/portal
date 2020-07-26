@@ -1,0 +1,34 @@
+[
+    {
+        "commentID": 11,
+        "createTime": "1590075162594",
+        "content": "父评论",
+        "commentNickname": "父评论作者",
+        "userAvatar": "http://tf5.youchen-blog.cn/avatar.jpg",
+        "userID": 2,
+        "childrenComments":[
+            {
+                "commentID": 21,
+                "createTime": "1590075162594",
+                "content": "子评论1",
+                "commentNickname": "子评论作者1",
+                "userAvatar": "http://tf5.youchen-blog.cn/avatar.jpg",
+                "userID": 1,
+                "parentID": 11,
+                "parentuserID": 2,
+                "parentNickname": "父评论作者"
+            },
+            {
+                "commentID": 22,
+                "createTime": "1590075162594",
+                "content": "子评论2",
+                "commentNickname": "子评论作者2",
+                "userAvatar": "http://tf5.youchen-blog.cn/avatar.jpg",
+                "userID": 4,
+                "parentID": 21,
+                "parentuserID": 1,
+                "parentNickname": "子评论作者1"
+            }
+        ]
+    }
+]

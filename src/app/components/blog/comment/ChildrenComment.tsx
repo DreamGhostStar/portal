@@ -3,19 +3,28 @@ import avatorURL from '../../../../images/profile photo.jpg'
 import { IconFont } from 'app/components/common/config'
 import { formatTime } from 'app/components/common/utils'
 import 'app/styles/comment/childrenComment.scss'
+import { CommentItemChildrenInfoConfig } from './CommentShow'
+import store from 'redux/store'
 
-const stylePrefix = 'blog-commentShow'
+const stylePrefix = 'blog-childrenComment'
 
 interface ChildrenCommentConfig {
     callback: any,
-    item: any,
+    item: CommentItemChildrenInfoConfig,
     isShowChildrenComments: boolean,
     parentCommentID: number
 }
 
 export default function ChildrenComment({ callback, item, isShowChildrenComments, parentCommentID }: ChildrenCommentConfig) {
     const handleComment = (id: number, nickname: string) => {
+        console.log(item.parentID, parentCommentID)
         callback(id, nickname, item.commentID)
+    }
+
+    // 删除评论
+    const deleteComment = async () => {
+        console.log(item.commentID)
+        // TODO：对接接口
     }
 
     const judgeShow = () => {
@@ -43,7 +52,25 @@ export default function ChildrenComment({ callback, item, isShowChildrenComments
                         <div className={`${stylePrefix}-createTime`}>{formatTime(item.createTime)}</div>
                     </div>
                     <div className={`${stylePrefix}-content`}>{item.content}</div>
-                    <IconFont type='anticonhuifu' className={`${stylePrefix}-icon`} onClick={() => handleComment(item.userID, item.commentNickname)} />
+                    <div className={`${stylePrefix}-icon-layout`}>
+                        <IconFont
+                            type='anticonhuifu'
+                            className={`${stylePrefix}-icon`}
+                            onClick={() => handleComment(item.userID, item.commentNickname)}
+                        />
+                        {
+                            store.getState().user
+                            && (store.getState().user as any).id === item.userID
+                            && <IconFont
+                                type='anticonicon_huabanfuben'
+                                style={{
+                                    fontSize: 18
+                                }}
+                                onClick={deleteComment}
+                                className={`${stylePrefix}-icon`}
+                            />
+                        }
+                    </div>
                 </div>
             </>
         )

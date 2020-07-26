@@ -1,4 +1,4 @@
-$file-prefix: 'blog-commentShow';
+$file-prefix: 'blog-childrenComment';
 
 .#{$file-prefix}-layout {
     background-color: #eee;
@@ -40,14 +40,18 @@ $file-prefix: 'blog-commentShow';
         .#{$file-prefix}-createTime {
             color: #bbb;
         }
+    }
 
-        .#{$file-prefix}-content {
-            padding-right: 20px;
-        }
+    .#{$file-prefix}-content {
+        padding-right: 20px;
+    }
+
+    .#{$file-prefix}-icon-layout {
 
         .#{$file-prefix}-icon {
             padding-top: 10px;
             color: #ccc;
+            margin-right: 5px;
         }
     }
 }
