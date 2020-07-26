@@ -158,6 +158,7 @@
   },
   "homepage": "./",
   "devDependencies": {
+    "@types/emoji-mart": "^3.0.2",
     "@types/marked": "^1.1.0",
     "@types/md5": "^2.2.0",
     "@types/react-cookies": "^0.1.0",

@@ -49,7 +49,7 @@ export function getYearStr(years: Array<any>, id: number): string {
 }
 
 export const IconFont = createFromIconfontCN({
-    scriptUrl: 'http://at.alicdn.com/t/font_1616893_y1j3v52mbf.js',
+    scriptUrl: 'http://at.alicdn.com/t/font_1616893_13mwsvx0m1t.js',
 });
 
 export const maxLength: number = 16
