@@ -1,6 +1,8 @@
 .myInfoPage {
     width: 100%;
     background-color: #eee;
+    position: relative;
+    z-index: 2;
 
     .myInfoPage_sider {
         margin-top: 50px;
@@ -14,6 +16,17 @@
             box-shadow: 1px 1px 21px #ccc;
         }
     }
+}
+
+.myInfoPage_back {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    background-color: #eee;
+    // background-attachment: fixed;
+    background-size: cover;
+    background-position: center top;
 }
 
 @media screen and (min-width: 500px) {

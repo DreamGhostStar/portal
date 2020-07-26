@@ -15,6 +15,14 @@ $file-prefix: 'my-myInfoMessageContent';
         display: flex;
         justify-content: space-around;
 
+        .#{$file-prefix}-readIcon {
+            position: absolute;
+            top: 0;
+            color: #f00;
+            left: 0;
+            font-size: 16px;
+        }
+
         .#{$file-prefix}-avatar {
             border-radius: 50%;
             margin-right: 10px;
@@ -33,9 +41,26 @@ $file-prefix: 'my-myInfoMessageContent';
                 display: flex;
                 justify-content: space-between;
 
-                .#{$file-prefix}-formUser {
-                    font-weight: bold;
-                    font-size: 20px;
+                .#{$file-prefix}-user-info-layout {
+                    display: flex;
+                    justify-content: start;
+
+                    .#{$file-prefix}-formUser {
+                        font-weight: bold;
+                        font-size: 20px;
+                    }
+
+                    .#{$file-prefix}-label {
+                        background-color: orange;
+                        color: white;
+                        height: 20px;
+                        line-height: 20px;
+                        margin-top: 6px;
+                        margin-left: 10px;
+                        border-radius: 5px;
+                        padding: 0 3px;
+                        font-size: 12px;
+                    }
                 }
 
                 .#{$file-prefix}-operation {
@@ -71,7 +96,7 @@ $file-prefix: 'my-myInfoMessageContent';
                             }
                         }
 
-                        .#{$file-prefix}-menuItem:nth-child(1)  {
+                        .#{$file-prefix}-menuItem:nth-child(1) {
                             margin-top: 5px;
                         }
 

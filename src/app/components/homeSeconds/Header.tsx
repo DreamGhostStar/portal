@@ -114,7 +114,7 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
   }, [isFixed, scrollIndex])
 
   useEffect(() => {
-    var temp = < Link to="/login" className="header_button">
+    let temp = < Link to="/login" className="header_button">
       登录 / 注册
     </Link>
   

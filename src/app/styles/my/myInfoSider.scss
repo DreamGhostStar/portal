@@ -4,6 +4,8 @@ $file-prefix: 'my-myInfoSider';
     height: 60px;
     line-height: 60px;
     cursor: pointer;
+    z-index: 2;
+    position: relative;
 
     .#{$file-prefix}-word {
         font-size: 20px;

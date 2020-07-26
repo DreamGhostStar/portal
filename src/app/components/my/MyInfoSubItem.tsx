@@ -36,21 +36,21 @@ export default function MyInfoSubItem({ transformValue, label, type, saveOtherIn
     }
     // 将数据传给父组件
     const saveData = () => {
-        let value = '';
         if (type === 'year') {
-            if (!(inputNumberRef.current as any).inputNumberRef.currentValue) {
+            if (!(inputNumberRef.current as any).state.value) {
                 error('输入不能为空')
                 return;
             }
         }
+
         const contrast = {
-            year: (inputNumberRef.current as any).inputNumberRef.currentValue,
-            motto: (inputRef.current as any).state.value,
-            email: (inputRef.current as any).state.value
+            year: (inputNumberRef.current as any),
+            motto: (inputRef.current as any),
+            email: (inputRef.current as any)
         }
         setIsAlter(false)
-        setValue(contrast[type])
-        saveOtherInfo(type, value)
+        setValue(contrast[type].state.value)
+        saveOtherInfo(type, contrast[type].state.value)
     }
     return (
         <>

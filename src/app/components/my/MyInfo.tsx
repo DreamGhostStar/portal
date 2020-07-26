@@ -3,19 +3,22 @@ import '../../styles/my/myInfo.scss'
 import MyInfoSubItem from './MyInfoSubItem';
 import Driver from '../common/Driver';
 import { _getUserDetail, _alterUserInfo } from '../common/Api';
-import { error, success, info, maxLength, IconFont } from '../common/config'
+import { error, success, info, maxLength, IconFont, userConfig } from '../common/config'
 import { Button, Input } from 'antd';
 import UploadAvator from '../common/UploadAvator';
 
 import '../common/config'
 import Loading2 from '../common/Loading2';
+import store from 'redux/store';
+
+import userInfo from 'model/userInfo.json' // TODO: 需删除
 
 const stylePrefix = 'my-myInfo';
 
 export default function MyInfo() {
-    const [myInfo, setMyInfo] = useState<any>(null)
+    const [myInfo, setMyInfo] = useState<null | userConfig>(store.getState().user)
     const [isAlter, setIsAlter] = useState(false)
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const inputRef = useRef(null)
 
     useEffect(() => {
@@ -23,29 +26,36 @@ export default function MyInfo() {
     }, [])
 
     const getUserDetail = async () => {
-        const res = await _getUserDetail();
+        setLoading(true)
+        setMyInfo(userInfo)
+        setLoading(false)
+        // const res = await _getUserDetail();
 
-        if (res) {
-            if (res.data.code === 0) {
-                setMyInfo(res.data.data)
-                setLoading(false)
-            } else {
-                error(res.data.message)
-            }
-        }
+        // if (res) {
+        //     if (res.data.code === 0) {
+        //         setMyInfo(res.data.data)
+        //         setLoading(false)
+        //     } else {
+        //         error(res.data.message)
+        //     }
+        // }
+    }
+
+    const handleMyInfo = (tempMyInfo: any) =>{
+        return (tempMyInfo as userConfig)
     }
 
     // 保存图片路径信息
     const saveImg = (avatar: string) => {
         const tempMyInfo = myInfo;
-        tempMyInfo.avatar = avatar;
+        handleMyInfo(tempMyInfo).avatar = avatar;
         setMyInfo(tempMyInfo)
     }
 
     // 保存除昵称和头像外的所有信息
     const saveOtherInfo = (type: string, value: string) => {
         const tempMyInfo = myInfo;
-        tempMyInfo[type] = value
+        handleMyInfo(tempMyInfo)[type] = value
         setMyInfo(tempMyInfo)
     }
 
@@ -54,22 +64,24 @@ export default function MyInfo() {
         alterUserInfo();
     }
 
+    // 修改用户信息
     const alterUserInfo = async () => {
-        const res = await _alterUserInfo({
-            nickname: myInfo.nickname,
-            avator: myInfo.avatar,
-            grade: myInfo.year,
-            motto: myInfo.motto,
-            email: myInfo.email
-        });
+        console.log(myInfo)
+        // const res = await _alterUserInfo({
+        //     nickname: handleMyInfo(myInfo).nickname,
+        //     avator: handleMyInfo(myInfo).avatar,
+        //     grade: handleMyInfo(myInfo).year,
+        //     motto: handleMyInfo(myInfo).motto,
+        //     email: handleMyInfo(myInfo).email
+        // });
 
-        if (res) {
-            if (res.data.code === 0) {
-                success('修改信息成功')
-            } else {
-                error(res.data.message)
-            }
-        }
+        // if (res) {
+        //     if (res.data.code === 0) {
+        //         success('修改信息成功')
+        //     } else {
+        //         error(res.data.message)
+        //     }
+        // }
     }
 
     // 保存昵称的值
@@ -81,7 +93,7 @@ export default function MyInfo() {
         }
 
         const tempMyInfo = myInfo;
-        tempMyInfo.nickname = nickname;
+        handleMyInfo(tempMyInfo).nickname = nickname;
         setMyInfo(tempMyInfo)
         setIsAlter(false)
     }

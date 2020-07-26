@@ -7,6 +7,8 @@ import cookies from 'react-cookies'
 import '../../styles/login/Register.scss'
 import md5 from 'md5'
 import { error, success } from '../common/config';
+
+import userInfo from 'model/userInfo.json' // TODO: 需删除
 const stylePrefix = 'login-register'
 
 export interface formConfig {
@@ -50,7 +52,12 @@ const form: formConfig[] = [
     }
 ];
 
-export default function Register({ enterEnroll }: { enterEnroll: any }, props: any) {
+interface RegisterConfig {
+    enterEnroll: any,
+    transform_user: any
+}
+
+export default function Register({ enterEnroll, transform_user }: RegisterConfig) {
     let history = useHistory();
     const [verifyObj, setVerifyObj] = useState([{}, {}])
 
@@ -86,33 +93,37 @@ export default function Register({ enterEnroll }: { enterEnroll: any }, props: a
 
     // 登录接口
     const getLoginUser = async (username: string, password: string) => {
-        interface loginConfig {
-            key?: string,
-            password?: string,
-        }
-        let obj: loginConfig = {};
-        obj.key = username;
-        obj.password = password;
+        transform_user(userInfo)
+        cookies.save('Authorization', userInfo.token, {})
+        success('登录成功');
+        history.push("/home");
+        // interface loginConfig {
+        //     key?: string,
+        //     password?: string,
+        // }
+        // let obj: loginConfig = {};
+        // obj.key = username;
+        // obj.password = password;
 
-        const res = await _login(obj);
+        // const res = await _login(obj);
 
-        if (res) {
-            if (res.data.code === 0) {
+        // if (res) {
+            // if (res.data.code === 0) {
                 // 向redux传递用户信息
-                props.transform_user(res.data.data)
+                // props.transform_user(res.data.data)
 
-                // 使用cookie存放token
-                cookies.save('Authorization', res.data.data.token, {})
+                // // 使用cookie存放token
+                // cookies.save('Authorization', res.data.data.token, {})
 
-                // 提示成功信息
-                success('登录成功');
+                // // 提示成功信息
+                // success('登录成功');
 
-                // 跳转到首页
-                history.push("/home");
-            } else {
-                error(res.data.message);
-            }
-        }
+                // // 跳转到首页
+                // history.push("/home");
+            // } else {
+                // error(res.data.message);
+            // }
+        // }
     }
 
     return (

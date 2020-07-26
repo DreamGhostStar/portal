@@ -9,7 +9,6 @@ import staticSiderData from 'static/myInfoSider.json'
 export default function MyInfoPage(props: any) {
     const { type } = props.match.params;
     const [clickIndex, setClickIndex] = useState(0)
-    const [messageData, setMessageData] = useState([])
     // 判断显示哪个页面
     const judgeShowPage = (clickIndex: number) => {
         const contrast = {
@@ -20,9 +19,11 @@ export default function MyInfoPage(props: any) {
     }
 
     useEffect(() => {
-        if (type === 'message') {
-            setClickIndex(1)
+        const contrast = {
+            info: 0,
+            message: 1
         }
+        setClickIndex(contrast[type])
     }, [type])
     return (
         <>
@@ -37,18 +38,7 @@ export default function MyInfoPage(props: any) {
                     }
                 </div>
             </div>
-            <div style={{
-                height: '100%',
-                width: '100%',
-                position: 'fixed',
-                backgroundColor: '#eee',
-                backgroundAttachment: 'fixed',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center top',
-                zIndex: 1
-            }}>
-
-            </div>
+            <div className='myInfoPage_back'></div>
         </>
     )
 }

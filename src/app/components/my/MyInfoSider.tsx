@@ -25,9 +25,10 @@ export default function MyInfoSider({ siderData, siderIndex }: MyInfoSiderConfig
     }
 
     const handleClick = (index: number) => {
+        console.log(index)
         const contrast = {
-            1: '/my/info',
-            2: '/my/message'
+            0: '/my/info',
+            1: '/my/message'
         }
 
         history.push(contrast[index]);

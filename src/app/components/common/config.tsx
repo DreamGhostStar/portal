@@ -63,3 +63,16 @@ export interface storeConfig {
     page: number,
     user: any
 }
+
+export interface userConfig {
+    id: number,
+    username: string,
+    avatar: string,
+    motto: string,
+    nickname: string,
+    email: string,
+    year: string,
+    role: number,
+    permissions: string[],
+    token: string
+}

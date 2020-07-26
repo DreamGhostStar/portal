@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import PersonShow from './PersonShow';
 import Loading2 from '../common/Loading2';
 import membersData from 'static/members.json'
@@ -58,7 +58,7 @@ export default function TableShowContent({ clickColumnID, yearStr }: tableShowCo
                 return null;
             })
             membersData.push(
-                <>
+                <Fragment key={-1}>
                     <div
                         style={{
                             opacity: (showDetail ? 0.1 : 0),
@@ -68,14 +68,16 @@ export default function TableShowContent({ clickColumnID, yearStr }: tableShowCo
                     ></div>
                     {
                         showDetail
-                            ? <div style={{
-                                display: (showDetail ? 'block' : 'none')
-                            }}>
+                            ? <div
+                                style={{
+                                    display: (showDetail ? 'block' : 'none')
+                                }}
+                            >
                                 <PersonDetailShow item={(memberDetail as membersConfig)} cancelShowDetail={() => setShowDetail(false)} />
                             </div>
                             : <div></div>
                     }
-                </>
+                </Fragment>
             )
         }
 

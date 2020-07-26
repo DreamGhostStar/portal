@@ -9,7 +9,9 @@ export default function BlogHeader({ activeIndex }: { activeIndex: number }) {
         <div style={{
             backgroundColor: '#fff',
             boxShadow: '0px 4px 5px #ddd',
-            width: '100%'
+            width: '100%',
+            position: 'relative',
+            zIndex: 2
         }}>
             <Provider store={store}>
                 <BlogNavContainer activeIndex={activeIndex}/>

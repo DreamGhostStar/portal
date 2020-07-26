@@ -4,12 +4,25 @@ import { _getMessageData, _readMessage } from '../common/Api';
 import { error, IconFont } from '../common/config';
 import Loading2 from '../common/Loading2';
 
+import messageList from 'model/messageList.json'
+import { formatTime } from '../common/utils';
+
 const stylePrefix = 'my-myInfoMessageContent'
+
+interface messageConfig {
+    id: number,
+    toUser: string,
+    fromUser: string,
+    type: string,
+    content: string,
+    createTime: string,
+    isReaded: boolean,
+    avator: string,
+}
 
 export default function MyInfoMessageContent() {
     const [clickIndex, setClickIndex] = useState<number | null>(null)
-    const [mouseIndex, setMouseIndex] = useState(null)
-    const [messageData, setMessageData] = useState<any[]>([])
+    const [messageData, setMessageData] = useState<messageConfig[]>([])
     const [loading, setLoading] = useState(true)
 
     const handleClick = (index: number) => {
@@ -22,19 +35,20 @@ export default function MyInfoMessageContent() {
 
     // 将消息变为已读
     const readMessage = async (id: number) => {
-        setLoading(true)
+        console.log(id)
+        // setLoading(true)
 
-        const res = await _readMessage({
-            id
-        });
+        // const res = await _readMessage({
+        //     id
+        // });
 
-        if (res) {
-            if (res.data.code === 0) {
-                getMessageData()
-            } else {
-                error(res.data.message)
-            }
-        }
+        // if (res) {
+        //     if (res.data.code === 0) {
+        //         getMessageData()
+        //     } else {
+        //         error(res.data.message)
+        //     }
+        // }
     }
 
     const handleIsShowLoading = () => {
@@ -42,40 +56,33 @@ export default function MyInfoMessageContent() {
             return <Loading2 />
         } else {
             return messageData.map((item, index) => {
-                let createTime = new Date(Number(item.createTime));
-                let year = createTime.getFullYear();
-                let month = createTime.getMonth() + 1;
-                let date = createTime.getDate();
-                let hour = createTime.getHours();
-                let minute = createTime.getMinutes();
-                let temp;
-
-                if (!item.readed) {
-                    temp = (
-                        <IconFont type='anticonweidu' style={{
-                            position: 'absolute',
-                            top: 0,
-                            color: '#f00',
-                            left: 0,
-                            fontSize: 16
-                        }} />)
-                }
                 return (
                     <div key={index} className={`${stylePrefix}-piece`}>
                         <div style={{
                             position: 'relative'
                         }}>
                             <img src={item.avator} alt="头像" className={`${stylePrefix}-avatar`} />
-                            {temp}
+                            {
+                                !item.isReaded && <IconFont type='anticonweidu' className={`${stylePrefix}-readIcon`} />
+                            }
                         </div>
                         <div className={`${stylePrefix}-info`}>
                             <div className={`${stylePrefix}-headerInfo`}>
-                                <div className={`${stylePrefix}-formUser`}>
-                                    {item.fromUser}
+                                <div className={`${stylePrefix}-user-info-layout`}>
+                                    <div className={`${stylePrefix}-formUser`}>
+                                        {item.fromUser}
+                                    </div>
+                                    <div className={`${stylePrefix}-label`}>
+                                        {item.type}
+                                    </div>
                                 </div>
                                 <div className={`${stylePrefix}-operation`}>
-                                    {`${year}-${month}-${date} ${hour}:${minute}`}
-                                    <IconFont type="anticoncaidan" className={`${stylePrefix}-menuIcon`} onClick={() => handleClick(index)} />
+                                    {formatTime(item.createTime)}
+                                    <IconFont
+                                        type="anticoncaidan"
+                                        className={`${stylePrefix}-menuIcon`}
+                                        onClick={() => handleClick(index)}
+                                    />
                                     <div className={`${stylePrefix}-menuContent`} style={{
                                         display: (clickIndex === index ? 'block' : 'none')
                                     }}>
@@ -102,16 +109,19 @@ export default function MyInfoMessageContent() {
     // 获取消息列表
     const getMessageData = async () => {
         setLoading(true)
-        const res = await _getMessageData();
+        setMessageData(messageList)
+        setLoading(false)
+        // setLoading(true)
+        // const res = await _getMessageData();
 
-        if (res) {
-            if (res.data.code === 0) {
-                setMessageData(res.data.data.reverse())
-                setLoading(false)
-            } else {
-                error(res.data.message)
-            }
-        }
+        // if (res) {
+        //     if (res.data.code === 0) {
+        //         setMessageData(res.data.data.reverse())
+        //         setLoading(false)
+        //     } else {
+        //         error(res.data.message)
+        //     }
+        // }
     }
     return (
         <div className={`${stylePrefix}-layout`} style={{

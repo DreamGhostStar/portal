@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "toUser": "youchen",
+        "fromUser": "管理员",
+        "type": "博客",
+        "content": "这是一个消息",
+        "createTime": "1590075162594",
+        "isReaded": true,
+        "avator": "http://tf5.youchen-blog.cn/avatar.jpg"
+    },
+    {
+        "id": 1,
+        "toUser": "youchen",
+        "fromUser": "管理员",
+        "type": "交流会",
+        "content": "这是一个消息1",
+        "createTime": "1590075162594",
+        "isReaded": false,
+        "avator": "http://tf5.youchen-blog.cn/avatar.jpg"
+    }
+]

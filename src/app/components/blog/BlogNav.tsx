@@ -10,24 +10,14 @@ import { SearchOutlined } from '@ant-design/icons';
 import { _getUserDetail } from '../common/Api';
 
 import userInfo from 'model/userInfo.json' // TODO: 假数据，需删除
+import { userConfig } from '../common/config';
+import { getToken } from '../common/utils';
 interface BlogNavConfig {
     activeIndex: number,
     transform_user: any
 }
-interface userConfig {
-    id: number,
-    username: string,
-    avatar: string,
-    motto: string,
-    nickname: string,
-    email: string,
-    year: string,
-    role: number,
-    permissions: string[],
-    token: string
-}
 
-export default function BlogNav({activeIndex, transform_user}: BlogNavConfig) {
+export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) {
     const [displayActive, setDisplayActive] = useState(new Array(3).fill(false).fill(true, activeIndex, activeIndex + 1))
     const [isFocus, setIsFoucus] = useState(false)
     const [user, setUser] = useState<null | userConfig>(store.getState().user)
@@ -79,8 +69,10 @@ export default function BlogNav({activeIndex, transform_user}: BlogNavConfig) {
         }
     }
     const getUser = async () => {
-        transform_user(userInfo)
-        setUser(userInfo)
+        if (getToken()) {
+            transform_user(userInfo)
+            setUser(userInfo)
+        }
         // TODO: 与后端对接
         // const res = await _getUserDetail();
 
