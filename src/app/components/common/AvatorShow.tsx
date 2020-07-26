@@ -6,7 +6,9 @@ import '../../styles/comon/avatarShow.scss'
 
 import { error } from './config';
 import { _getUserDetail, _getMessageNum } from './Api';
-import store from 'redux/store';
+
+import messageNum from 'model/messageNum.json'
+import userInfo from 'model/userInfo.json'
 
 interface AvatorShowConfig {
     top?: number, 
@@ -17,16 +19,23 @@ interface AvatorShowConfig {
 export default function AvatorShow(props: AvatorShowConfig) {
     const [isMouseAvator, setIsMouseAvator] = useState(false)
     const [unreadNum, setUnreadNum] = useState(0)
+    const [avatar, setAvatar] = useState('')
+    // 获取用户信息
+    const getUserInfo = async () =>{
+        setAvatar(userInfo.avatar)
+    }
+    // 获取未读消息数量
     const getUnreadNum = async () => {
-        const res = await _getMessageNum();
+        setUnreadNum(messageNum)
+        // const res = await _getMessageNum();
 
-        if (res) {
-            if (res.data.code === 0) {
-                setUnreadNum(res.data.data)
-            } else {
-                error(res.data.message)
-            }
-        }
+        // if (res) {
+        //     if (res.data.code === 0) {
+        //         setUnreadNum(res.data.data)
+        //     } else {
+        //         error(res.data.message)
+        //     }
+        // }
     }
 
     // 退出登录，并且删除redux中的数据，清除cookie
@@ -38,10 +47,10 @@ export default function AvatorShow(props: AvatorShowConfig) {
     // 判断是否头像处的未读消息数
     const judgeShowUnreadMessageNum = () => {
         if (!unreadNum) {
-            return <img src={(store.getState().user as any).avatar} alt="头像" className='avatarImg' />
+            return <img src={avatar} alt="头像" className='avatarImg' />
         } else {
             return <Badge count={unreadNum} offset={[5, 12]}>
-                <img src={(store.getState().user as any).avatar} alt="头像" className='avatarImg' />
+                <img src={avatar} alt="头像" className='avatarImg' />
             </Badge>
         }
     }
@@ -58,6 +67,7 @@ export default function AvatorShow(props: AvatorShowConfig) {
     }
     useEffect(() => {
         getUnreadNum() // 获取未读消息数量并且更新状态
+        getUserInfo();
     }, [])
     return (
         <div

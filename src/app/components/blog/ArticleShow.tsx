@@ -121,9 +121,9 @@ export default function ArticleShow({ articleID }: ArticleShowConfig) {
                                 className={`${stylePrefix}-line`}
                             ></div>
                             <div className={`${stylePrefix}-icon-layout`}>
-                                <IconFont type="anticonzengjia" className={`${stylePrefix}-icon`} onClick={() => { history.push("/edit/undefiend") }} />
-                                <IconFont type="anticonxiugai" className={`${stylePrefix}-icon`} />
-                                <IconFont type="anticonshanchu" className={`${stylePrefix}-icon`} onClick={() => { setVisible(true) }} />
+                                <IconFont type="anticonzengjia" className={`${stylePrefix}-icon`} onClick={() => history.push("/edit/undefiend")} />
+                                <IconFont type="anticonxiugai" className={`${stylePrefix}-icon`} onClick={() => history.push(`/edit/${articleID}`)} />
+                                <IconFont type="anticonshanchu" className={`${stylePrefix}-icon`} onClick={() => setVisible(true)} />
                             </div>
                             <div className={`${stylePrefix}-info-layout`}>
                                 <img src={avatar} alt="头像" className={`${stylePrefix}-avatar`} />

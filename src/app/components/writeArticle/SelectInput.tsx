@@ -12,8 +12,8 @@ export default function SelectInput({ handleSelectType }: SelectInputConfig) {
     const [isClick, setIsClick] = useState(false)
     const [selectName, setSelectName] = useState(menuData[0].title)
     const handleSelectIndex = (tempSelectIndex: number) => {
-        const tempSelectName = menuData[selectIndex].title;
-        handleSelectType(selectIndex)
+        const tempSelectName = menuData[tempSelectIndex].title;
+        handleSelectType(tempSelectIndex)
         setSelectIndex(tempSelectIndex)
         setSelectName(tempSelectName)
     }

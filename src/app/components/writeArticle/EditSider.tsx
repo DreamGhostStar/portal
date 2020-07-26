@@ -8,11 +8,18 @@ const { TextArea } = Input;
 
 interface EditSiderConfig {
     handleClick: any
+    abstract: string
+    setArticleAbStract: any
 }
 
-export default function EditSider({ handleClick }: EditSiderConfig) {
+export default function EditSider({ handleClick, abstract, setArticleAbStract }: EditSiderConfig) {
     const [type, setType] = useState(0)
     const textAreaRef = useRef(null)
+    const handleInput = (event: any) => {
+        if (event && event.target) {
+            setArticleAbStract((event.target as any).value)
+        }
+    }
     return (
         <div className='editSider'>
             <Driver
@@ -21,14 +28,20 @@ export default function EditSider({ handleClick }: EditSiderConfig) {
             />
             <div>
                 <p className='editSider_label'>文章类别选择</p>
-                <SelectInput handleSelectType={(tempType: number) => { setType(tempType) }} />
+                <SelectInput handleSelectType={(tempType: number) => setType(tempType)} />
                 <div className='editSider_textArea'>
                     <p className='editSider_label'>文章摘要</p>
-                    <TextArea rows={4} placeholder='摘要（可选）' ref={textAreaRef} />
+                    <TextArea
+                        rows={4}
+                        value={abstract}
+                        placeholder='摘要（可选）'
+                        ref={textAreaRef}
+                        onChange={handleInput}
+                    />
                 </div>
                 <button
                     className='editSider_button'
-                    onClick={() => { handleClick(type, (textAreaRef.current as any).state.value) }}
+                    onClick={() => handleClick(type, (textAreaRef.current as any).state.value)}
                 >提交</button>
             </div>
         </div>
