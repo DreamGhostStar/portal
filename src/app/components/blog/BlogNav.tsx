@@ -43,7 +43,7 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
     const addActive = (index: number) => {
         let tempDisplayActive = new Array(3).fill(false);
         tempDisplayActive[index] = true;
-        (lineRef.current as any).style.left = index * 88 + 'px';
+        (lineRef.current as any).style.left = index * 80 + 'px';
 
         setDisplayActive(tempDisplayActive)
     }
@@ -106,32 +106,24 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
     return (
         <header className='blogNav'>
             <nav style={{ margin: "0 auto" }}>
-                <div className="logo" style={{
-                    float: "left",
-                }}>
-                    <img src={logo} height={60} alt="logo" />
+                <div className={`${stylePrefix}-logo-layout`}>
+                    <img
+                        src={logo}
+                        height={60}
+                        onClick={() => history.push('/home')}
+                        alt="logo"
+                    />
                 </div>
                 <div className="nav" style={{ float: "left", marginLeft: 50 }}>
                     <Link
                         to={{
-                            pathname: `/home`
-                        }}
-                        className="blogNavItem"
-                        onMouseOver={() => addActive(0)}
-                        onMouseOut={() => removeActive()}
-                    >
-                        首页
-                    </Link>
-                    <Link
-                        to={{
                             pathname: `/blog/undefined`
                         }}
-                        style={{
-                            textDecoration: 'none',
-                            color: (displayActive[1] ? '#f00' : '#000')
-                        }}
                         className="blogNavItem"
-                        onMouseOver={() => addActive(1)}
+                        style={{
+                            color: (displayActive[0] ? '#f00' : '#000')
+                        }}
+                        onMouseOver={() => addActive(0)}
                         onMouseOut={() => removeActive()}
                     >
                         博客
@@ -142,13 +134,27 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
                         }}
                         style={{
                             textDecoration: 'none',
+                            color: (displayActive[1] ? '#f00' : '#000')
+                        }}
+                        className="blogNavItem"
+                        onMouseOver={() => addActive(1)}
+                        onMouseOut={() => removeActive()}
+                    >
+                        消息
+                    </Link>
+                    <Link
+                        to={{
+                            pathname: `/question/list`
+                        }}
+                        style={{
+                            textDecoration: 'none',
                             color: (displayActive[2] ? '#f00' : '#000')
                         }}
                         className="blogNavItem"
                         onMouseOver={() => addActive(2)}
                         onMouseOut={() => removeActive()}
                     >
-                        消息
+                        问卷
                     </Link>
                     <div
                         ref={lineRef}

@@ -12,8 +12,7 @@ export default function CreateQuestionNaire() {
                 <Header title='创建问卷' />
                 <CreateQuestionContent />
             </div>
-            <div className={`${stylePrefix}-background`}>
-            </div>
+            <div className={`${stylePrefix}-background`}></div>
         </>
     )
 }

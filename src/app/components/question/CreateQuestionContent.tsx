@@ -3,7 +3,7 @@ import { Button, Modal, Radio } from 'antd';
 import SubjectShow from './SubjectShow';
 import EditQuestionTitle from './EditQuestionTitle';
 import { IconFont, error } from '../common/config';
-import 'app/styles/question/createQuestionContent.scss'
+import 'app/styles/createQuestion/createQuestionContent.scss'
 import { deepCopy } from '../common/utils';
 const stylePrefix = 'question-createQuestionContent';
 
@@ -145,7 +145,9 @@ export default function CreateQuestionContent() {
                 disabled={addSubjectList.length > 0 ? false : true}
                 onClick={() => setIsSubmit(true)}
                 className={`${stylePrefix}-btn`}
-            >发布</Button>
+            >
+                发布
+            </Button>
         </div>
     )
 }

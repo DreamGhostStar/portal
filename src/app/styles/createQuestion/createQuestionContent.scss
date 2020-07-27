@@ -37,17 +37,15 @@ $file-prefix: 'question-createQuestionContent';
             height: 30px;
             line-height: 30px;
         }
-
-        .#{$file-prefix}-btn {
-            margin-bottom: 40px;
-            margin-top: 40px;
-            height: 30px;
-            width: 80px;
-            position: relative;
-            left: 50%;
-            margin-left: -40px;
-        }
     }
 
-
+    .#{$file-prefix}-btn {
+        margin-bottom: 40px;
+        margin-top: 40px;
+        height: 30px;
+        width: 80px;
+        position: relative;
+        left: 50%;
+        margin-left: -40px;
+    }
 }

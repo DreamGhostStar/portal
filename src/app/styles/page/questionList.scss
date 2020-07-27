@@ -1,0 +1,63 @@
+$file-prefix: 'page-questionList';
+$question-piece: 220px;
+
+.#{$file-prefix}-background {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    background-color: #eee;
+    // background-attachment: fixed;
+    background-size: cover;
+    background-position: center top;
+}
+
+.#{$file-prefix}-main {
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+
+    .#{$file-prefix}-basic-info {
+        background-color: #fff;
+        position: relative;
+        width: $question-piece;
+        height: $question-piece;
+        margin-left: 20px;
+        margin-top: 20px;
+        box-shadow: 0px 0px 8px 2px #bbb;
+        border-radius: 10px;
+
+        .#{$file-prefix}-title {
+            font-weight: bold;
+            text-align: center;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .#{$file-prefix}-author {
+            text-align: center;
+            margin: 5px 0;
+            color: #bbb;
+        }
+
+        .#{$file-prefix}-decoration {
+            text-indent: 16px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            padding: 0 5px;
+        }
+
+        .#{$file-prefix}-btn {
+            margin: 0 65px;
+            position: absolute;
+            bottom: 20px;
+        }
+    }
+}

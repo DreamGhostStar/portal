@@ -20,6 +20,10 @@ const Questionnaire = Loadable({
     loader: () => import('./pages/Questionnaire'),
 });
 
+const Question = Loadable({
+    loader: () => import('./pages/Question'),
+});
+
 const myInfoPage = Loadable({
     loader: () => import('./pages/MyInfoPage'),
 });
@@ -41,7 +45,6 @@ const page_404 = Loadable({
 });
 
 // 前端路由
-// TODO: 我的信息页面传递是文章还是消息
 export default class Entry extends Component {
     render() {
         return (
@@ -52,10 +55,11 @@ export default class Entry extends Component {
                         <Route path='/login' component={loginPage} />
                         <Route path='/blog/:articleID' component={blogPage} />
                         <Route path='/edit/:articleID' component={EditArticlePage} />
-                        <Route path='/question' component={Questionnaire} />
+                        {/* <Route path='/question' component={Questionnaire} /> */}
                         <Route path='/my/:type' component={myInfoPage} />
                         <Route path='/createQuestion' component={createQuestionNaire} />
                         <Route path='/404' component={page_404} />
+                        <Route path='/question/:type' component={Question} />
                         <Redirect to='/home' />
                     </Switch>
                 </HashRouter>

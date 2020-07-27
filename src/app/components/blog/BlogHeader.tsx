@@ -4,7 +4,11 @@ import BlogNavContainer from 'containers/BlogNav_container'
 import store from '../../../redux/store'
 import { Provider } from 'react-redux'
 
-export default function BlogHeader({ activeIndex }: { activeIndex: number }) {
+interface BlogHeaderConfig {
+    activeIndex: number
+}
+
+export default function BlogHeader({ activeIndex }: BlogHeaderConfig) {
     return (
         <div style={{
             backgroundColor: '#fff',

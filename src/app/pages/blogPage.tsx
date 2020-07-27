@@ -51,7 +51,7 @@ export default function BlogPage(props: any) {
     return (
         <>
             <div className={`${stylePrefix}-layout`}>
-                <Header activeIndex={1} />
+                <Header activeIndex={0} />
                 <div className={`${stylePrefix}-main`}>
                     {
                         judgeArticle(articleID)

@@ -78,7 +78,7 @@ export default function EditCheckBox({ item, handleInputData, isSubmit, index }:
     }, [isSubmit, isSubmitInThis])
     return (
         <div className={`${styleCommonPrefix}-layout`}>
-            <div className={`${styleUniquePrefix}-header`}>
+            <div className={`${styleCommonPrefix}-header`}>
                 <span className={`${styleCommonPrefix}-number`}>{`${obj.index + 1}. `}</span>
                 <input
                     style={{

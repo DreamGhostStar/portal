@@ -28,7 +28,7 @@ export default function MyInfoPage(props: any) {
     return (
         <>
             <div className='myInfoPage'>
-                <BlogHeader activeIndex={2} />
+                <BlogHeader activeIndex={1} />
                 <div className='myInfoPage_sider'>
                     <div className='myInfoPage_subitem'>
                         <MyInfoSider siderData={staticSiderData} siderIndex={clickIndex} />

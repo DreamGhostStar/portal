@@ -18,6 +18,11 @@ $file-prefix: 'blog-header';
     height: 60px;
     background-color: #fff;
 
+    .#{$file-prefix}-logo-layout {
+        float: left;
+        cursor: pointer;
+    }
+
     .blogRedLine {
         background-color: #ff0000;
         width: 40px;
