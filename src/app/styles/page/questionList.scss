@@ -31,6 +31,23 @@ $question-piece: 220px;
         box-shadow: 0px 0px 8px 2px #bbb;
         border-radius: 10px;
 
+        .#{$file-prefix}-label {
+            position: absolute;
+            top: 10px;
+            left: 5px;
+            padding: 3px;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .#{$file-prefix}-error-label {
+            background-color: #f00;
+        }
+
+        .#{$file-prefix}-success-label {
+            background-color: #0f0;
+        }
+
         .#{$file-prefix}-title {
             font-weight: bold;
             text-align: center;
@@ -58,6 +75,20 @@ $question-piece: 220px;
             margin: 0 65px;
             position: absolute;
             bottom: 20px;
+        }
+
+        .#{$file-prefix}-write-layout {
+            font-size: 20px;
+            color: green;
+            width: 90px;
+            position: absolute;
+            left: 50%;
+            margin-left: -45px;
+            bottom: 20px;
+
+            .#{$file-prefix}-icon {
+                margin-right: 10px;
+            }
         }
     }
 }

@@ -6,7 +6,7 @@
     "nickname": "youchen",
     "email": "邮箱",
     "year": "2018",
-    "role": 1,
+    "role": 2,
     "permissions": ["权限1", "权限2"],
     "token": "xxx"
 }

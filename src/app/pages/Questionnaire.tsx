@@ -1,6 +1,6 @@
 import React from 'react'
 import QuestionContent from '../components/writeQuestion/QuestionContent'
-import staticData from 'static/questionContent.json'
+import staticData from 'model/questionContent.json'
 import 'app/styles/page/questionnaire.scss'
 
 const stylePrefix = 'page-questionnaire'

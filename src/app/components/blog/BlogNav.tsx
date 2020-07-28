@@ -31,14 +31,35 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
     let history = useHistory()
     const [displayActive, setDisplayActive] = useState(new Array(3).fill(false).fill(true, activeIndex, activeIndex + 1))
     const [isFocus, setIsFoucus] = useState(false)
-    const [user, setUser] = useState<null | userConfig>(store.getState().user)
     const [searchList, setSearchList] = useState<searchArticleItemConfig[]>([])
+    const [userInfoShow, setUserInfoShow] = useState(
+        <Link to="/login" className="blogButton">
+            登录 / 注册
+        </Link>
+    )
     const lineRef = useRef(null)
     const inputRef = useRef(null)
 
     useEffect(() => {
         getUser();
     }, [])
+
+    useEffect(() => {
+        if (store.getState().user) {
+            setUserInfoShow(
+                <Provider store={store}>
+                    <AvatorShowContainer top={1} labelTop={60} />
+                </Provider>
+            )
+        }
+        else {
+            setUserInfoShow(
+                <Link to="/login" className="blogButton">
+                    登录 / 注册
+                </Link>
+            )
+        }
+    }, [store.getState().user])
 
     const addActive = (index: number) => {
         let tempDisplayActive = new Array(3).fill(false);
@@ -68,23 +89,6 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
     const handleMouseDown = (event: any) => {
         event.preventDefault()
     }
-
-    const handleIsLogin = () => {
-        if (user) {
-            return (
-                <Provider store={store}>
-                    <AvatorShowContainer top={1} labelTop={60} />
-                </Provider>
-            )
-        }
-        else {
-            return (
-                <Link to="/login" className="blogButton">
-                    登录 / 注册
-                </Link>
-            )
-        }
-    }
     const showArticle = (articleID: number) => {
         console.log(articleID)
         history.push(`/blog/${articleID}`)
@@ -92,7 +96,7 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
     const getUser = async () => {
         if (getToken()) {
             transform_user(userInfo)
-            setUser(userInfo)
+            // setUser(userInfo)
         }
         // TODO: 与后端对接
         // const res = await _getUserDetail();
@@ -164,9 +168,7 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
                         }}
                     ></div>
                 </div>
-                {
-                    handleIsLogin()
-                }
+                {userInfoShow}
                 <input
                     id="name"
                     type="text"
