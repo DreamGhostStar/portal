@@ -2,8 +2,25 @@ import React from 'react'
 import QuestionContent from '../components/writeQuestion/QuestionContent'
 import staticData from 'model/questionContent.json'
 import 'app/styles/page/questionnaire.scss'
+import { optionItemConfig } from './Question'
 
 const stylePrefix = 'page-questionnaire'
+
+export interface textConfig {
+    id: number;
+    title: string;
+    isRequired: boolean;
+    type: string;
+    options?: undefined;
+}
+
+export interface radioCheckConfig {
+    id: number;
+    title: string;
+    options: optionItemConfig[];
+    isRequired: boolean;
+    type: string;
+}
 
 export default function Questionnaire() {
     return (

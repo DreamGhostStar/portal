@@ -17,7 +17,6 @@ interface EditMultilineConfig {
 export default function EditMultiline({ item, handleInputData, isSubmit, index }: EditMultilineConfig) {
     const [obj, setObj] = useState(item)
     const [isTitleClick, setIsTitleClick] = useState(false)
-    const [isSubmitInThis, setIsSubmitInThis] = useState(false)
     const inputRef = useRef(null)
     const handleChange = (value: string) => {
         const tempObj = deepCopy(obj)
@@ -25,23 +24,14 @@ export default function EditMultiline({ item, handleInputData, isSubmit, index }
         setObj(tempObj)
     }
 
-    const handleTitleChange = (e: any) => {
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value;
         let length = value.length;
-        (inputRef as any).style.width = length * 30 + 20 + 'px';
+        (inputRef.current as any).style.width = length * 30 + 20 + 'px';
 
         const tempObj = deepCopy(obj)
         tempObj.title = e.target.value;
         setObj(tempObj)
-    }
-
-    // 在点击发布时，该组件向createQuestionContent组件传递信息
-    const handleSubmit = (obj: any, index: number) => {
-        if (isSubmitInThis === false) {
-            handleInputData(obj, index);
-        }
-
-        setIsSubmitInThis(true)
     }
     // 重置
     const handleReset = () => {
@@ -53,10 +43,10 @@ export default function EditMultiline({ item, handleInputData, isSubmit, index }
         })
     }
     useEffect(() => {
-        if (isSubmit && isSubmitInThis === false) {
-            handleSubmit(obj, index)
+        if (isSubmit) {
+            handleInputData(obj, index);
         }
-    }, [isSubmit, isSubmitInThis])
+    }, [isSubmit])
     return (
         <div className={`${styleCommonPrefix}-layout`}>
             <div className={`${styleCommonPrefix}-header`}>

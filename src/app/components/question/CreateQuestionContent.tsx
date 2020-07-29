@@ -1,50 +1,113 @@
-import React, { useState } from 'react'
-import { Button, Modal, Radio } from 'antd';
+import React, { useState, useRef } from 'react'
+import { Button, Modal, Radio, Input, DatePicker } from 'antd';
 import SubjectShow from './SubjectShow';
 import EditQuestionTitle from './EditQuestionTitle';
+import moment from 'moment';
 import { IconFont, error } from '../common/config';
 import 'app/styles/createQuestion/createQuestionContent.scss'
 import { deepCopy } from '../common/utils';
+import { optionItemConfig } from 'app/pages/Question';
+
+const { RangePicker } = DatePicker;
 const stylePrefix = 'question-createQuestionContent';
+const { TextArea } = Input;
+export const optionDefault = [
+    {
+        id: 1,
+        value: 'A'
+    },
+    {
+        id: 2,
+        value: 'B'
+    },
+    {
+        id: 3,
+        value: 'C'
+    },
+    {
+        id: 4,
+        value: 'D'
+    }
+]
+
+export interface subjectItemConfig {
+    index: number
+    isRequired: boolean
+    options: optionItemConfig[]
+    title: string
+    type: string
+}
 
 export default function CreateQuestionContent() {
     const [addIsMouse, setAddIsMouse] = useState(false)
-    const [visible, setVisible] = useState(false)
-    const [confirmLoading, setConfirmLoading] = useState(false)
+    const [addSubjectVisible, setAddSubjectVisible] = useState(false) // 增加题目的开关
+    const [addConfigVisible, setAddConfigVisible] = useState(false) // 最后配置的开关
+    const [confirmLoading, setConfirmLoading] = useState(false) // 增加题目的loading
+    const [addConfigLoading, setAddConfigLoading] = useState(false) // 最后配置的loading
     const [value, setValue] = useState<number | null>(null)
-    const [addSubjectList, setAddSubjectList] = useState([]) // 要传给后端的问卷题目
+    const [addSubjectList, setAddSubjectList] = useState<subjectItemConfig[]>([]) // 要传给后端的问卷题目
     const [inputValue, setInputValue] = useState('问卷题目') // 要传给后端的问卷标题
     const [isSubmit, setIsSubmit] = useState(false)// 在对话框中选择不同选项所增加的题目
+    const [startTime, setStartTime] = useState<string | null>(null)
+    const [endTime, setEndTime] = useState<string | null>(null)
+    const textAreaRef = useRef(null)
     // 对话框中单选按钮的变化
     const onChange = (e: any) => {
         setValue(e.target.value)
     };
-
+    // 禁止选中当前时间之前的日期
+    const disabledDate = (current: moment.Moment) => {
+        return current && current <= moment().endOf('day');
+    }
+    // 处理日期改变后的函数
+    const handleChangeDate = (values: any) => {
+        const contrast = {
+            0: setStartTime,
+            1: setEndTime
+        }
+        values.map((item: any, index: number) => {
+            contrast[index](item._d.getTime())
+        })
+    }
     // 标题的变化
     const handleChange = (e: any) => {
         setInputValue(e.target.value)
     }
     // 选择增加题目
-    const handleOk = () => {
+    const addSubjectOk = () => {
         if (value === null) {
             error('增加失败，未选择增加题目的类型');
-            setVisible(false)
+            setAddSubjectVisible(false)
             return;
         }
         setConfirmLoading(true)
         changeSubject();
-        setVisible(false)
+        setAddSubjectVisible(false)
         setConfirmLoading(false)
     };
-    // 在点击发布时处理问卷的信息
-    const handleInputData = (obj: any, index: number) => {
-        let tempAddSubjectList = deepCopy(addSubjectList)
-        tempAddSubjectList[index] = obj;
-        setAddSubjectList(tempAddSubjectList)
-        console.log(addSubjectList);
+    // 最后配置的提交处理信息
+    const submit = () => {
+        const abstract = (textAreaRef.current as any).state.value
+        if(!(startTime && endTime && abstract)) {
+            error('信息不能为空')
+            return
+        }
+        console.log({
+            title: inputValue,
+            content: addSubjectList,
+            startTime,
+            abortTime: endTime,
+            abstract
+        });
         // TODO: 传递数据给后端
     }
-
+    // 在点击发布时处理问卷的信息
+    const handleInputData = (obj: subjectItemConfig, index: number) => {
+        let tempAddSubjectList: subjectItemConfig[] = deepCopy(addSubjectList)
+        tempAddSubjectList[index] = obj;
+        setAddSubjectList(tempAddSubjectList)
+        setAddConfigVisible(true)
+    }
     const changeSubject = () => {
         let tempAddSubjectList = deepCopy(addSubjectList)
         let length = tempAddSubjectList.length;
@@ -52,24 +115,14 @@ export default function CreateQuestionContent() {
             0: {
                 index: length,
                 title: '标题',
-                options: [
-                    'A',
-                    'B',
-                    'C',
-                    'D'
-                ],
+                options: optionDefault,
                 isRequired: false,
                 type: 'radio',
             },
             1: {
                 index: length,
                 title: '标题',
-                options: [
-                    'A',
-                    'B',
-                    'C',
-                    'D'
-                ],
+                options: optionDefault,
                 isRequired: false,
                 type: 'checkBox',
             },
@@ -77,13 +130,7 @@ export default function CreateQuestionContent() {
                 index: length,
                 title: '标题',
                 isRequired: false,
-                type: 'singleText',
-            },
-            3: {
-                index: length,
-                title: '标题',
-                isRequired: false,
-                type: 'multiline',
+                type: 'text',
             }
         }
         tempAddSubjectList.push(contrast[(value as number)])
@@ -107,7 +154,7 @@ export default function CreateQuestionContent() {
                     className={`${stylePrefix}-icon-layout`}
                     onMouseOver={() => { setAddIsMouse(true) }}
                     onMouseOut={() => { setAddIsMouse(false) }}
-                    onClick={() => { setVisible(true) }}
+                    onClick={() => { setAddSubjectVisible(true) }}
                 >
                     <IconFont
                         type='anticonjia'
@@ -120,10 +167,10 @@ export default function CreateQuestionContent() {
             </div>
             <Modal
                 title="请选择增加的题目类型"
-                visible={visible}
-                onOk={handleOk}
+                visible={addSubjectVisible}
+                onOk={addSubjectOk}
                 confirmLoading={confirmLoading}
-                onCancel={() => { setVisible(false) }}
+                onCancel={() => setAddSubjectVisible(false)}
             >
                 <Radio.Group onChange={onChange} value={value}>
                     <Radio className={`${stylePrefix}-radio-style`} value={0}>
@@ -133,12 +180,30 @@ export default function CreateQuestionContent() {
                         复选框
                 </Radio>
                     <Radio className={`${stylePrefix}-radio-style`} value={2}>
-                        单行文本框
-                </Radio>
-                    <Radio className={`${stylePrefix}-radio-style`} value={3}>
-                        多行文本框
+                        文本框
                 </Radio>
                 </Radio.Group>
+            </Modal>
+            <Modal
+                title="请填写概要和截止时间"
+                visible={addConfigVisible}
+                onOk={submit}
+                confirmLoading={addConfigLoading}
+                onCancel={() => { setAddConfigVisible(false); setIsSubmit(false) }}
+            >
+                <div className={`${stylePrefix}-config-input-layout`}>
+                    <div className={`${stylePrefix}-config-title`}>概要</div>
+                    <TextArea ref={textAreaRef} rows={4} />
+                </div>
+                <div className={`${stylePrefix}-config-input-layout`}>
+                    <div className={`${stylePrefix}-config-title`}>开始与截止时间</div>
+                    <br />
+                    <RangePicker
+                        disabledDate={disabledDate}
+                        onChange={handleChangeDate}
+                        showTime
+                    />
+                </div>
             </Modal>
             <Button
                 type="primary"

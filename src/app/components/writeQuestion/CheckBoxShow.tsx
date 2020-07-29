@@ -37,10 +37,10 @@ export default function CheckBoxShow({ index, title, options, isSubmit, handleDa
                 }
             </div>
             {
-                options && options.map((item: any, index: number) => {
+                options && options.map((item, index) => {
                     return (
                         <div key={index} className={`${styleUniquePrefix}-check-item`}>
-                            <Checkbox onChange={() => onChange(index)}>{item}</Checkbox>
+                            <Checkbox onChange={() => onChange(index)}>{item.value}</Checkbox>
                         </div>
                     )
                 })

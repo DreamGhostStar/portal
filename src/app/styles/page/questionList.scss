@@ -40,14 +40,6 @@ $question-piece: 220px;
             color: #fff;
         }
 
-        .#{$file-prefix}-error-label {
-            background-color: #f00;
-        }
-
-        .#{$file-prefix}-success-label {
-            background-color: #0f0;
-        }
-
         .#{$file-prefix}-title {
             font-weight: bold;
             text-align: center;

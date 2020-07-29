@@ -49,3 +49,14 @@ $file-prefix: 'question-createQuestionContent';
         margin-left: -40px;
     }
 }
+.#{$file-prefix}-config-input-layout {
+    margin-bottom: 10px;
+
+    .#{$file-prefix}-config-title {
+        font-weight: bold;
+        display: inline-block;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #bbb;
+        margin-bottom: 10px;
+    }
+}

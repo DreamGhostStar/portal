@@ -8,6 +8,11 @@ interface paramsConfig {
     type: string
 }
 
+export interface optionItemConfig {
+    id: number
+    value: string
+}
+
 export default function Question() {
     const params = useParams<paramsConfig>();
     const judgeShow = () => {

@@ -1,0 +1,32 @@
+{
+    "0": {
+        "index": "length",
+        "title": "标题",
+        "options": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "isRequired": false,
+        "type": "radio"
+    },
+    "1": {
+        "index": "length",
+        "title": "标题",
+        "options": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "isRequired": false,
+        "type": "checkBox"
+    },
+    "2": {
+        "index": "length",
+        "title": "标题",
+        "isRequired": false,
+        "type": "text"
+    }
+}

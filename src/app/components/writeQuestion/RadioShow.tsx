@@ -31,7 +31,7 @@ export default function RadioShow({ index, title, options, isSubmit, handleData,
                     options && options.map((item, index) => {
                         return (
                             <div key={index} className={`${stylePrefix}-radio-item`}>
-                                <Radio value={index}>{item}</Radio>
+                                <Radio value={index}>{item.value}</Radio>
                             </div>
                         )
                     })

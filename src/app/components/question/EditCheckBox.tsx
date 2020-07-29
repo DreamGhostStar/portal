@@ -1,28 +1,37 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, Fragment } from 'react'
 import { Select, Tooltip } from 'antd';
 import { deepCopy } from '../common/utils';
 import { IconFont } from '../common/config';
 import 'app/styles/question/common.scss'
-import 'app/styles/question/editCheckBox.scss'
+import { subjectItemConfig, optionDefault } from './CreateQuestionContent';
 
 const styleCommonPrefix = 'question-common'
-const styleUniquePrefix = 'question-editCheckBox'
 const { Option } = Select;
 
 interface EditCheckBoxConfig {
-    item: any,
+    subjectItem: subjectItemConfig,
     handleInputData: any,
     isSubmit: boolean,
     index: number
 }
 
-export default function EditCheckBox({ item, handleInputData, isSubmit, index }: EditCheckBoxConfig) {
+export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, index }: EditCheckBoxConfig) {
     const [clickIndex, setClickIndex] = useState<number | null>(null)
-    const [obj, setObj] = useState(item)
+    const [obj, setObj] = useState<subjectItemConfig>(subjectItem)
     const [isTitleClick, setIsTitleClick] = useState(false)
-    const [isSubmitInThis, setIsSubmitInThis] = useState(false)
+    const [mouseIndex, setMouseIndex] = useState<number | null>(null)
     const inputRef = useRef(null)
 
+    // 增加选项
+    const addOption = (index: number) => {
+        const tempObj: subjectItemConfig = deepCopy(obj)
+        tempObj.options.splice(index + 1, 0, {
+            id: 5,
+            value: '请输入选项'
+        })
+
+        setObj(tempObj)
+    }
     const handleChange = (value: string) => {
         const tempObj = deepCopy(obj)
 
@@ -36,7 +45,6 @@ export default function EditCheckBox({ item, handleInputData, isSubmit, index }:
 
         setObj(tempObj)
     }
-
     const handleTitleChange = (e: any) => {
         let value = e.target.value;
         let length = value.length;
@@ -46,38 +54,26 @@ export default function EditCheckBox({ item, handleInputData, isSubmit, index }:
         tempObj.title = e.target.value;
         setObj(tempObj)
     }
-
-    // 在点击发布时，该组件向createQuestionContent组件传递信息
-    const handleSubmit = (obj: any, index: number) => {
-        if (isSubmitInThis === false) {
-            handleInputData(obj, index);
-        }
-
-        setIsSubmitInThis(true)
-    }
-
     // 重置
     const handleReset = () => {
         setObj({
             index: obj.index,
             title: '标题',
-            options: [
-                'A',
-                'B',
-                'C',
-                'D'
-            ],
+            options: optionDefault,
             isRequired: obj.isRequired,
             type: 'checkBox',
         })
     }
     useEffect(() => {
-        if (isSubmit && isSubmitInThis === false) {
-            handleSubmit(obj, index)
+        if (isSubmit) {
+            handleInputData(obj, index);
         }
-    }, [isSubmit, isSubmitInThis])
+    }, [isSubmit])
     return (
-        <div className={`${styleCommonPrefix}-layout`}>
+        <div
+            className={`${styleCommonPrefix}-layout`}
+            onMouseLeave={() => setMouseIndex(null)}
+        >
             <div className={`${styleCommonPrefix}-header`}>
                 <span className={`${styleCommonPrefix}-number`}>{`${obj.index + 1}. `}</span>
                 <input
@@ -97,26 +93,44 @@ export default function EditCheckBox({ item, handleInputData, isSubmit, index }:
                 </Select>
             </div>
             {
-                obj.options.map((item: any, index: number) => {
+                obj.options.map((item, index) => {
                     return (
-                        <div
-                            key={index}
-                            style={{
-                                backgroundColor: (clickIndex === index ? '#eee' : '#fff')
-                            }}
-                            className={`${styleCommonPrefix}-main-item`}
-                            onClick={() => setClickIndex(index)}
-                        >
-                            <div className={`${styleCommonPrefix}-value-input-layout`}></div>
-                            <input
+                        <Fragment key={index}>
+                            <div
                                 style={{
                                     backgroundColor: (clickIndex === index ? '#eee' : '#fff')
                                 }}
-                                className={`${styleCommonPrefix}-value-input`}
-                                onChange={(e) => onChange(e, index)}
-                                value={item}
-                            />
-                        </div>
+                                className={`${styleCommonPrefix}-main-item`}
+                                onClick={() => setClickIndex(index)}
+                                onMouseOver={() => setMouseIndex(index)}
+                            >
+                                <div
+                                    style={{
+                                        borderRadius: subjectItem.type === 'radio' ? '50%' : 3
+                                    }}
+                                    className={`${styleCommonPrefix}-prefix`}></div>
+                                <input
+                                    style={{
+                                        backgroundColor: (clickIndex === index ? '#eee' : '#fff')
+                                    }}
+                                    className={`${styleCommonPrefix}-value-input`}
+                                    onChange={(e) => onChange(e, index)}
+                                    value={item.value}
+                                />
+                            </div>
+                            <div
+                                className={`${styleCommonPrefix}-add-item`}
+                                style={{
+                                    display: ((mouseIndex !== null && mouseIndex === index) ? 'block' : 'none')
+                                }}
+                            >
+                                <IconFont
+                                    type='anticonjia1'
+                                    className={`${styleCommonPrefix}-add-item-icon`}
+                                    onClick={() => addOption(index)}
+                                />
+                            </div>
+                        </Fragment>
                     )
                 })
             }

@@ -4,7 +4,7 @@ import { Button } from 'antd'
 import BlogHeader from 'app/components/blog/BlogHeader'
 import 'app/styles/page/questionList.scss'
 import { useHistory } from 'react-router-dom'
-import { IconFont, error } from 'app/components/common/config'
+import { IconFont, info } from 'app/components/common/config'
 
 const stylePrefix = 'page-questionList'
 
@@ -18,15 +18,38 @@ interface basicQuestionInfo {
 
 export default function QuestionList() {
     const history = useHistory()
-    const handleClick = (isWrite: boolean, abortTime: string) => {
-        if (abortTime > new Date().getTime().toString()) {
-            error('该问卷已截止')
+    const judgeQuestionNaireStatus = (abortTime: string, startTime: string) => {
+        let backgroundColor = '#0f0'
+        let text = '进行中'
+        if (abortTime < new Date().getTime().toString()) {
+            backgroundColor = '#f00'
+            text = '已截止'
+        }
+        if (startTime > new Date().getTime().toString()) {
+            backgroundColor = 'yellow'
+            text = '未开始'
+        }
+        return <div
+            style={{
+                backgroundColor
+            }}
+            className={`${stylePrefix}-label`}
+        >
+            {text}
+        </div>
+    }
+    const handleClick = (abortTime: string, startTime: string) => {
+        if (abortTime < new Date().getTime().toString()) {
+            info('该问卷已截止')
             return
         }
-        const path = isWrite ? 'edit' : 'create'
-        history.push(`/question/${path}`)
+
+        if (startTime > new Date().getTime().toString()) {
+            info('该问卷未开始')
+            return
+        }
+        history.push(`/question/edit`)
     }
-    console.log(new Date().getTime())
     return (
         <>
             <BlogHeader activeIndex={2} />
@@ -37,11 +60,7 @@ export default function QuestionList() {
                             key={index}
                             className={`${stylePrefix}-basic-info`}
                         >
-                            {
-                                item.abortTime > new Date().getTime().toString()
-                                    ? <div className={`${stylePrefix}-error-label ${stylePrefix}-label`}>已截止</div>
-                                    : <div className={`${stylePrefix}-success-label ${stylePrefix}-label`}>进行中</div>
-                            }
+                            {judgeQuestionNaireStatus(item.abortTime, item.startTime)}
                             <div className={`${stylePrefix}-title`}>{item.title}</div>
                             <div className={`${stylePrefix}-author`}>{item.author}</div>
                             <div className={`${stylePrefix}-decoration`}>{item.decoration}</div>
@@ -54,10 +73,10 @@ export default function QuestionList() {
                                     : <Button
                                         type="primary"
                                         shape="round"
-                                        onClick={() => handleClick(item.isWrite, item.abortTime)}
+                                        onClick={() => handleClick(item.abortTime, item.startTime)}
                                         className={`${stylePrefix}-btn`}
                                     >
-                                        新建问卷
+                                        填写问卷
                                 </Button>
                             }
                         </div>

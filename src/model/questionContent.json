@@ -6,10 +6,22 @@
             "id": 0,
             "title": "标题1",
             "options": [
-                "A",
-                "B",
-                "C",
-                "D"
+                {
+                    "id": 11,
+                    "value": "A"
+                },
+                {
+                    "id": 11,
+                    "value": "B"
+                },
+                {
+                    "id": 11,
+                    "value": "C"
+                },
+                {
+                    "id": 11,
+                    "value": "D"
+                }
             ],
             "isRequired": true,
             "type": "radio"
@@ -18,10 +30,22 @@
             "id": 1,
             "title": "标题2",
             "options": [
-                "A",
-                "B",
-                "C",
-                "D"
+                {
+                    "id": 11,
+                    "value": "A"
+                },
+                {
+                    "id": 11,
+                    "value": "B"
+                },
+                {
+                    "id": 11,
+                    "value": "C"
+                },
+                {
+                    "id": 11,
+                    "value": "D"
+                }
             ],
             "isRequired": false,
             "type": "checkBox"
@@ -30,13 +54,7 @@
             "id": 2,
             "title": "标题3",
             "isRequired": true,
-            "type": "singleText"
-        }, 
-        {
-            "id": 3,
-            "title": "对本次活动有什么意见",
-            "isRequired": true,
-            "type": "multiline"
+            "type": "text"
         }
     ]
 }

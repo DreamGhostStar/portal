@@ -1,22 +1,23 @@
 import React, { useState } from 'react'
 import RadioShow from './RadioShow';
 import CheckBoxShow from './CheckBoxShow';
-import SingleTextBox from './SingleTextBox';
 import MultilineShow from './MultilineShow';
 import { Button } from 'antd';
 import { deepCopy } from '../common/utils';
 import 'app/styles/createQuestion/questionContent.scss'
+import { optionItemConfig } from 'app/pages/Question';
+import { textConfig, radioCheckConfig } from 'app/pages/Questionnaire';
 
 const stylePrefix = 'create-questionContent'
 
 interface QuestionContentConfig {
-    questionContent: any
+    questionContent: (textConfig | radioCheckConfig)[]
 }
 
 export interface WriteQuestionInputConfig {
     index: number,
     title: string,
-    options?: any[],
+    options?: optionItemConfig[],
     isSubmit: boolean,
     handleData: any,
     id: number,
@@ -49,7 +50,7 @@ export default function QuestionContent({ questionContent }: QuestionContentConf
         <div className={`${stylePrefix}-layout`}>
             {
                 // 判断渲染各基本组件
-                questionContent.map((item: any, index: number) => {
+                questionContent.map((item, index) => {
                     var temp;
                     switch (item.type) {
                         case 'radio':
@@ -76,18 +77,7 @@ export default function QuestionContent({ questionContent }: QuestionContentConf
                                 handleData={handleData}
                             />
                             break;
-                        case 'singleText':
-                            temp = <SingleTextBox
-                                key={index}
-                                index={index}
-                                id={item.id}
-                                title={item.title}
-                                isRequired={item.isRequired}
-                                isSubmit={isSubmit}
-                                handleData={handleData}
-                            />
-                            break;
-                        case 'multiline':
+                        case 'text':
                             temp = <MultilineShow
                                 key={index}
                                 index={index}
