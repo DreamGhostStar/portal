@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Radio } from 'antd';
 import { WriteQuestionInputConfig } from './QuestionContent';
 import 'app/styles/createQuestion/commonShow.scss'
 
 const stylePrefix = 'create-common'
 
-export default function RadioShow({ index, title, options, isSubmit, handleData, id, isRequired }: WriteQuestionInputConfig) {
-    const [value, setValue] = useState(null)
-    const onChange = (e: any) => {
-        setValue(e.target.value)
+export default function RadioShow({ index, title, options, handleData, id, isRequired, type }: WriteQuestionInputConfig) {
+    const [value, setValue] = useState<string | null>(null)
+    const onChange = (radioValue: string) => {
+        handleData(id, radioValue, type)
+        setValue(radioValue)
     };
-    useEffect(() => {
-        if (isSubmit) {
-            handleData(id, value)
-        }
-    }, [isSubmit])
     return (
         <div className={`${stylePrefix}-radio-check-layout`}>
             <div className={`${stylePrefix}-header`}>
@@ -26,12 +22,12 @@ export default function RadioShow({ index, title, options, isSubmit, handleData,
                     </span>
                 }
             </div>
-            <Radio.Group onChange={onChange} value={value}>
+            <Radio.Group onChange={(e)=>{onChange(e.target.value)}} value={value}>
                 {
                     options && options.map((item, index) => {
                         return (
                             <div key={index} className={`${stylePrefix}-radio-item`}>
-                                <Radio value={index}>{item.value}</Radio>
+                                <Radio value={item.id}>{item.value}</Radio>
                             </div>
                         )
                     })

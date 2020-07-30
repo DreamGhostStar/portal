@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Checkbox } from 'antd';
 import { deepCopy } from '../common/utils';
 import { WriteQuestionInputConfig } from './QuestionContent';
@@ -8,23 +8,19 @@ import 'app/styles/createQuestion/checkBoxShow.scss'
 const stylePrefix = 'create-common'
 const styleUniquePrefix = 'create-checkBox'
 
-export default function CheckBoxShow({ index, title, options, isSubmit, handleData, id, isRequired }: WriteQuestionInputConfig) {
+export default function CheckBoxShow({ index, title, options, handleData, id, isRequired, type }: WriteQuestionInputConfig) {
     const [value, setValue] = useState<any[]>([])
-    const onChange = (index: number) => {
+    const onChange = (optionID: number) => {
         const tempValue = deepCopy(value)
-        if (tempValue.indexOf(index) === -1) {
-            tempValue.push(index);
+        if (tempValue.indexOf(optionID) === -1) {
+            tempValue.push(optionID);
 
             setValue(tempValue)
         } else {
-            tempValue.splice(index, 1);
+            tempValue.splice(optionID, 1);
         }
+        handleData(id, tempValue, type)
     }
-    useEffect(() => {
-        if (isSubmit) {
-            handleData(id, value)
-        }
-    }, [isSubmit])
     return (
         <div className={`${stylePrefix}-radio-check-layout`}>
             <div className={`${styleUniquePrefix}-header`}>
@@ -40,7 +36,7 @@ export default function CheckBoxShow({ index, title, options, isSubmit, handleDa
                 options && options.map((item, index) => {
                     return (
                         <div key={index} className={`${styleUniquePrefix}-check-item`}>
-                            <Checkbox onChange={() => onChange(index)}>{item.value}</Checkbox>
+                            <Checkbox onChange={() => onChange(item.id)}>{item.value}</Checkbox>
                         </div>
                     )
                 })

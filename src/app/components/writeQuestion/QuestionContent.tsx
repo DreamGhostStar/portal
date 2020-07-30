@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import RadioShow from './RadioShow';
 import CheckBoxShow from './CheckBoxShow';
 import MultilineShow from './MultilineShow';
@@ -7,6 +7,7 @@ import { deepCopy } from '../common/utils';
 import 'app/styles/createQuestion/questionContent.scss'
 import { optionItemConfig } from 'app/pages/Question';
 import { textConfig, radioCheckConfig } from 'app/pages/Questionnaire';
+import { error } from '../common/config';
 
 const stylePrefix = 'create-questionContent'
 
@@ -18,34 +19,93 @@ export interface WriteQuestionInputConfig {
     index: number,
     title: string,
     options?: optionItemConfig[],
-    isSubmit: boolean,
-    handleData: any,
+    handleData: HandleDataConfig,
     id: number,
     isRequired: boolean
+    type: string
+}
+
+interface questionResultConfig {
+    id: number
+    type: string
+    radioValue?: number
+    checkBoxValue?: number[]
+    textValue?: string
+}
+
+export interface HandleDataConfig {
+    (id: number, value: string, type: string): void
+}
+
+interface verifyConfig {
+    id: number
+    order: number
+    result: boolean
 }
 
 export default function QuestionContent({ questionContent }: QuestionContentConfig) {
-    const [isSubmit, setIsSubmit] = useState(false)
-    const [questionResult, setQuestionResult] = useState([])
+    const [questionResult, setQuestionResult] = useState<questionResultConfig[]>([])
+    const [verify, setVerify] = useState<verifyConfig[]>([])
 
-    const handleData = (id: number, value: string) => {
-        let temp = {
-            id: id,
-            value: value
+    const handleData: HandleDataConfig = (id, value, type) => {
+        const contrast = {
+            radio: 'radioValue',
+            checkBox: 'checkBoxValue',
+            text: 'textValue'
         }
 
-        const tempQuestionResult = deepCopy(questionResult)
+        const tempQuestionResult: questionResultConfig[] = deepCopy(questionResult)
+
+        if (value) {
+            const tempVerify: verifyConfig[] = deepCopy(verify)
+            tempVerify.forEach(verifyItem => {
+                if(id === verifyItem.id){
+                    verifyItem.result = true
+                }
+            });
+            setVerify(tempVerify)
+        }
 
         for (let index = 0; index < tempQuestionResult.length; index++) {
-            const element = tempQuestionResult[index];
-            if (element.id === id) {
+            if (tempQuestionResult[index].id === id) {
+                tempQuestionResult[index][contrast[type]] = value
+                setQuestionResult(tempQuestionResult)
                 return;
             }
         }
 
+        let temp: questionResultConfig = {
+            id,
+            type,
+            [contrast[type]]: value,
+        }
         tempQuestionResult.push(temp);
         setQuestionResult(tempQuestionResult)
     }
+    const handleSubmit = () => {
+        for (let index = 0; index < verify.length; index++) {
+            const verifyItem = verify[index];
+            if(!verifyItem.result){
+                error(`第${verifyItem.order+1}题不能为空`)
+                return
+            }
+        }
+        console.log(questionResult)
+    }
+    useEffect(() => {
+        const tempVerify: verifyConfig[] = [];
+        questionContent.map((item, index) => {
+            if (item.isRequired) {
+                const verifyItem = {
+                    id: item.id,
+                    order: index,
+                    result: false
+                }
+                tempVerify.push(verifyItem)
+            }
+        })
+        setVerify(tempVerify)
+    }, [])
     return (
         <div className={`${stylePrefix}-layout`}>
             {
@@ -61,8 +121,8 @@ export default function QuestionContent({ questionContent }: QuestionContentConf
                                 title={item.title}
                                 options={item.options}
                                 isRequired={item.isRequired}
-                                isSubmit={isSubmit}
                                 handleData={handleData}
+                                type={item.type}
                             />
                             break;
                         case 'checkBox':
@@ -73,8 +133,8 @@ export default function QuestionContent({ questionContent }: QuestionContentConf
                                 title={item.title}
                                 options={item.options}
                                 isRequired={item.isRequired}
-                                isSubmit={isSubmit}
                                 handleData={handleData}
+                                type={item.type}
                             />
                             break;
                         case 'text':
@@ -84,8 +144,8 @@ export default function QuestionContent({ questionContent }: QuestionContentConf
                                 id={item.id}
                                 title={item.title}
                                 isRequired={item.isRequired}
-                                isSubmit={isSubmit}
                                 handleData={handleData}
+                                type={item.type}
                             />
                             break;
                         default:
@@ -94,7 +154,7 @@ export default function QuestionContent({ questionContent }: QuestionContentConf
                     return temp;
                 })
             }
-            <Button type="primary" className={`${stylePrefix}-btn`} onClick={() => { setIsSubmit(true) }}>提交</Button>
+            <Button type="primary" className={`${stylePrefix}-btn`} onClick={handleSubmit}>提交</Button>
         </div>
     )
 }

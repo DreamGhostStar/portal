@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Input } from 'antd';
 import { WriteQuestionInputConfig } from './QuestionContent';
 import 'app/styles/createQuestion/commonShow.scss'
@@ -6,17 +6,12 @@ import 'app/styles/createQuestion/commonShow.scss'
 const stylePrefix = 'create-common'
 const { TextArea } = Input;
 
-export default function MultilineShow({ index, title, isSubmit, handleData, id, isRequired }: WriteQuestionInputConfig) {
+export default function MultilineShow({ index, title, handleData, id, isRequired, type }: WriteQuestionInputConfig) {
     const [value, setValue] = useState('')
-    const handleChange = (e: any) => {
-        let value = e.target.value;
-        setValue(e.target.value)
+    const handleChange = (inputValue: string) => {
+        handleData(id, inputValue, type)
+        setValue(inputValue)
     }
-    useEffect(() => {
-        if (isSubmit) {
-            handleData(id, value)
-        }
-    }, [isSubmit])
     return (
         <div className={`${stylePrefix}-single-multiline-layout`}>
             <div className={`${stylePrefix}-header`}>
@@ -32,7 +27,7 @@ export default function MultilineShow({ index, title, isSubmit, handleData, id, 
                 rows={5}
                 placeholder="写点什么吧"
                 className={`${stylePrefix}-single-multiline-input`}
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => handleChange(e.target.value)}
             />
         </div>
     )
