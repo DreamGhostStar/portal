@@ -1,0 +1,49 @@
+$file-prefix: 'back-activityDetail';
+
+.#{$file-prefix}-layout {
+    width: 1200px;
+    left: 50%;
+    margin-left: -600px;
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 10px;
+
+    .#{$file-prefix}-loading-layout {
+        width: 1200px;
+        height: 600px;
+    }
+
+    .#{$file-prefix}-main {
+        margin-top: 20px;
+        padding: 20px;
+        position: relative;
+
+        .#{$file-prefix}-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 30px;
+        }
+
+        .#{$file-prefix}-author {
+            color: #bbb;
+            text-align: center;
+            margin: 10px 0;
+            font-size: 20px;
+        }
+
+        .#{$file-prefix}-icon-layout {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            display: flex;
+            justify-content: flex-start;
+
+            .#{$file-prefix}-icon {
+                margin-right: 10px;
+                cursor: pointer;
+                font-size: 20px;
+            }
+        }
+    }
+}

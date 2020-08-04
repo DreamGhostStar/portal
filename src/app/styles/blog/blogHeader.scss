@@ -16,103 +16,114 @@ $file-prefix: 'blog-header';
 
 .blogNav {
     height: 60px;
+    display: flex;
+    justify-content: space-between;
     background-color: #fff;
 
-    .#{$file-prefix}-logo-layout {
-        float: left;
-        cursor: pointer;
-    }
+    .#{$file-prefix}-nav {
+        display: flex;
+        
+        .#{$file-prefix}-logo-layout {
+            cursor: pointer;
+        }
 
-    .blogRedLine {
-        background-color: #ff0000;
-        width: 40px;
-        height: 2px;
-        position: relative;
-        transition-duration: 0.6s;
-    }
+        .blogRedLine {
+            background-color: #ff0000;
+            width: 40px;
+            height: 2px;
+            position: relative;
+            transition-duration: 0.6s;
+        }
 
-    .#{$file-prefix}-show-search {
-        position: relative;
-        left: -300px;
-        left: 0px;
-        width: 358px;
-        display: inline-block;
-        background-color: #fff;
-        border-radius: 0 0 3px 3px;
-        box-shadow: 0px 3px 5px 0px #bbb;
+        .#{$file-prefix}-show-search {
+            position: relative;
+            left: -300px;
+            left: 0px;
+            width: 358px;
+            display: inline-block;
+            background-color: #fff;
+            border-radius: 0 0 3px 3px;
+            box-shadow: 0px 3px 5px 0px #bbb;
 
-        .#{$file-prefix}-search-item {
-            text-align: center;
-            font-size: 18px;
-            height: 40px;
-            line-height: 40px;
-            border-bottom: 1px solid #ccc;
-            padding: 0 10px;
+            .#{$file-prefix}-search-item {
+                text-align: center;
+                font-size: 18px;
+                height: 40px;
+                line-height: 40px;
+                border-bottom: 1px solid #ccc;
+                padding: 0 10px;
 
-            &:hover {
-                background-color: #0066FF;
-                color: #fff;
-                cursor: pointer;
+                &:hover {
+                    background-color: #0066FF;
+                    color: #fff;
+                    cursor: pointer;
+                }
+            }
+
+            .#{$file-prefix}-search-item:nth-last-child() {
+                border-bottom: none;
             }
         }
 
-        .#{$file-prefix}-search-item:nth-last-child() {
-            border-bottom: none;
+        .blogInputSearch {
+            display: inline-block;
+            width: 300px;
+            padding: 10px 0 10px 15px;
+            font-weight: 400;
+            color: #377D6A;
+            border: 0px;
+            border-radius: 3px;
+            outline: 0;
+            text-indent: 0px;
+            transition: all .3s ease-in-out;
+            margin-top: 10px;
+            position: relative;
         }
-    }
 
-    .blogInputSearch {
-        display: inline-block;
-        width: 300px;
-        padding: 10px 0 10px 15px;
-        font-weight: 400;
-        color: #377D6A;
-        border: 0px;
-        border-radius: 3px;
-        outline: 0;
-        text-indent: 0px;
-        transition: all .3s ease-in-out;
-        margin-top: 10px;
-        position: relative;
-    }
+        .blogSearchIcon {
+            position: absolute;
+            top: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            transition-duration: .3s;
+        }
 
-    .blogSearchIcon {
-        position: absolute;
-        top: 20px;
-        font-size: 20px;
-        cursor: pointer;
-        transition-duration: .3s;
-    }
+        .blogSearchLabel {
+            display: inline-block;
+            position: relative;
+            left: -300px;
+            padding: 10px 15px;
+            text-shadow: 0 1px 0 rgba(19, 74, 70, .4);
+            background-color: #00CCFF;
+            transition: all .3s ease-in-out;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            color: #fff;
+            font-weight: bold;
+        }
 
-    .blogSearchLabel {
-        display: inline-block;
-        position: relative;
-        left: -300px;
-        padding: 10px 15px;
-        text-shadow: 0 1px 0 rgba(19, 74, 70, .4);
-        background-color: #00CCFF;
-        transition: all .3s ease-in-out;
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
-        color: #fff;
-        font-weight: bold;
-    }
+        .blogNavItem {
+            color: #000;
+            font-size: 20px;
+            line-height: 60px;
+            margin-right: 40px;
+            text-decoration: none;
+        }
 
-    .blogNavItem {
-        color: #000;
-        font-size: 20px;
-        line-height: 60px;
-        margin-right: 40px;
-    }
+        .blogNavItem:nth-of-type(3) {
+            margin-right: 0px;
+        }
 
-    .blogNavItem:hover {
-        color: red;
+        .blogNavItem:hover {
+            color: red;
+        }
     }
 
     .blogButton {
         margin-top: 4.5px;
-        float: right;
         color: #fff;
+        width: 170px;
+        height: 50px;
         font-size: 14px;
         font-weight: 600;
         letter-spacing: 2px;

@@ -1,0 +1,36 @@
+$file-prefix: 'page-back';
+
+.#{$file-prefix}-header {
+    background-color: #fff;
+    position: relative;
+    z-index: 2;
+    margin-top: 1px;
+    border-bottom: 1px solid #e8e8e8;
+
+    .#{$file-prefix}-title {
+        width: 1200px;
+        height: 99px;
+        position: relative;
+        margin-left: -600px;
+        left: 50%;
+        font-size: 40px;
+        line-height: 100px;
+        text-align: center;
+    }
+
+    .#{$file-prefix}-nav {
+        position: relative;
+        width: 1200px;
+        margin-left: -600px;
+        left: 50%;
+        display: flex;
+        justify-content: flex-start;
+
+        .#{$file-prefix}-word {
+            cursor: pointer;
+            padding: 0 20px;
+            padding-bottom: 10px;
+            font-size: 16px;
+        }
+    }
+}

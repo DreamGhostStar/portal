@@ -1,0 +1,14 @@
+[
+    {
+        "path": "/blog/undefined",
+        "value": "博客"
+    },
+    {
+        "path": "/my/info",
+        "value": "消息"
+    },
+    {
+        "path": "/question/list",
+        "value": "问卷"
+    }
+]

@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 import { SearchOutlined } from '@ant-design/icons';
 import { _getUserDetail } from '../common/Api';
 import { useHistory } from 'react-router-dom'
+import staticBlogHeader from 'static/blogHeader.json'
 
 import userInfo from 'model/userInfo.json' // TODO: 假数据，需删除
 import { userConfig, info } from '../common/config';
@@ -17,7 +18,7 @@ import { getToken } from '../common/utils';
 import searchArticle from 'model/searchArticle.json'
 const stylePrefix = 'blog-header';
 interface BlogNavConfig {
-    activeIndex: number,
+    activeIndex: number | null
     transform_user: any
 }
 
@@ -29,7 +30,7 @@ interface searchArticleItemConfig {
 
 export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) {
     let history = useHistory()
-    const [displayActive, setDisplayActive] = useState(new Array(3).fill(false).fill(true, activeIndex, activeIndex + 1))
+    const [displayActive, setDisplayActive] = useState<null | number>(activeIndex)
     const [isFocus, setIsFoucus] = useState(false)
     const [searchList, setSearchList] = useState<searchArticleItemConfig[]>([])
     const [userInfoShow, setUserInfoShow] = useState(
@@ -62,16 +63,14 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
     }, [store.getState().user])
 
     const addActive = (index: number) => {
-        let tempDisplayActive = new Array(3).fill(false);
-        tempDisplayActive[index] = true;
         (lineRef.current as any).style.left = index * 80 + 'px';
 
-        setDisplayActive(tempDisplayActive)
+        setDisplayActive(index)
     }
 
     const removeActive = () => {
-        (lineRef.current as any).style.left = activeIndex * 80 + 'px';
-        setDisplayActive(new Array(3).fill(false).fill(true, activeIndex, activeIndex + 1))
+        (lineRef.current as any).style.left = activeIndex ? activeIndex * 80 + 'px' : '0px';
+        setDisplayActive(activeIndex)
     }
 
     // 处理搜索框中数据
@@ -109,7 +108,7 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
     }
     return (
         <header className='blogNav'>
-            <nav style={{ margin: "0 auto" }}>
+            <nav className={`${stylePrefix}-nav`}>
                 <div className={`${stylePrefix}-logo-layout`}>
                     <img
                         src={logo}
@@ -118,97 +117,77 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
                         alt="logo"
                     />
                 </div>
-                <div className="nav" style={{ float: "left", marginLeft: 50 }}>
-                    <Link
-                        to={{
-                            pathname: `/blog/undefined`
-                        }}
-                        className="blogNavItem"
-                        style={{
-                            color: (displayActive[0] ? '#f00' : '#000')
-                        }}
-                        onMouseOver={() => addActive(0)}
-                        onMouseOut={() => removeActive()}
-                    >
-                        博客
-                    </Link>
-                    <Link
-                        to={{
-                            pathname: `/my/info`
-                        }}
-                        style={{
-                            textDecoration: 'none',
-                            color: (displayActive[1] ? '#f00' : '#000')
-                        }}
-                        className="blogNavItem"
-                        onMouseOver={() => addActive(1)}
-                        onMouseOut={() => removeActive()}
-                    >
-                        消息
-                    </Link>
-                    <Link
-                        to={{
-                            pathname: `/question/list`
-                        }}
-                        style={{
-                            textDecoration: 'none',
-                            color: (displayActive[2] ? '#f00' : '#000')
-                        }}
-                        className="blogNavItem"
-                        onMouseOver={() => addActive(2)}
-                        onMouseOut={() => removeActive()}
-                    >
-                        问卷
-                    </Link>
+                <div style={{ marginLeft: 50, width: 310 }}>
+                    {
+                        staticBlogHeader.map((headerData, index) => {
+                            return <Link
+                                key={index}
+                                to={{
+                                    pathname: headerData.path
+                                }}
+                                className="blogNavItem"
+                                style={{
+                                    color: (displayActive === index ? '#f00' : '#000')
+                                }}
+                                onMouseOver={() => addActive(index)}
+                                onMouseOut={() => removeActive()}
+                            >
+                                {headerData.value}
+                            </Link>
+                        })
+                    }
                     <div
                         ref={lineRef}
                         className='blogRedLine'
                         style={{
-                            left: (activeIndex * 80),
+                            display: (displayActive === null ? 'none' : 'block'),
+                            left: (displayActive !== null ? displayActive * 80 : 0),
                         }}
                     ></div>
                 </div>
-                {userInfoShow}
-                <input
-                    id="name"
-                    type="text"
-                    placeholder={isFocus ? '请输入要搜索的博客' : ''}
-                    autoComplete='off'
-                    style={{
-                        backgroundColor: (isFocus ? '#eee' : '#ddd'),
-                        right: (isFocus ? -58 : 0)
-                    }}
-                    className='blogInputSearch'
-                    onFocus={() => { setIsFoucus(true) }}
-                    onBlur={() => { setIsFoucus(false) }}
-                    ref={inputRef}
-                />
-                <SearchOutlined
-                    style={{
-                        transform: (isFocus ? 'translateX(28px)' : 'translateX(-30px)'),
-                    }}
-                    className='blogSearchIcon'
-                    onClick={handleClick}
-                    onMouseDown={(event: any) => handleMouseDown(event)}
-                />
-                <label className='blogSearchLabel'>文章</label>
-                <div className={`${stylePrefix}-show-search`}>
-                    {
-                        searchList.length > 0
-                        && isFocus
-                        && searchList.map((item, index) => {
-                            return <div
-                                className={`${stylePrefix}-search-item`}
-                                key={index}
-                                onMouseDown={(e) => { e.preventDefault() }} // 使得点击后不触发input的失去焦点事件
-                                onClick={() => { showArticle(item.articleID) }}
-                            >
-                                {item.title}
-                            </div>
-                        })
-                    }
+                <div>
+                    <input
+                        id="name"
+                        type="text"
+                        placeholder={isFocus ? '请输入要搜索的博客' : ''}
+                        autoComplete='off'
+                        style={{
+                            backgroundColor: (isFocus ? '#eee' : '#ddd'),
+                            right: (isFocus ? -58 : 0)
+                        }}
+                        className='blogInputSearch'
+                        onFocus={() => { setIsFoucus(true) }}
+                        onBlur={() => { setIsFoucus(false) }}
+                        ref={inputRef}
+                    />
+                    <SearchOutlined
+                        style={{
+                            transform: (isFocus ? 'translateX(28px)' : 'translateX(-30px)'),
+                        }}
+                        className='blogSearchIcon'
+                        onClick={handleClick}
+                        onMouseDown={(event: any) => handleMouseDown(event)}
+                    />
+                    <label className='blogSearchLabel'>文章</label>
+                    <div className={`${stylePrefix}-show-search`}>
+                        {
+                            searchList.length > 0
+                            && isFocus
+                            && searchList.map((item, index) => {
+                                return <div
+                                    className={`${stylePrefix}-search-item`}
+                                    key={index}
+                                    onMouseDown={(e) => { e.preventDefault() }} // 使得点击后不触发input的失去焦点事件
+                                    onClick={() => { showArticle(item.articleID) }}
+                                >
+                                    {item.title}
+                                </div>
+                            })
+                        }
+                    </div>
                 </div>
             </nav>
+            {userInfoShow}
         </header>
     )
 }

@@ -5,6 +5,7 @@ import MyInfoMessageContent from '../components/my/MyInfoMessageContent';
 import MyInfo from '../components/my/MyInfo';
 import '../styles/page/myInfoPage.scss'
 import staticSiderData from 'static/myInfoSider.json'
+import BackGround from 'app/components/common/BackGround';
 
 export default function MyInfoPage(props: any) {
     const { type } = props.match.params;
@@ -38,7 +39,7 @@ export default function MyInfoPage(props: any) {
                     }
                 </div>
             </div>
-            <div className='myInfoPage_back'></div>
+            <BackGround/>
         </>
     )
 }

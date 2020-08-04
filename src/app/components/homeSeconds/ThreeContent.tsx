@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import img1 from '../../../images/jiangxue.png'
 import img2 from '../../../images/jiangfan.jpg'
 import img3 from '../../../images/ujsComputer.jpg'
@@ -43,7 +43,7 @@ export default function ThreeContent() {
     const [isClear, setIsClear] = useState(false)
     const [isMouseCarousel, setIsMouseCarousel] = useState(false)
     const [allowCarousel, setAllowCarousel] = useState(true)
-    const [play, setPlay] = useState<NodeJS.Timeout | null>(null)
+    const timer=useRef(null);
 
     useEffect(() => {
         if (isClear) {
@@ -52,7 +52,7 @@ export default function ThreeContent() {
             handleAddCount();
         }
         return () => {
-            clearInterval((play as NodeJS.Timeout));
+            clearInterval((timer.current as any));
         }
     }, [isClear])
 
@@ -60,17 +60,16 @@ export default function ThreeContent() {
     const handleReduceCount = () => {
         if (!allowCarousel) {
             setAllowCarousel(true)
-            clearInterval((play as NodeJS.Timeout));
+            clearInterval((timer.current as any));
         }
     }
 
     // 减少轮播次数，避免轮播重复，轮播开始
     const handleAddCount = () => {
         if (allowCarousel) {
-            const palyTemp = setInterval(() => {
+            (timer.current as any) = setInterval(() => {
                 turn()
             }, 8000);
-            setPlay(palyTemp)
             setAllowCarousel(false)
         }
     }

@@ -18,17 +18,6 @@
     }
 }
 
-.myInfoPage_back {
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    top: 0px;
-    background-color: #eee;
-    // background-attachment: fixed;
-    background-size: cover;
-    background-position: center top;
-}
-
 @media screen and (min-width: 500px) {
     .myInfoPage_sider {
         width: 1200px;

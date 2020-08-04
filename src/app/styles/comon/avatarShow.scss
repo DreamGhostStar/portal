@@ -1,53 +1,101 @@
-.avatarShow {
-    float: right;
-    height: 60px;
-    padding-left: 10px;
-    cursor: pointer;
-    position: relative;
+$file-prefix: 'common-avatarShow';
 
-    .avatarImg {
-        border-radius: 50%;
-        float: right;
-        margin-top: 6px;
-        width: 48px;
-        height: 48px;
+.#{$file-prefix}-layout {
+    display: flex;
+    justify-content: flex-start;
+
+    .#{$file-prefix}-icon {
+        margin-top: 17px;
+        margin-right: 20px;
+        font-size: 26px;
+        cursor: pointer;
     }
 
-    .avatarMenu {
-        float: right;
-        position: absolute;
-        right: 0px;
-        width: 133px;
-        background-color: #fff;
-        border-radius: 2px;
-        box-shadow: 0 0 40px #ccc;
+    .#{$file-prefix}-avatarShow {
+        height: 60px;
+        padding-left: 10px;
+        cursor: pointer;
+        position: relative;
         z-index: 99;
-    }
 
-    .avatarItem {
-        height: 50px;
-        text-align: center;
-        line-height: 50px;
-        display: block;
-        color: #000;
-    }
+        .#{$file-prefix}-avatarImg {
+            border-radius: 50%;
+            margin-top: 6px;
+            width: 48px;
+            height: 48px;
+        }
 
-    @for $i from 1 through 2 {
-        .avatarItem:nth-child(#{$i}) {
+        .#{$file-prefix}-avatarMenu {
+            float: right;
+            position: absolute;
+            right: 0px;
+            width: 133px;
             background-color: #fff;
+            border-radius: 2px;
+            box-shadow: 0 0 40px #ccc;
+            z-index: 99;
+        }
+
+        .#{$file-prefix}-avatarItem {
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            display: block;
+            color: #000;
+        }
+
+        @for $i from 1 through 3 {
+            .#{$file-prefix}-avatarItem:nth-child(#{$i}) {
+                background-color: #fff;
+
+                &:hover {
+                    background-color: #eee;
+                }
+            }
+        }
+
+        .#{$file-prefix}-avatarItem:nth-child(1) {
+            border-bottom: 1px solid #eee;
+        }
+
+        .#{$file-prefix}-avatarItem:nth-last-child(1) {
+            background-color: #FF0000;
+            color: #fff;
 
             &:hover {
-                background-color: #eee;
+                background-color: #FF3333;
             }
         }
     }
+}
 
-    .avatarItem:nth-child(1) {
-        border-bottom: 1px solid #eee;
-    }
+.#{$file-prefix}-add-layout {
+    padding: 10px 0;
 
-    .avatarItem:nth-child(3) {
-        background-color: #f00;
-        color: #fff;
+    .#{$file-prefix}-add-item {
+        padding: 0 20px;
+        cursor: pointer;
+        height: 35px;
+        display: flex;
+        justify-content: flex-start;
+
+        &:hover {
+            background-color: #eee;
+        }
+
+        .#{$file-prefix}-add-item-title {
+            line-height: 35px;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        .#{$file-prefix}-add-item-icon {
+            font-size: 16px;
+            margin-top: 10px;
+        }
     }
+}
+
+.ant-popover-inner-content {
+    padding: 0 !important;
 }

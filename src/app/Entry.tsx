@@ -44,6 +44,10 @@ const page_404 = Loadable({
     loader: () => import('./pages/Page_404'),
 });
 
+const BackStage = Loadable({
+    loader: () => import('./pages/BackStage'),
+});
+
 // 前端路由
 export default class Entry extends Component {
     render() {
@@ -57,9 +61,10 @@ export default class Entry extends Component {
                         <Route path='/edit/:articleID' component={EditArticlePage} />
                         {/* <Route path='/question' component={Questionnaire} /> */}
                         <Route path='/my/:type' component={myInfoPage} />
-                        <Route path='/createQuestion' component={createQuestionNaire} />
+                        {/* <Route path='/createQuestion' component={createQuestionNaire} /> */}
                         <Route path='/404' component={page_404} />
                         <Route path='/question/:type' component={Question} />
+                        <Route path='/back/:type/:id' component={BackStage} />
                         <Redirect to='/home' />
                     </Switch>
                 </HashRouter>

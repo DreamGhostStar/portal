@@ -1,28 +1,54 @@
 import React, { useState, useEffect } from 'react'
-import { HashRouter as Router, Link } from 'react-router-dom'
-import { Badge } from 'antd';
+import { HashRouter as Router, Link, useHistory } from 'react-router-dom'
+import { Badge, Popover } from 'antd';
 import cookies from 'react-cookies'
 import '../../styles/comon/avatarShow.scss'
 
-import { error } from './config';
+import { error, IconFont } from './config';
 import { _getUserDetail, _getMessageNum } from './Api';
 
 import messageNum from 'model/messageNum.json'
 import userInfo from 'model/userInfo.json'
+import addTip from 'static/addTip.json'
+
+const stylePrefix = 'common-avatarShow'
 
 interface AvatorShowConfig {
-    top?: number, 
+    top?: number,
     labelTop?: number,
     remove_user: any
 }
 
 export default function AvatorShow(props: AvatorShowConfig) {
+    const history = useHistory()
     const [isMouseAvator, setIsMouseAvator] = useState(false)
     const [unreadNum, setUnreadNum] = useState(0)
     const [avatar, setAvatar] = useState('')
+    const [role, setRole] = useState(1)
+    const addElemTip = <div className={`${stylePrefix}-add-layout`}>
+        {
+            addTip.map((addTipItem, index) => {
+                return <div
+                    key={index}
+                    className={`${stylePrefix}-add-item`}
+                    onClick={() => history.push(addTipItem.path)}
+                >
+                    <IconFont
+                        type={addTipItem.icon}
+                        style={{
+                            color: addTipItem.color
+                        }}
+                        className={`${stylePrefix}-add-item-icon`}
+                    />
+                    <div className={`${stylePrefix}-add-item-title`}>{addTipItem.title}</div>
+                </div>
+            })
+        }
+    </div>
     // 获取用户信息
-    const getUserInfo = async () =>{
+    const getUserInfo = async () => {
         setAvatar(userInfo.avatar)
+        setRole(3)
     }
     // 获取未读消息数量
     const getUnreadNum = async () => {
@@ -47,10 +73,10 @@ export default function AvatorShow(props: AvatorShowConfig) {
     // 判断是否头像处的未读消息数
     const judgeShowUnreadMessageNum = () => {
         if (!unreadNum) {
-            return <img src={avatar} alt="头像" className='avatarImg' />
+            return <img src={avatar} alt="头像" className={`${stylePrefix}-avatarImg`} />
         } else {
             return <Badge count={unreadNum} offset={[5, 12]}>
-                <img src={avatar} alt="头像" className='avatarImg' />
+                <img src={avatar} alt="头像" className={`${stylePrefix}-avatarImg`} />
             </Badge>
         }
     }
@@ -70,46 +96,63 @@ export default function AvatorShow(props: AvatorShowConfig) {
         getUserInfo();
     }, [])
     return (
-        <div
-            style={{
-                paddingTop: (props.top || 10),
-            }}
-            className="removeFloat avatarShow"
-            onMouseOver={() => { setIsMouseAvator(true) }}
-            onMouseOut={() => { setIsMouseAvator(false) }}
-        >
+        <div className={`${stylePrefix}-layout`}>
             {
-                judgeShowUnreadMessageNum()
+                role >= 2 && <Popover placement="bottom" title='' content={addElemTip} trigger="hover">
+                    <IconFont type='anticonzengjia' className={`${stylePrefix}-icon`} />
+                </Popover>
             }
             <div
                 style={{
-                    top: (props.labelTop || 10),
-                    display: (isMouseAvator ? 'block' : 'none'),
+                    paddingTop: (props.top || 10),
                 }}
+                className={`removeFloat ${stylePrefix}-avatarShow`}
                 onMouseOver={() => { setIsMouseAvator(true) }}
                 onMouseOut={() => { setIsMouseAvator(false) }}
-                className='avatarMenu'
             >
-                <Link
-                    to={{
-                        pathname: `/my/info`
+                {
+                    judgeShowUnreadMessageNum()
+                }
+                <div
+                    style={{
+                        top: (props.labelTop || 10),
+                        display: (isMouseAvator ? 'block' : 'none'),
                     }}
-                    className='avatarItem'
+                    onMouseOver={() => { setIsMouseAvator(true) }}
+                    onMouseOut={() => { setIsMouseAvator(false) }}
+                    className={`${stylePrefix}-avatarMenu`}
                 >
-                    我的信息
+                    <Link
+                        to={{
+                            pathname: `/my/info`
+                        }}
+                        className={`${stylePrefix}-avatarItem`}
+                    >
+                        我的信息
                 </Link>
-                <Link
-                    to={{
-                        pathname: `/my/message`
-                    }}
-                    className='avatarItem'
-                >
-                    {judgeShowUnreadMyMessageNum()}
-                </Link>
-                <Link
-                    to='#'
-                    className='avatarItem'
-                    onClick={handleExit}>退出登录</Link>
+                    <Link
+                        to={{
+                            pathname: `/my/message`
+                        }}
+                        className={`${stylePrefix}-avatarItem`}
+                    >
+                        {judgeShowUnreadMyMessageNum()}
+                    </Link>
+                    {
+                        role >= 2 && <Link
+                            to={{
+                                pathname: `/back/activity/list`
+                            }}
+                            className={`${stylePrefix}-avatarItem`}
+                        >
+                            进入后台
+                    </Link>
+                    }
+                    <Link
+                        to='#'
+                        className={`${stylePrefix}-avatarItem`}
+                        onClick={handleExit}>退出登录</Link>
+                </div>
             </div>
         </div>
     )

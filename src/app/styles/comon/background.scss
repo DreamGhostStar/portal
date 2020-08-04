@@ -1,0 +1,12 @@
+$file-prefix: 'common-background';
+
+.#{$file-prefix}-main {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    background-color: #eee;
+    // background-attachment: fixed;
+    background-size: cover;
+    background-position: center top;
+}

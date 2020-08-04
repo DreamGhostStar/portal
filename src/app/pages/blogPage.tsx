@@ -6,6 +6,7 @@ import PaginationContainer from '../../containers/Pagination_container'
 import LayoutContentContainer from '../../containers/LayoutContent_container'
 import store from '../../redux/store'
 import { Provider } from 'react-redux'
+import BackGround from 'app/components/common/BackGround'
 
 const stylePrefix = 'page-blog'
 
@@ -64,7 +65,7 @@ export default function BlogPage(props: any) {
                     height: 40
                 }}></div>
             </div>
-            <div className={`${stylePrefix}-background`}></div>
+            <BackGround />
         </>
     )
 }
