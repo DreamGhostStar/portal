@@ -7,7 +7,7 @@ import '../../styles/comon/uploadAvator.scss'
 
 interface UploadAvatorConfig {
     img: string,
-    saveImg: any
+    saveImg: any,
 }
 
 export default function UploadAvator({ img, saveImg }: UploadAvatorConfig) {
@@ -76,7 +76,6 @@ export default function UploadAvator({ img, saveImg }: UploadAvatorConfig) {
                     ? <img src={imgURL} alt="avator" className='uploadAvator' />
                     : <div>
                         <PlusOutlined />
-                        {/* {loading ? <LoadingOutlined /> : <PlusOutlined />} */}
                         <div className="ant-upload-text">Upload</div>
                     </div>
             }

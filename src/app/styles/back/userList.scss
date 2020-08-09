@@ -22,8 +22,35 @@ $file-prefix: 'back-userList';
             margin-left: 20px;
             font-size: 12px;
         }
+
         .#{$file-prefix}-save-btn {
             margin-left: 20px;
         }
     }
+
+    .#{$file-prefix}-operation-layout {
+        display: flex;
+        justify-content: flex-start;
+    }
+}
+
+.#{$file-prefix}-info-layout {
+    margin-top: 20px;
+
+    .#{$file-prefix}-img-layout {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        margin-left: -90px;
+    }
+
+    .#{$file-prefix}-input-layout {
+        margin-top: 180px;
+        .#{$file-prefix}-input {
+            margin-top: 20px;
+        }
+    }
+}
+.#{$file-prefix}-message {
+    margin-top: 20px;
 }
