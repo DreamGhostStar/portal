@@ -61,7 +61,7 @@ export default class Entry extends Component {
                         <Route path='/edit/:articleID' component={EditArticlePage} />
                         {/* <Route path='/question' component={Questionnaire} /> */}
                         <Route path='/my/:type' component={myInfoPage} />
-                        {/* <Route path='/createQuestion' component={createQuestionNaire} /> */}
+                        <Route path='/editQuestion/:id' component={createQuestionNaire} />
                         <Route path='/404' component={page_404} />
                         <Route path='/question/:type' component={Question} />
                         <Route path='/back/:type/:id' component={BackStage} />

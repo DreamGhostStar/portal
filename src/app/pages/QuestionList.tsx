@@ -38,7 +38,7 @@ export default function QuestionList() {
             {text}
         </div>
     }
-    const handleClick = (abortTime: string, startTime: string) => {
+    const handleClick = (abortTime: string, startTime: string, id: number) => {
         if (abortTime < new Date().getTime().toString()) {
             info('该问卷已截止')
             return
@@ -48,7 +48,7 @@ export default function QuestionList() {
             info('该问卷未开始')
             return
         }
-        history.push(`/question/edit`)
+        history.push(`/question/${id}`)
     }
     return (
         <>
@@ -73,7 +73,7 @@ export default function QuestionList() {
                                     : <Button
                                         type="primary"
                                         shape="round"
-                                        onClick={() => handleClick(item.abortTime, item.startTime)}
+                                        onClick={() => handleClick(item.abortTime, item.startTime, item.id)}
                                         className={`${stylePrefix}-btn`}
                                     >
                                         填写问卷

@@ -25,12 +25,14 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
     // 增加选项
     const addOption = (index: number) => {
         const tempObj: subjectItemConfig = deepCopy(obj)
-        tempObj.options.splice(index + 1, 0, {
-            id: 5,
-            value: '请输入选项'
-        })
-
-        setObj(tempObj)
+        if (tempObj.options) {
+            tempObj.options.splice(index + 1, 0, {
+                id: 5,
+                value: '请输入选项'
+            })
+    
+            setObj(tempObj)
+        }
     }
     const handleChange = (value: string) => {
         const tempObj = deepCopy(obj)
@@ -57,7 +59,7 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
     // 重置
     const handleReset = () => {
         setObj({
-            index: obj.index,
+            id: obj.id,
             title: '标题',
             options: optionDefault,
             isRequired: obj.isRequired,
@@ -75,7 +77,7 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
             onMouseLeave={() => setMouseIndex(null)}
         >
             <div className={`${styleCommonPrefix}-header`}>
-                <span className={`${styleCommonPrefix}-number`}>{`${obj.index + 1}. `}</span>
+                <span className={`${styleCommonPrefix}-number`}>{`${index + 1}. `}</span>
                 <input
                     style={{
                         backgroundColor: (isTitleClick ? '#eee' : '#fff'),
@@ -93,7 +95,7 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
                 </Select>
             </div>
             {
-                obj.options.map((item, index) => {
+                obj.options && obj.options.map((item, index) => {
                     return (
                         <Fragment key={index}>
                             <div

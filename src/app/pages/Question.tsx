@@ -16,12 +16,11 @@ export interface optionItemConfig {
 export default function Question() {
     const params = useParams<paramsConfig>();
     const judgeShow = () => {
-        const contrast = {
-            list: <QuestionList />,
-            create: <CreateQuestionNaire />,
-            edit: <Questionnaire />
+        if (params.type === 'list') {
+            return <QuestionList />
+        } else {
+            return <Questionnaire questionID={Number(params.type)} />
         }
-        return contrast[params.type]
     }
     return (
         <>

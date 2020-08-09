@@ -7,6 +7,8 @@ import { useHistory, useParams } from 'react-router-dom'
 import Activity from 'app/components/back/Activity'
 import ActivityDetail from 'app/components/back/ActivityDetail'
 import UserList from 'app/components/back/UserList'
+import QuestionList from 'app/components/back/QuestionList'
+import CreateQuestionContent from 'app/components/question/CreateQuestionContent'
 
 const stylePrefix = 'page-back'
 
@@ -29,17 +31,16 @@ export default function BackStage() {
         setActiveIndex(index)
     }
     const judgeShowMain = () => {
-        if (params.id === 'list') {
-            const contrast = {
-                activity: <Activity />,
-                user: <UserList />
-            }
-            return contrast[params.type]
-        } else {
-            const contrast = {
-                activity: <ActivityDetail id={Number(params.id)} />
-            }
-            return contrast[params.type]
+        switch (params.type) {
+            case 'activity':
+                if (params.id === 'list') {
+                    return <Activity />
+                }
+                return <ActivityDetail id={Number(params.id)} />
+            case 'user':
+                return <UserList />
+            case 'questionNaire':
+                return <QuestionList />
         }
     }
     return (

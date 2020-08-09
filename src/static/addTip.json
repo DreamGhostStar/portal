@@ -8,7 +8,7 @@
     {
         "title": "新增问卷",
         "icon": "anticonwenjuan",
-        "path": "/question/create",
+        "path": "/editQuestion/create",
         "color": "green"
     },
     {

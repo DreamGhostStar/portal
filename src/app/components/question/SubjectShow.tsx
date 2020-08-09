@@ -20,7 +20,7 @@ export default function SubjectShow({ addSubjectList, handleInputData, isSubmit 
                     if (item.type === 'text') {
                         return <div className={`${stylePrefix}-single-layout `} key={index}>
                             <EditMultiline
-                                index={item.index}
+                                index={index}
                                 key={index}
                                 handleInputData={handleInputData}
                                 isSubmit={isSubmit}
@@ -30,7 +30,7 @@ export default function SubjectShow({ addSubjectList, handleInputData, isSubmit 
                     } else {
                         return <div className={`${stylePrefix}-single-layout `} key={index}>
                             <EditCheckBox
-                                index={item.index}
+                                index={index}
                                 handleInputData={handleInputData}
                                 isSubmit={isSubmit}
                                 subjectItem={item}

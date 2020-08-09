@@ -5,13 +5,14 @@ const stylePrefix = 'question-editQuestionTitle'
 
 interface EditQuestionTitleConfig {
     handleChange: any
+    title: string
 }
 
-export default function EditQuestionTitle({ handleChange }: EditQuestionTitleConfig) {
+export default function EditQuestionTitle({ handleChange, title }: EditQuestionTitleConfig) {
     const onChange = (e: any) => {
         handleChange(e);
     }
     return (
-        <input className={`${stylePrefix}-main`} defaultValue='问卷题目' onChange={(e) => onChange(e)} />
+        <input className={`${stylePrefix}-main`} value={title} onChange={(e) => onChange(e)} />
     )
 }

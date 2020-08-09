@@ -22,7 +22,7 @@ export interface radioCheckConfig {
     type: string;
 }
 
-export default function Questionnaire() {
+export default function Questionnaire({ questionID }: { questionID: number }) {
     return (
         <>
             <div className={`${stylePrefix}-layout`}>

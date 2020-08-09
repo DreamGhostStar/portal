@@ -1,16 +1,19 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Button, Modal, Radio, Input, DatePicker } from 'antd';
 import SubjectShow from './SubjectShow';
 import EditQuestionTitle from './EditQuestionTitle';
 import moment from 'moment';
 import { IconFont, error } from '../common/config';
 import 'app/styles/createQuestion/createQuestionContent.scss'
-import { deepCopy } from '../common/utils';
+import { deepCopy, formatTime } from '../common/utils';
 import { optionItemConfig } from 'app/pages/Question';
+import questionContentModel from 'model/questionContent.json'
 
 const { RangePicker } = DatePicker;
 const stylePrefix = 'question-createQuestionContent';
 const { TextArea } = Input;
+const nowDate = new Date().getTime().toString()
+const dateFormat = 'YYYY-MM-DD h:mm:ss';
 export const optionDefault = [
     {
         id: 1,
@@ -31,26 +34,30 @@ export const optionDefault = [
 ]
 
 export interface subjectItemConfig {
-    index: number
+    id: number
     isRequired: boolean
-    options: optionItemConfig[]
+    options?: optionItemConfig[]
     title: string
     type: string
 }
 
-export default function CreateQuestionContent() {
+interface CreateQuestionContentConfig {
+    questionID: number | null
+}
+
+export default function CreateQuestionContent({ questionID }: CreateQuestionContentConfig) {
     const [addIsMouse, setAddIsMouse] = useState(false)
     const [addSubjectVisible, setAddSubjectVisible] = useState(false) // 增加题目的开关
     const [addConfigVisible, setAddConfigVisible] = useState(false) // 最后配置的开关
     const [confirmLoading, setConfirmLoading] = useState(false) // 增加题目的loading
     const [addConfigLoading, setAddConfigLoading] = useState(false) // 最后配置的loading
-    const [value, setValue] = useState<number | null>(null)
+    const [value, setValue] = useState<number | null>(null) // 选择的是哪种题目的类型
     const [addSubjectList, setAddSubjectList] = useState<subjectItemConfig[]>([]) // 要传给后端的问卷题目
     const [inputValue, setInputValue] = useState('问卷题目') // 要传给后端的问卷标题
     const [isSubmit, setIsSubmit] = useState(false)// 在对话框中选择不同选项所增加的题目
     const [startTime, setStartTime] = useState<string | null>(null)
     const [endTime, setEndTime] = useState<string | null>(null)
-    const textAreaRef = useRef(null)
+    const [abstarct, setAbstract] = useState('')
     // 对话框中单选按钮的变化
     const onChange = (e: any) => {
         setValue(e.target.value)
@@ -87,8 +94,7 @@ export default function CreateQuestionContent() {
     };
     // 最后配置的提交处理信息
     const submit = () => {
-        const abstract = (textAreaRef.current as any).state.value
-        if(!(startTime && endTime && abstract)) {
+        if (!(startTime && endTime && abstarct)) {
             error('信息不能为空')
             return
         }
@@ -97,7 +103,7 @@ export default function CreateQuestionContent() {
             content: addSubjectList,
             startTime,
             abortTime: endTime,
-            abstract
+            abstarct
         });
         // TODO: 传递数据给后端
     }
@@ -109,7 +115,7 @@ export default function CreateQuestionContent() {
         setAddConfigVisible(true)
     }
     const changeSubject = () => {
-        let tempAddSubjectList = deepCopy(addSubjectList)
+        let tempAddSubjectList: subjectItemConfig[] = deepCopy(addSubjectList)
         let length = tempAddSubjectList.length;
         const contrast = {
             0: {
@@ -138,9 +144,21 @@ export default function CreateQuestionContent() {
         setAddSubjectList(tempAddSubjectList)
         setValue(null)
     }
+    useEffect(() => {
+        if (questionID !== null) {
+            setAddSubjectList(questionContentModel.content)
+            setInputValue(questionContentModel.title)
+            setAbstract(questionContentModel.decoration)
+            setStartTime(questionContentModel.startTime)
+            setEndTime(questionContentModel.abortTime)
+        }
+    }, [])
     return (
         <div className={`${stylePrefix}-layout`}>
-            <EditQuestionTitle handleChange={handleChange} />
+            <EditQuestionTitle
+                title={inputValue}
+                handleChange={handleChange}
+            />
             <SubjectShow
                 addSubjectList={addSubjectList}
                 handleInputData={handleInputData}
@@ -193,7 +211,7 @@ export default function CreateQuestionContent() {
             >
                 <div className={`${stylePrefix}-config-input-layout`}>
                     <div className={`${stylePrefix}-config-title`}>概要</div>
-                    <TextArea ref={textAreaRef} rows={4} />
+                    <TextArea onChange={(e: any) => setAbstract(e.target.value)} rows={4} value={abstarct} />
                 </div>
                 <div className={`${stylePrefix}-config-input-layout`}>
                     <div className={`${stylePrefix}-config-title`}>开始与截止时间</div>
@@ -201,6 +219,7 @@ export default function CreateQuestionContent() {
                     <RangePicker
                         disabledDate={disabledDate}
                         onChange={handleChangeDate}
+                        value={[moment(formatTime(startTime || nowDate), dateFormat), moment(formatTime(endTime || nowDate), dateFormat)]}
                         showTime
                     />
                 </div>
