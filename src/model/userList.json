@@ -1,0 +1,45 @@
+{
+    "code": 0,
+    "data": {
+        "pageSize": 10,
+        "data": [
+            {
+                "id": 1,
+                "username": "username1",
+                "nickname": "用户1",
+                "role": 3
+            },
+            {
+                "id": 2,
+                "username": "username2",
+                "nickname": "用户2",
+                "role": 3
+            },
+            {
+                "id": 3,
+                "username": "username3",
+                "nickname": "用户3",
+                "role": 3
+            },
+            {
+                "id": 4,
+                "username": "username4",
+                "nickname": "用户4",
+                "role": 1
+            },
+            {
+                "id": 5,
+                "username": "username5",
+                "nickname": "用户5",
+                "role": 2
+            },
+            {
+                "id": 6,
+                "username": "username6",
+                "nickname": "用户6",
+                "role": 3
+            }
+        ]
+    },
+    "message": "获取成功"
+  }

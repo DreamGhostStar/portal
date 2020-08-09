@@ -6,6 +6,7 @@ import staticNav from 'static/backNav.json'
 import { useHistory, useParams } from 'react-router-dom'
 import Activity from 'app/components/back/Activity'
 import ActivityDetail from 'app/components/back/ActivityDetail'
+import UserList from 'app/components/back/UserList'
 
 const stylePrefix = 'page-back'
 
@@ -22,8 +23,7 @@ export default function BackStage() {
         const contrast = {
             0: 'activity',
             1: 'user',
-            2: 'blog',
-            3: 'questionNaire'
+            2: 'questionNaire'
         }
         history.push(`/back/${contrast[index]}/list`)
         setActiveIndex(index)
@@ -31,7 +31,8 @@ export default function BackStage() {
     const judgeShowMain = () => {
         if (params.id === 'list') {
             const contrast = {
-                activity: <Activity />
+                activity: <Activity />,
+                user: <UserList />
             }
             return contrast[params.type]
         } else {
