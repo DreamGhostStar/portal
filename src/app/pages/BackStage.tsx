@@ -21,6 +21,7 @@ export default function BackStage() {
     const history = useHistory()
     const params = useParams<BackRouterConfig>()
     const [activeIndex, setActiveIndex] = useState(0)
+    const [mouseIndex, setMouseIndex] = useState<null | number>(null)
     const handleClickNav = (index: number) => {
         const contrast = {
             0: 'activity',
@@ -56,8 +57,10 @@ export default function BackStage() {
                             return <div
                                 className={`${stylePrefix}-word`}
                                 key={index}
+                                onMouseOver={() => setMouseIndex(index)}
+                                onMouseOut={() => setMouseIndex(null)}
                                 style={{
-                                    borderBottom: (activeIndex === index ? '2px solid #00CCFF' : 'none'),
+                                    borderBottom: (activeIndex === index || mouseIndex === index ? '2px solid #00CCFF' : 'none'),
                                     color: (activeIndex === index ? '#00CCFF' : '#000')
                                 }}
                                 onClick={() => { handleClickNav(index) }}

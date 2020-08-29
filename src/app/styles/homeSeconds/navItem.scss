@@ -1,25 +1,10 @@
-@media screen and (min-width: 500px) {
-    .navItem {
-        font-size: 24px;
-        line-height: 80px;
-        margin-right: 40px;
-        text-decoration: none;
+.navItem {
+    font-size: 24px;
+    line-height: 80px;
+    margin-right: 40px;
+    text-decoration: none;
 
-        &:hover {
-            color: red;
-        }
-    }
-}
-
-@media screen and (max-width: 500px) {
-    .navItem {
-        font-size: 34px;
-        line-height: 80px;
-        margin-right: 10px;
-        text-decoration: none;
-
-        &:hover {
-            color: red;
-        }
+    &:hover {
+        color: red;
     }
 }

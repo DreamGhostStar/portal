@@ -44,14 +44,3 @@
         top: 50%;
     }
 }
-
-@media screen and (max-width: 500px) {
-    .threeContent {
-        width: 100%;
-
-        .threeContent_imgShow {
-            width: 1000px;
-            margin-left: -500px;
-        }
-    }
-}

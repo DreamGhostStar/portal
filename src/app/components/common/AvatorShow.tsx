@@ -17,9 +17,10 @@ interface AvatorShowConfig {
     top?: number,
     labelTop?: number,
     remove_user: any
+    isHome: boolean
 }
 
-export default function AvatorShow(props: AvatorShowConfig) {
+export default function AvatorShow({top, labelTop, remove_user, isHome}: AvatorShowConfig) {
     const history = useHistory()
     const [isMouseAvator, setIsMouseAvator] = useState(false)
     const [unreadNum, setUnreadNum] = useState(0)
@@ -67,7 +68,7 @@ export default function AvatorShow(props: AvatorShowConfig) {
     // 退出登录，并且删除redux中的数据，清除cookie
     const handleExit = () => {
         cookies.remove('Authorization')
-        props.remove_user()
+        remove_user()
     }
 
     // 判断是否头像处的未读消息数
@@ -98,13 +99,13 @@ export default function AvatorShow(props: AvatorShowConfig) {
     return (
         <div className={`${stylePrefix}-layout`}>
             {
-                role >= 2 && <Popover placement="bottom" title='' content={addElemTip} trigger="hover">
+                role >= 2 && !isHome && <Popover placement="bottom" title='' content={addElemTip} trigger="hover">
                     <IconFont type='anticonzengjia' className={`${stylePrefix}-icon`} />
                 </Popover>
             }
             <div
                 style={{
-                    paddingTop: (props.top || 10),
+                    paddingTop: (top || 10),
                 }}
                 className={`removeFloat ${stylePrefix}-avatarShow`}
                 onMouseOver={() => { setIsMouseAvator(true) }}
@@ -115,7 +116,7 @@ export default function AvatorShow(props: AvatorShowConfig) {
                 }
                 <div
                     style={{
-                        top: (props.labelTop || 10),
+                        top: (labelTop || 10),
                         display: (isMouseAvator ? 'block' : 'none'),
                     }}
                     onMouseOver={() => { setIsMouseAvator(true) }}

@@ -31,14 +31,15 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
   const lineRef = useRef(null);
 
   const addActive = (index: number) => {
-    (lineRef.current as any).style.left = index * 88 + 'px';
+    console.log(index);
+    (lineRef.current as any).style.right = (5 - index) * 88 + 110 + 40 + 'px';
 
     setActiveIndex(index)
     setIsMouse(true)
   }
 
   const removeActive = (index: number) => {
-    (lineRef.current as any).style.left = index * 88 + 'px';
+    (lineRef.current as any).style.right = '590px';
 
     setActiveIndex(index)
     setIsMouse(false)
@@ -65,7 +66,7 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
     if (activeIndex === (index + 1) || activeIndex === (index - 1)) {
       if (!isMouse) {
         setActiveIndex(index);
-        (lineRef.current as any).style.left = index * 88 + 'px';
+        (lineRef.current as any).style.right = (5 - index) * 88 + 110 + 40 + 'px';
       }
     }
   }
@@ -117,12 +118,12 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
     let temp = < Link to="/login" className="header_button">
       登录 / 注册
     </Link>
-  
+
     let { user } = store.getState();
-  
+
     if (user) {
       temp = <Provider store={store}>
-        <AvatorShowContainer labelTop={65} />
+        <AvatorShowContainer labelTop={65} isHome={true} />
       </Provider>
     }
     setAvatarShow(temp)
@@ -142,7 +143,7 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
               alt="logo"
               className='header_img'
             />
-            <div className="header_nav" style={{ float: "right" }}>
+            <div className="header_nav">
               {
                 staticData.map((item, index) => {
                   return <NavItem
@@ -174,9 +175,9 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
               {
                 avatarShow
               }
-              <div ref={lineRef} className='header_line'></div>
             </div>
           </nav>
+          <div ref={lineRef} className='header_line'></div>
         </header>
       </div>
       <div style={{

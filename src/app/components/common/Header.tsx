@@ -24,6 +24,7 @@ export default function Header({ title }: HeaderConfig) {
                 <AvatorShowContainer
                     top={1}
                     labelTop={65}
+                    isHome={false}
                 />
             </Provider>
         </div>

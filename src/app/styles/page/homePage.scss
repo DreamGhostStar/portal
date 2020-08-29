@@ -1,21 +1,10 @@
-@media screen and (min-width: 500px) {
-    .homePage_firstContent {
-        height: 901px;
-        width: 100%;
-        background-image: url(../../../images/background.jpg);
-        padding-top: 50px;
-        padding-bottom: 50px;
-        background-size: cover;
-    }
-}
+@import 'app/styles/comon/common.scss';
 
-@media screen and (max-width: 500px) {
-    .homePage_firstContent {
-        height: 901px;
-        width: 100%;
-        background-image: url(../../../images/background.jpg);
-        padding-top: 50px;
-        padding-bottom: 50px;
-        background-size: cover;
-    }
+.homePage_firstContent {
+    height: 901px;
+    width: 100%;
+    background-image: url(../../../images/background.jpg);
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-size: cover;
 }
