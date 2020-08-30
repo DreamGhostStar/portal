@@ -40,10 +40,6 @@ const HomePage = Loadable({
     loader: () => import('../containers/homePage_container'),
 });
 
-const page_404 = Loadable({
-    loader: () => import('./pages/Page_404'),
-});
-
 const BackStage = Loadable({
     loader: () => import('./pages/BackStage'),
 });
@@ -65,7 +61,6 @@ export default class Entry extends Component {
                         <Route path='/edit/:articleID' component={EditArticlePage} />
                         <Route path='/my/:type' component={myInfoPage} />
                         <Route path='/editQuestion/:id' component={createQuestionNaire} />
-                        <Route path='/404' component={page_404} />
                         <Route path='/question/:type' component={Question} />
                         <Route path='/back/:type/:id' component={BackStage} />
                         <Route path='/user/:id' component={UserShow} />
