@@ -1,0 +1,113 @@
+$file-prefix: 'page-userShow';
+$boxShadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12),
+0 3px 1px -2px rgba(0, 0, 0, 0.06),
+0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+.#{$file-prefix}-layout {
+    position: relative;
+    z-index: 2;
+
+    .#{$file-prefix}-main {
+        width: 1200px;
+        margin: 0 auto;
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+
+        .#{$file-prefix}-sider {
+            width: 260px;
+
+            .#{$file-prefix}-catalog-layout {
+                background-color: #fff;
+                box-shadow: $boxShadow;
+                margin-bottom: 20px;
+
+                .#{$file-prefix}-title {
+                    height: 75px;
+                    line-height: 75px;
+                    font-size: 22px;
+                    text-align: center;
+                    color: #fff;
+                    background-color: #000;
+                }
+
+                .#{$file-prefix}-catalog-main {
+                    padding: 20px 0;
+                    background-color: #fff;
+                    cursor: pointer;
+
+                    .#{$file-prefix}-catalog-word-layout {
+                        height: 36px;
+                        line-height: 36px;
+                        font-size: 13px;
+                        padding: 0 40px;
+                        display: flex;
+                        justify-content: space-between;
+
+                        .#{$file-prefix}-catalog-word-value {
+                            display: flex;
+                            justify-content: flex-start;
+
+                            .#{$file-prefix}-catalog-icon {
+                                font-size: 20px;
+                                margin-right: 19px;
+                                margin-top: 10px;
+                            }
+                        }
+
+                        .#{$file-prefix}-catalog-number {
+                            width: 26px;
+                            height: 16px;
+                            line-height: 16px;
+                            text-align: center;
+                            font-weight: bold;
+                            margin-top: 10px;
+                            border-radius: 10px;
+                            background-color: #ccc;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+
+            .#{$file-prefix}-info-layout {
+                background-color: #fff;
+                margin-top: 20px;
+                box-shadow: $boxShadow;
+
+                .#{$file-prefix}-info-avatar {
+                    width: 120px;
+                    height: 120px;
+                    margin: 20px 70px 0px 70px;
+                }
+
+                .#{$file-prefix}-nickname {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 20px;
+                    margin: 10px 0px;
+                }
+
+                .#{$file-prefix}-motto {
+                    padding: 10px 10px;
+                    text-align: center;
+                }
+            }
+        }
+
+
+        .#{$file-prefix}-blog-layout {
+            width: 900px;
+            margin-bottom: 40px;
+
+            .#{$file-prefix}-blog-main {
+                box-shadow: $boxShadow;
+            }
+        }
+
+        .#{$file-prefix}-loading-layout {
+            box-shadow: $boxShadow;
+            height: 250px;
+        }
+    }
+}

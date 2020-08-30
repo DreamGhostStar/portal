@@ -48,6 +48,10 @@ const BackStage = Loadable({
     loader: () => import('./pages/BackStage'),
 });
 
+const UserShow = Loadable({
+    loader: () => import('./pages/UserShow'),
+});
+
 // 前端路由
 export default class Entry extends Component {
     render() {
@@ -59,12 +63,12 @@ export default class Entry extends Component {
                         <Route path='/login' component={loginPage} />
                         <Route path='/blog/:articleID' component={blogPage} />
                         <Route path='/edit/:articleID' component={EditArticlePage} />
-                        {/* <Route path='/question' component={Questionnaire} /> */}
                         <Route path='/my/:type' component={myInfoPage} />
                         <Route path='/editQuestion/:id' component={createQuestionNaire} />
                         <Route path='/404' component={page_404} />
                         <Route path='/question/:type' component={Question} />
                         <Route path='/back/:type/:id' component={BackStage} />
+                        <Route path='/user/:id' component={UserShow} />
                         <Redirect to='/home' />
                     </Switch>
                 </HashRouter>

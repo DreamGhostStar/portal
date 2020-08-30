@@ -1,0 +1,26 @@
+{
+    "code": 0,
+    "message": "",
+    "data":[
+        {
+            "typeID": 1,
+            "type": "作品",
+            "number": "32"
+        },
+        {
+            "typeID": 2,
+            "type": "活动",
+            "number": "32"
+        },
+        {
+            "typeID": 3,
+            "type": "交流会",
+            "number": "32"
+        },
+        {
+            "typeID": 4,
+            "type": "招新",
+            "number": "32"
+        }
+    ]
+}

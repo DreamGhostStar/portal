@@ -6,16 +6,19 @@ import avatorURL from '../../../images/profile photo.jpg'
 import store from '../../../redux/store';
 import { error, IconFont } from '../common/config';
 import { getReduxUser, simpleFormatTime } from '../common/utils';
+import AvatarShow from '../common/AvatarShow';
+import { ArticleItemConfig } from './LayoutContent';
 
 const stylePrefix = 'blog-articleContent'
 
 interface ArticleContentConfig {
-    item: any,
+    item: ArticleItemConfig,
     articleID: number,
     deleteAssignArticle: any
+    allowEdit?: boolean
 }
 
-export default function ArticleContent({ item, articleID, deleteAssignArticle }: ArticleContentConfig) {
+export default function ArticleContent({ item, articleID, deleteAssignArticle, allowEdit = true }: ArticleContentConfig) {
     let history = useHistory()
     const [lineWidth, setLineWidth] = useState(0)
     const [loading, setLoading] = useState(false)
@@ -78,23 +81,28 @@ export default function ArticleContent({ item, articleID, deleteAssignArticle }:
                 }}
                 className={`${stylePrefix}-line`}
             ></div>
-            <div className={`${stylePrefix}-icon-layout`}>
-                <IconFont type="anticonzengjia" className={`${stylePrefix}-icon`} onClick={() => handleAdd()} />
-                <IconFont type="anticonxiugai" className={`${stylePrefix}-icon`} onClick={() => handleEdit()} />
-                <IconFont type="anticonshanchu" className={`${stylePrefix}-icon`} onClick={showModal} />
-            </div>
-            <div className={`${stylePrefix}-info-layout removeFloat`}>
-                <img src={avatorURL} alt="头像" className={`${stylePrefix}-avatar`} />
-                <div className={`${stylePrefix}-nickname`}>
-                    {item.author['nickname']}
+            {
+                allowEdit && <div className={`${stylePrefix}-icon-layout`}>
+                    <IconFont type="anticonzengjia" className={`${stylePrefix}-icon`} onClick={() => handleAdd()} />
+                    <IconFont type="anticonxiugai" className={`${stylePrefix}-icon`} onClick={() => handleEdit()} />
+                    <IconFont type="anticonshanchu" className={`${stylePrefix}-icon`} onClick={showModal} />
                 </div>
-                <br />
-                <div className={`${stylePrefix}-createTime`}>
-                    {simpleFormatTime(item.createTime)}
+            }
+            <div className={`${stylePrefix}-info-layout`}>
+                <div>
+                    <AvatarShow src={avatorURL} size={48} userID={item.author.id} />
+                </div>
+                <div>
+                    <div className={`${stylePrefix}-word`}>
+                        {item.author['nickname']}
+                    </div>
+                    <div className={`${stylePrefix}-word`}>
+                        {simpleFormatTime(item.createTime)}
+                    </div>
                 </div>
             </div>
             <div className={`${stylePrefix}-content`}>
-                {item.content}
+                {item.abstract}
             </div>
             <Modal
                 visible={visible}

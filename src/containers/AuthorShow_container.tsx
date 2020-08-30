@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import { remove_user, transform_user } from '../redux/actions'
-import AvatorShow from '../app/components/common/AvatorShow'
+import AuthorShow from '../app/components/common/AuthorShow'
 export default connect(
-    (state: any) => ({
+    ( state: any) => ({
         user: state.user
     }),
     { remove_user, transform_user }
-)(AvatorShow)
+)(AuthorShow)

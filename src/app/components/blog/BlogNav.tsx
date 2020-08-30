@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { HashRouter as Router, Link } from 'react-router-dom'
 import '../../styles/blog/blogHeader.scss'
-import AvatorShowContainer from '../../../containers/AvatorShow_container';
 import logo from 'images/TechF5veBlack.png'
 
 import store from '../../../redux/store'
@@ -16,6 +15,7 @@ import { userConfig, info } from '../common/config';
 import { getToken } from '../common/utils';
 
 import searchArticle from 'model/searchArticle.json'
+import AuthorShow_container from 'containers/AuthorShow_container';
 const stylePrefix = 'blog-header';
 interface BlogNavConfig {
     activeIndex: number | null
@@ -49,7 +49,7 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
         if (store.getState().user) {
             setUserInfoShow(
                 <Provider store={store}>
-                    <AvatorShowContainer top={1} labelTop={60} isHome={true} />
+                    <AuthorShow_container top={1} labelTop={60} isHome={true} />
                 </Provider>
             )
         }

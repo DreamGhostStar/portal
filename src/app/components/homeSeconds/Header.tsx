@@ -2,7 +2,7 @@ import React, { useState, useRef, Fragment, useEffect } from 'react'
 import { HashRouter as Router, Link } from 'react-router-dom'
 import TECHF5VELogoWhite from '../../../images/TechF5ve.png'
 import TECHF5VELogoBlack from '../../../images/TechF5veBlack.png'
-import AvatorShowContainer from '../../../containers/AvatarShow_container';
+import AuthorShow_container from '../../../containers/AuthorShow_container';
 import '../../styles/homeSeconds/Header.scss'
 import staticData from 'static/headerNav.json'
 
@@ -122,9 +122,11 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
     let { user } = store.getState();
 
     if (user) {
-      temp = <Provider store={store}>
-        <AvatorShowContainer labelTop={65} isHome={true} />
-      </Provider>
+      temp = <div style={{ width: 110 }}>
+        <Provider store={store}>
+          <AuthorShow_container labelTop={65} isHome={true} />
+        </Provider>
+      </div>
     }
     setAvatarShow(temp)
   }, [store.getState()])

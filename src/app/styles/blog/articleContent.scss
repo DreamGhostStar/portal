@@ -33,23 +33,11 @@ $file-prefix: 'blog-articleContent';
     .#{$file-prefix}-info-layout {
         margin-left: 30px;
         margin-top: 10px;
+        display: flex;
+        justify-content: flex-start;
 
-        .#{$file-prefix}-avatar {
-            border-radius: 50%;
-            float: left;
-            width: 48px;
-            height: 48px;
-        }
-
-        .#{$file-prefix}-nickname {
+        .#{$file-prefix}-word {
             margin-left: 30px;
-            float: left;
-            color: grey;
-        }
-
-        .#{$file-prefix}-createTime {
-            margin-left: 30px;
-            float: left;
             color: grey;
         }
     }

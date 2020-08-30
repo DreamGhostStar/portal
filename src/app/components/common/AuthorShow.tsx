@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { HashRouter as Router, Link, useHistory } from 'react-router-dom'
 import { Badge, Popover } from 'antd';
 import cookies from 'react-cookies'
-import '../../styles/comon/avatarShow.scss'
+import '../../styles/comon/authorShow.scss'
 
 import { error, IconFont } from './config';
 import { _getUserDetail, _getMessageNum } from './Api';
@@ -11,16 +11,16 @@ import messageNum from 'model/messageNum.json'
 import userInfo from 'model/userInfo.json'
 import addTip from 'static/addTip.json'
 
-const stylePrefix = 'common-avatarShow'
+const stylePrefix = 'common-authorShow'
 
-interface AvatorShowConfig {
+interface AuthorShowConfig {
     top?: number,
     labelTop?: number,
     remove_user: any
     isHome: boolean
 }
 
-export default function AvatorShow({top, labelTop, remove_user, isHome}: AvatorShowConfig) {
+export default function AuthorShow({top, labelTop, remove_user, isHome}: AuthorShowConfig) {
     const history = useHistory()
     const [isMouseAvator, setIsMouseAvator] = useState(false)
     const [unreadNum, setUnreadNum] = useState(0)

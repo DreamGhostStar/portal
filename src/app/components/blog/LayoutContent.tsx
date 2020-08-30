@@ -12,8 +12,26 @@ import Loading2 from '../common/Loading2';
 
 import articleList from 'model/artileList.json' // TODO: 需删除
 
+export interface ArticleItemConfig {
+    articleID: number;
+    author: {
+        id: number;
+        username: string;
+        avatar: string;
+        nickname: string;
+        motto: string;
+        year: string;
+    };
+    title: string;
+    abstract: string;
+    createTime: string;
+    updateTime: string;
+    deleteTime: string;
+    isTop: boolean;
+}
+
 export default function LayoutContent({ }) {
-    const [article, setArticle] = useState<any[]>([])
+    const [article, setArticle] = useState<ArticleItemConfig[]>([])
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         store.subscribe(() => { // 监听redux变化
