@@ -31,7 +31,6 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
   const lineRef = useRef(null);
 
   const addActive = (index: number) => {
-    console.log(index);
     (lineRef.current as any).style.right = (5 - index) * 88 + 110 + 40 + 'px';
 
     setActiveIndex(index)

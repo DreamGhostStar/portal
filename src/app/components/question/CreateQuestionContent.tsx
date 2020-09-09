@@ -58,6 +58,7 @@ export default function CreateQuestionContent({ questionID }: CreateQuestionCont
     const [startTime, setStartTime] = useState<string | null>(null)
     const [endTime, setEndTime] = useState<string | null>(null)
     const [abstarct, setAbstract] = useState('')
+    const [dropIndex, setDropIndex] = useState<number | null>(null) // 拖动元素暂存索引
     // 对话框中单选按钮的变化
     const onChange = (e: any) => {
         setValue(e.target.value)
@@ -144,6 +145,11 @@ export default function CreateQuestionContent({ questionID }: CreateQuestionCont
         setAddSubjectList(tempAddSubjectList)
         setValue(null)
     }
+    const swapSubjectItem = (newIndex: number, oldIndex: number) =>{
+        const tempSubjectList = deepCopy(addSubjectList)
+        tempSubjectList[newIndex] = tempSubjectList.splice(oldIndex, 1, tempSubjectList[newIndex])[0];
+        setAddSubjectList(tempSubjectList)
+    }
     useEffect(() => {
         if (questionID !== null) {
             setAddSubjectList(questionContentModel.content)
@@ -163,6 +169,9 @@ export default function CreateQuestionContent({ questionID }: CreateQuestionCont
                 addSubjectList={addSubjectList}
                 handleInputData={handleInputData}
                 isSubmit={isSubmit}
+                setDropIndex={setDropIndex}
+                dropIndex={dropIndex}
+                swapSubjectItem={swapSubjectItem}
             />
             <div className={`${stylePrefix}-main`}>
                 <div

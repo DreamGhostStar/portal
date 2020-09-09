@@ -10,9 +10,12 @@ interface SubjectShowConfig {
     addSubjectList: subjectItemConfig[],
     handleInputData: any,
     isSubmit: boolean
+    setDropIndex: React.Dispatch<React.SetStateAction<number | null>>
+    dropIndex: number | null
+    swapSubjectItem: (newIndex: number, oldIndex: number) => void
 }
 
-export default function SubjectShow({ addSubjectList, handleInputData, isSubmit }: SubjectShowConfig) {
+export default function SubjectShow({ addSubjectList, handleInputData, isSubmit, setDropIndex, dropIndex, swapSubjectItem }: SubjectShowConfig) {
     return (
         <>
             {
@@ -25,6 +28,9 @@ export default function SubjectShow({ addSubjectList, handleInputData, isSubmit 
                                 handleInputData={handleInputData}
                                 isSubmit={isSubmit}
                                 item={item}
+                                setDropIndex={setDropIndex}
+                                dropIndex={dropIndex}
+                                swapSubjectItem={swapSubjectItem}
                             />
                         </div>
                     } else {
@@ -34,6 +40,9 @@ export default function SubjectShow({ addSubjectList, handleInputData, isSubmit 
                                 handleInputData={handleInputData}
                                 isSubmit={isSubmit}
                                 subjectItem={item}
+                                setDropIndex={setDropIndex}
+                                dropIndex={dropIndex}
+                                swapSubjectItem={swapSubjectItem}
                             />
                         </div>
                     }

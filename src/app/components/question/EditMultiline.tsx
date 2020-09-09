@@ -12,12 +12,16 @@ interface EditMultilineConfig {
     handleInputData: any,
     isSubmit: boolean,
     index: number
+    setDropIndex: React.Dispatch<React.SetStateAction<number | null>>
+    dropIndex: number | null
+    swapSubjectItem: (newIndex: number, oldIndex: number) => void
 }
 
-export default function EditMultiline({ item, handleInputData, isSubmit, index }: EditMultilineConfig) {
+export default function EditMultiline({ item, handleInputData, isSubmit, index, setDropIndex, dropIndex, swapSubjectItem }: EditMultilineConfig) {
     const [obj, setObj] = useState(item)
     const [isTitleClick, setIsTitleClick] = useState(false)
     const inputRef = useRef(null)
+    const divRef = useRef<HTMLDivElement>(null)
     const handleChange = (value: string) => {
         const tempObj = deepCopy(obj)
         tempObj.isRequired = value === '非必需' ? false : true;
@@ -42,13 +46,33 @@ export default function EditMultiline({ item, handleInputData, isSubmit, index }
             type: 'multiline',
         })
     }
+    // 开始拖动
+    const dragStart = () => {
+        setDropIndex(index)
+    }
+    const dragOver = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault()
+        event.dataTransfer.dropEffect = 'link'
+    }
+    const ondrop = () => {
+        if (dropIndex != null && dropIndex != index) {
+            swapSubjectItem(index, dropIndex)
+        }
+    }
     useEffect(() => {
         if (isSubmit) {
             handleInputData(obj, index);
         }
     }, [isSubmit])
     return (
-        <div className={`${styleCommonPrefix}-layout`}>
+        <div
+            className={`${styleCommonPrefix}-layout`}
+            draggable={true}
+            onDragStart={dragStart}
+            onDragOver={dragOver}
+            onDrop={ondrop}
+            ref={divRef}
+        >
             <div className={`${styleCommonPrefix}-header`}>
                 <span className={`${styleCommonPrefix}-number`}>{`${index + 1}. `}</span>
                 <input

@@ -49,7 +49,7 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
         if (store.getState().user) {
             setUserInfoShow(
                 <Provider store={store}>
-                    <AuthorShow_container top={1} labelTop={60} isHome={true} />
+                    <AuthorShow_container top={1} labelTop={60} isHome={false} />
                 </Provider>
             )
         }

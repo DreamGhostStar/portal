@@ -13,14 +13,18 @@ interface EditCheckBoxConfig {
     handleInputData: any,
     isSubmit: boolean,
     index: number
+    setDropIndex: React.Dispatch<React.SetStateAction<number | null>>
+    dropIndex: number | null
+    swapSubjectItem: (newIndex: number, oldIndex: number) => void
 }
 
-export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, index }: EditCheckBoxConfig) {
+export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, index, setDropIndex, dropIndex, swapSubjectItem }: EditCheckBoxConfig) {
     const [clickIndex, setClickIndex] = useState<number | null>(null)
     const [obj, setObj] = useState<subjectItemConfig>(subjectItem)
     const [isTitleClick, setIsTitleClick] = useState(false)
     const [mouseIndex, setMouseIndex] = useState<number | null>(null)
     const inputRef = useRef(null)
+    const divRef = useRef<HTMLDivElement>(null)
 
     // 增加选项
     const addOption = (index: number) => {
@@ -30,7 +34,7 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
                 id: 5,
                 value: '请输入选项'
             })
-    
+
             setObj(tempObj)
         }
     }
@@ -66,6 +70,19 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
             type: 'checkBox',
         })
     }
+    // 开始拖动
+    const dragStart = () => {
+        setDropIndex(index)
+    }
+    const dragOver = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault()
+        event.dataTransfer.dropEffect = 'link'
+    }
+    const ondrop = () => {
+        if (dropIndex != null && dropIndex != index) {
+            swapSubjectItem(index, dropIndex)
+        }
+    }
     useEffect(() => {
         if (isSubmit) {
             handleInputData(obj, index);
@@ -73,6 +90,11 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
     }, [isSubmit])
     return (
         <div
+            draggable={true}
+            onDragStart={dragStart}
+            onDragOver={dragOver}
+            onDrop={ondrop}
+            ref={divRef}
             className={`${styleCommonPrefix}-layout`}
             onMouseLeave={() => setMouseIndex(null)}
         >

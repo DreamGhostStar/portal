@@ -16,10 +16,6 @@ const EditArticlePage = Loadable({
     loader: () => import('./pages/EditArticlePage'),
 });
 
-const Questionnaire = Loadable({
-    loader: () => import('./pages/Questionnaire'),
-});
-
 const Question = Loadable({
     loader: () => import('./pages/Question'),
 });
