@@ -13,9 +13,10 @@ interface SubjectShowConfig {
     setDropIndex: React.Dispatch<React.SetStateAction<number | null>>
     dropIndex: number | null
     swapSubjectItem: (newIndex: number, oldIndex: number) => void
+    deleteSubjectItem: (index: number) => void
 }
 
-export default function SubjectShow({ addSubjectList, handleInputData, isSubmit, setDropIndex, dropIndex, swapSubjectItem }: SubjectShowConfig) {
+export default function SubjectShow({ addSubjectList, handleInputData, isSubmit, setDropIndex, dropIndex, swapSubjectItem, deleteSubjectItem }: SubjectShowConfig) {
     return (
         <>
             {
@@ -31,6 +32,7 @@ export default function SubjectShow({ addSubjectList, handleInputData, isSubmit,
                                 setDropIndex={setDropIndex}
                                 dropIndex={dropIndex}
                                 swapSubjectItem={swapSubjectItem}
+                                deleteSubjectItem={deleteSubjectItem}
                             />
                         </div>
                     } else {
@@ -43,6 +45,7 @@ export default function SubjectShow({ addSubjectList, handleInputData, isSubmit,
                                 setDropIndex={setDropIndex}
                                 dropIndex={dropIndex}
                                 swapSubjectItem={swapSubjectItem}
+                                deleteSubjectItem={deleteSubjectItem}
                             />
                         </div>
                     }

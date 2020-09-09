@@ -16,9 +16,10 @@ interface EditCheckBoxConfig {
     setDropIndex: React.Dispatch<React.SetStateAction<number | null>>
     dropIndex: number | null
     swapSubjectItem: (newIndex: number, oldIndex: number) => void
+    deleteSubjectItem: (index: number) => void
 }
 
-export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, index, setDropIndex, dropIndex, swapSubjectItem }: EditCheckBoxConfig) {
+export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, index, setDropIndex, dropIndex, swapSubjectItem, deleteSubjectItem }: EditCheckBoxConfig) {
     const [clickIndex, setClickIndex] = useState<number | null>(null)
     const [obj, setObj] = useState<subjectItemConfig>(subjectItem)
     const [isTitleClick, setIsTitleClick] = useState(false)
@@ -35,6 +36,14 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
                 value: '请输入选项'
             })
 
+            setObj(tempObj)
+        }
+    }
+    // 删除选项
+    const deleteOption = (index: number) => {
+        const tempObj: subjectItemConfig = deepCopy(obj)
+        if (tempObj.options) {
+            tempObj.options.splice(index, 1)
             setObj(tempObj)
         }
     }
@@ -126,6 +135,7 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
                                 }}
                                 className={`${styleCommonPrefix}-main-item`}
                                 onClick={() => setClickIndex(index)}
+                                onBlur={() => setClickIndex(null)}
                                 onMouseOver={() => setMouseIndex(index)}
                             >
                                 <div
@@ -140,6 +150,11 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
                                     className={`${styleCommonPrefix}-value-input`}
                                     onChange={(e) => onChange(e, index)}
                                     value={item.value}
+                                />
+                                <IconFont
+                                    type='anticoncha'
+                                    className={`${styleCommonPrefix}-suffix`}
+                                    onClick={() => deleteOption(index)}
                                 />
                             </div>
                             <div
@@ -163,7 +178,7 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
                     <IconFont type='anticonzhongzhi' className={`${styleCommonPrefix}-icon`} onClick={handleReset} />
                 </Tooltip>
                 <Tooltip title="删除">
-                    <IconFont type='anticoncha' className={`${styleCommonPrefix}-icon`} />
+                    <IconFont type='anticoncha' className={`${styleCommonPrefix}-icon`} onClick={() => deleteSubjectItem(index)} />
                 </Tooltip>
             </div>
         </div>

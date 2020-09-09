@@ -15,9 +15,10 @@ interface EditMultilineConfig {
     setDropIndex: React.Dispatch<React.SetStateAction<number | null>>
     dropIndex: number | null
     swapSubjectItem: (newIndex: number, oldIndex: number) => void
+    deleteSubjectItem: (index: number) => void
 }
 
-export default function EditMultiline({ item, handleInputData, isSubmit, index, setDropIndex, dropIndex, swapSubjectItem }: EditMultilineConfig) {
+export default function EditMultiline({ item, handleInputData, isSubmit, index, setDropIndex, dropIndex, swapSubjectItem, deleteSubjectItem }: EditMultilineConfig) {
     const [obj, setObj] = useState(item)
     const [isTitleClick, setIsTitleClick] = useState(false)
     const inputRef = useRef(null)
@@ -99,7 +100,7 @@ export default function EditMultiline({ item, handleInputData, isSubmit, index, 
                     <IconFont type='anticonzhongzhi' className={`${styleCommonPrefix}-icon`} onClick={handleReset} />
                 </Tooltip>
                 <Tooltip title="删除">
-                    <IconFont type='anticoncha' className={`${styleCommonPrefix}-icon`} />
+                    <IconFont type='anticoncha' className={`${styleCommonPrefix}-icon`} onClick={() => deleteSubjectItem(index)} />
                 </Tooltip>
             </div>
         </div>

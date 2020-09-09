@@ -1,6 +1,5 @@
 $file-prefix: 'question-common';
 
-// TODO: 请检查EditMultiline和EditSingle两个文件的layout类的padding-bottom属性
 .#{$file-prefix}-layout {
     font-size: 30px;
     padding-left: 50px;
@@ -42,6 +41,9 @@ $file-prefix: 'question-common';
         justify-content: space-between;
         margin-bottom: 10px;
         margin-top: 10px;
+        &:hover .#{$file-prefix}-suffix {
+            display: block;
+        }
 
         .#{$file-prefix}-prefix {
             width: 20px;
@@ -63,8 +65,15 @@ $file-prefix: 'question-common';
             line-height: 20px;
             height: 20px;
             width: 1080px;
+            margin-left: 20px;
             outline: none;
             border: none;
+        }
+
+        .#{$file-prefix}-suffix {
+            margin-right: 20px;
+            display: none;
+            cursor: pointer;
         }
     }
 

@@ -145,8 +145,15 @@ export default function CreateQuestionContent({ questionID }: CreateQuestionCont
         setAddSubjectList(tempAddSubjectList)
         setValue(null)
     }
-    const swapSubjectItem = (newIndex: number, oldIndex: number) =>{
-        const tempSubjectList = deepCopy(addSubjectList)
+    // 删除问卷项
+    const deleteSubjectItem = (index: number) => {
+        const tempSubjectList: subjectItemConfig[] = deepCopy(addSubjectList)
+        tempSubjectList.splice(index, 1);
+        setAddSubjectList(tempSubjectList)
+    }
+    // 交换问卷项
+    const swapSubjectItem = (newIndex: number, oldIndex: number) => {
+        const tempSubjectList: subjectItemConfig[] = deepCopy(addSubjectList)
         tempSubjectList[newIndex] = tempSubjectList.splice(oldIndex, 1, tempSubjectList[newIndex])[0];
         setAddSubjectList(tempSubjectList)
     }
@@ -172,6 +179,7 @@ export default function CreateQuestionContent({ questionID }: CreateQuestionCont
                 setDropIndex={setDropIndex}
                 dropIndex={dropIndex}
                 swapSubjectItem={swapSubjectItem}
+                deleteSubjectItem={deleteSubjectItem}
             />
             <div className={`${stylePrefix}-main`}>
                 <div
