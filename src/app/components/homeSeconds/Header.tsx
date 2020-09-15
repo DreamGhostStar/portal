@@ -102,7 +102,6 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
                 key={index}
                 style={{
                   display: showMobileNav ? 'block' : 'none', // 控制显示
-                  // backgroundColor: activeIndex === index ? '#eee' : '#fff', // 激活样式
                 }}
                 className='header_nav_mobile_item'
               >
@@ -226,7 +225,9 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
             />
             {showNav()}
           </nav>
-          <div ref={lineRef} className='header_line'></div>
+          {
+            isMobile() ? <div></div> : <div ref={lineRef} className='header_line'></div>
+          }
         </header>
       </div>
       <div
