@@ -4,7 +4,6 @@ import { BackTop } from 'antd';
 import FirstContent from '../components/homeSeconds/FirstContent';
 import SecondContent from '../components/homeSeconds/SecondContent';
 import ThreeContent from '../components/homeSeconds/ThreeContent';
-import Star from '../components/common/Star'
 import FourContent from '../components/homeSeconds/FourContent';
 import FiveContent from '../components/homeSeconds/FiveContent';
 import Footer from '../components/homeSeconds/Footer';
@@ -14,41 +13,7 @@ import '../styles/page/homePage.scss'
 import store from '../../redux/store'
 import { Provider } from 'react-redux'
 import { getUser } from '../components/common/config';
-
-// 星星位置
-const pos = [
-    {
-        top: 20,
-        left: 20,
-        scale: 0.5,
-        duration: '2s'
-    },
-    {
-        top: 370,
-        left: 1200,
-        scale: 0.3,
-        duration: '2.7s'
-    },
-    {
-        top: 200,
-        left: 400,
-        scale: 0.4,
-        duration: '3s'
-    },
-    {
-        top: 80,
-        left: 1500,
-        scale: 0.6,
-        duration: '2.3s'
-    },
-    {
-        top: 70,
-        left: 300,
-        scale: 0.3,
-        duration: '4s'
-    },
-]
-
+import { setRemUnit } from 'app/components/common/utils';
 
 export default function HomePage(props: any) {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
@@ -59,6 +24,7 @@ export default function HomePage(props: any) {
     const updateWindowStyle = (e: any) => {
         const screenWidthTemp = e.target.innerWidth;
         setScreenWidth(screenWidthTemp)
+        setRemUnit();
     }
     const updateHeaderPos = (e: any) => {
         const scrollTop = document.documentElement.scrollTop;
@@ -110,6 +76,7 @@ export default function HomePage(props: any) {
     }
     useEffect(() => {
         getUser(props.transform_user, history, false);
+        setRemUnit();
     }, [])
     useEffect(() => {
         window.addEventListener('resize', updateWindowStyle);
@@ -129,16 +96,8 @@ export default function HomePage(props: any) {
                     handleHeaderArchor={(index: number) => { setScrollIndex(index) }}
                 />
             </Provider>
-            <div className='homePage_firstContent' id='first'>
-                <FirstContent />
-                {
-                    // 遍历生成星星
-                    pos.map((item, index) => {
-                        return <Star item={item} key={index} screenWidth={screenWidth} />
-                    })
-                }
-            </div>
-            <div style={{
+            <FirstContent />
+            {/* <div style={{
                 height: 900,
                 width: '100%',
                 paddingTop: 50,
@@ -169,7 +128,7 @@ export default function HomePage(props: any) {
                 backgroundColor: '#000'
             }}>
                 <Footer />
-            </div>
+            </div> */}
         </>
     )
 }

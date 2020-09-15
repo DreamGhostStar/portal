@@ -9,6 +9,9 @@ import staticData from 'static/headerNav.json'
 import store from '../../../redux/store'
 import { Provider } from 'react-redux'
 import NavItem from './NavItem';
+import { isMobile } from '../common/utils';
+import { IconFont } from '../common/config';
+import Driver from '../common/Driver';
 
 interface HeaderConfig {
   handleHeaderArchor: any,
@@ -23,6 +26,7 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
   const [headerBackColor, setHeaderBackColor] = useState('transparent')
   const [headerOpacity, setHeaderOpacity] = useState(0)
   const [imgIndex, setImgIndex] = useState(0)
+  const [showMobileNav, setShowMobileNav] = useState(false)
   const [avatarShow, setAvatarShow] = useState(
     < Link to="/login" className="header_button">
       登录 / 注册
@@ -68,6 +72,75 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
         (lineRef.current as any).style.right = (5 - index) * 88 + 110 + 40 + 'px';
       }
     }
+  }
+
+  // 处理右侧导航栏的移动端兼容
+  const showNav = () => {
+    return isMobile()
+      ? <div>
+        <IconFont
+          type={showMobileNav ? 'anticoncha' : 'anticoncaidan'}
+          className='header_icon'
+          onClick={() => setShowMobileNav(!showMobileNav)}
+        />
+        <div
+          className='header_nav_mobile'
+          style={{
+            border: showMobileNav ? '1px solid #ccc' : 'none',
+          }}
+        >
+          {
+            staticData.map((navItem, index) => {
+              return <div
+                key={index}
+                style={{
+                  display: showMobileNav ? 'block' : 'none', // 控制显示
+                  backgroundColor: activeIndex === index ? '#eee' : '#fff', // 激活样式
+                }}
+                className='header_nav_mobile_item'
+              >
+                <p className='header_nav_mobile_item_word'>{navItem.content}</p>
+                {
+                  index !== 4 && <Driver backgroundColor='#eee' height={1} />
+                }
+              </div>
+            })
+          }
+        </div>
+      </div>
+      : <div className="header_nav">
+        {
+          staticData.map((item, index) => {
+            return <NavItem
+              key={index}
+              index={index}
+              activeIndex={activeIndex}
+              textColor={textColor}
+              scrollIndex={scrollIndex}
+              item={item}
+              addActive={addActive}
+              removeActive={removeActive}
+              handleAnchor={handleAnchor}
+            />
+          })
+        }
+        <Link
+          to={{
+            pathname: `/blog/undefined`
+          }}
+          style={{
+            color: (activeIndex === 5 ? '#f00' : textColor)
+          }}
+          className='navItem'
+          onMouseOver={() => addActive(5)}
+          onMouseOut={() => removeActive(scrollIndex)}
+        >
+          博客
+    </Link>
+        {
+          avatarShow
+        }
+      </div>
   }
 
   useEffect(() => {
@@ -144,52 +217,22 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
               alt="logo"
               className='header_img'
             />
-            <div className="header_nav">
-              {
-                staticData.map((item, index) => {
-                  return <NavItem
-                    key={index}
-                    index={index}
-                    activeIndex={activeIndex}
-                    textColor={textColor}
-                    scrollIndex={scrollIndex}
-                    item={item}
-                    addActive={addActive}
-                    removeActive={removeActive}
-                    handleAnchor={handleAnchor}
-                  />
-                })
-              }
-              <Link
-                to={{
-                  pathname: `/blog/undefined`
-                }}
-                style={{
-                  color: (activeIndex === 5 ? '#f00' : textColor)
-                }}
-                className='navItem'
-                onMouseOver={() => addActive(5)}
-                onMouseOut={() => removeActive(scrollIndex)}
-              >
-                博客
-              </Link>
-              {
-                avatarShow
-              }
-            </div>
+            {showNav()}
           </nav>
           <div ref={lineRef} className='header_line'></div>
         </header>
       </div>
-      <div style={{
-        width: '100%',
-        height: 80,
-        position: (isFixed ? 'fixed' : 'absolute'),
-        opacity: headerOpacity,
-        backgroundColor: headerBackColor,
-        transitionDuration: '1s',
-        zIndex: 198
-      }}></div>
+      <div
+        style={{
+          width: '100%',
+          height: isMobile() ? '4rem' : '80px', // 80px
+          position: (isFixed ? 'fixed' : 'absolute'),
+          opacity: headerOpacity,
+          backgroundColor: headerBackColor,
+          transitionDuration: '1s',
+          zIndex: 198
+        }}
+      ></div>
     </Fragment>
   )
 }
