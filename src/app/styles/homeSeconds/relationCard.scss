@@ -34,7 +34,7 @@ $file-prefix: 'home-relationCard';
         background-color: #000;
         margin-bottom: 30px;
     }
-    
+
     .#{$file-prefix}-decoration-layout {
         padding-bottom: 40px;
         color: #8c9398;
@@ -45,9 +45,67 @@ $file-prefix: 'home-relationCard';
             text-align: center;
         }
     }
+
     .#{$file-prefix}-bottom-line {
         width: 350px;
         height: 5px;
         transition-duration: .8s;
+    }
+}
+
+// TODO:有bug
+@media screen and (max-width: 700px) {
+    .#{$file-prefix}-main {
+        width: 350px;
+        background-color: #fff;
+        position: relative;
+        transition-duration: .8s;
+        margin-bottom: 40px;
+
+        .#{$file-prefix}-icon-layout {
+            left: 50%;
+            margin-left: -10px;
+            position: relative;
+            width: 20px;
+
+            .#{$file-prefix}-icon {
+                font-size: 20px;
+                padding-top: 30px;
+                padding-bottom: 20px;
+            }
+        }
+
+        .#{$file-prefix}-title {
+            text-align: center;
+            font-weight: bold;
+            padding-bottom: 30px;
+        }
+
+        .#{$file-prefix}-line {
+            position: relative;
+            left: 50%;
+            margin-left: -20px;
+            width: 40px;
+            height: 5px;
+            background-color: #000;
+            margin-bottom: 30px;
+        }
+
+        .#{$file-prefix}-decoration-layout {
+            padding-bottom: 40px;
+            color: #8c9398;
+            font-weight: 700;
+            font-size: 15px;
+
+            .#{$file-prefix}-decoration {
+                text-align: center;
+            }
+        }
+
+        .#{$file-prefix}-bottom-line {
+            width: 350px;
+            height: 5px;
+            transition-duration: .8s;
+        }
     }
 }

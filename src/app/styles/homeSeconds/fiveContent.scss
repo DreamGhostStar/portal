@@ -12,6 +12,7 @@ $file-prefix: 'home-fiveContent';
         color: #bbb;
         font-size: 20px;
     }
+
     .#{$file-prefix}-word2 {
         color: #f00;
     }
@@ -21,5 +22,16 @@ $file-prefix: 'home-fiveContent';
     width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 700px) {
+    .#{$file-prefix}-cards-layout {
+        width: 100%;
+        margin: 0 auto;
+        display: block;
+        background-color: #eee;
+        justify-content: normal;
+        padding-bottom: 20px;
+    }
 }

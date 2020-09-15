@@ -98,29 +98,10 @@ export default function HomePage(props: any) {
             </Provider>
             <FirstContent />
             <SecondContent scrollIndex={scrollIndex} />
-            {/* <div style={{
-                height: 900
-            }} id='three'>
-                <ThreeContent />
-            </div>
-            <div style={{
-                height: 900,
-                backgroundColor: '#eee'
-            }} id='four'>
-                <FourContent />
-            </div>
-            <div style={{
-                height: 600,
-                backgroundColor: '#f0f2f4'
-            }} id='five'>
-                <FiveContent />
-            </div>
-            <div style={{
-                height: 150,
-                backgroundColor: '#000'
-            }}>
-                <Footer />
-            </div> */}
+            <ThreeContent />
+            <FourContent />
+            <FiveContent />
+            <Footer />
         </>
     )
 }

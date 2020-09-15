@@ -9,6 +9,7 @@ import CircleIndicate from './CircleIndicate'
 import ImageShow from './ImageShow'
 import '../../styles/homeSeconds/threeContent.scss'
 import { IconFont } from '../common/config'
+import { isMobile } from '../common/utils'
 
 const imgData = [
     {
@@ -39,11 +40,12 @@ const imgData = [
 
 export default function ThreeContent() {
     const [turnIndex, setTurnIndex] = useState(0)
+    const [returnIndex, setReturnIndex] = useState(5) // 反向轮播
     const [isMouse, setIsMouse] = useState(new Array(2).fill(false))
     const [isClear, setIsClear] = useState(false)
     const [isMouseCarousel, setIsMouseCarousel] = useState(false)
     const [allowCarousel, setAllowCarousel] = useState(true)
-    const timer=useRef(null);
+    const timer = useRef(null);
 
     useEffect(() => {
         if (isClear) {
@@ -144,84 +146,95 @@ export default function ThreeContent() {
         return item;
     }
     return (
-        <div className='threeContent'>
-            <div className='threeContent_title'>作品展览</div>
-            <div className='threeContent_titleLabel'>
-                一群热爱技术的人的作品
-            </div>
-            <div
-                className="removeFloat threeContent_imgShow"
-                onMouseOver={handleSetInterval}
-                onMouseOut={handleClearInterval}
-            >
-                {
-                    imgData.map((item, index) => {
-                        return (
-                            <ImageShow
-                                img={item.img}
-                                key={index}
-                                decoration={item.decoration}
-                                index={index}
-                                turnIndex={turnIndex}
-                            />
-                        )
-                    })
-                }
-                {/* 左侧遮罩层 */}
-                <div
-                    style={{
-                        backgroundColor: (isMouse[0] ? '#000' : 'transparent'),
-                        opacity: (isMouse[0] ? 0.3 : 1),
-                    }}
-                    className='threeContent_shadow'
-                    onMouseOver={() => handleMouseOver(0)}
-                    onMouseOut={handleMouseOut}
-                >
+        <div style={{
+            height: isMobile() ? 600 : 900
+        }} id='three'>
+            <div className='threeContent'>
+                <div className='threeContent_title'>作品展览</div>
+                <div className='threeContent_titleLabel'>
+                    一群热爱技术的人的作品
                 </div>
-                {/* 右侧遮罩层 */}
                 <div
-                    style={{
-                        backgroundColor: (isMouse[1] ? '#000' : 'transparent'),
-                        opacity: (isMouse[1] ? 0.3 : 1),
-                        right: 0
-                    }}
-                    className='threeContent_shadow'
-                    onMouseOver={() => handleMouseOver(1)}
-                    onMouseOut={handleMouseOut}
+                    className="threeContent_imgShow"
+                    onMouseOver={handleSetInterval}
+                    onMouseOut={handleClearInterval}
                 >
+                    {
+                        imgData.map((item, index) => {
+                            return (
+                                <ImageShow
+                                    img={item.img}
+                                    key={index}
+                                    decoration={item.decoration}
+                                    index={index}
+                                    turnIndex={turnIndex}
+                                />
+                            )
+                        })
+                    }
+                    {
+                        isMobile()
+                            ? <div></div>
+                            : <>
+                                {/* 左侧遮罩层 */}
+                                <div
+                                    style={{
+                                        backgroundColor: (isMouse[0] ? '#000' : 'transparent'),
+                                        opacity: (isMouse[0] ? 0.3 : 1),
+                                    }}
+                                    className='threeContent_shadow'
+                                    onMouseOver={() => handleMouseOver(0)}
+                                    onMouseOut={handleMouseOut}
+                                >
+                                </div>
+                                {/* 右侧遮罩层 */}
+                                <div
+                                    style={{
+                                        backgroundColor: (isMouse[1] ? '#000' : 'transparent'),
+                                        opacity: (isMouse[1] ? 0.3 : 1),
+                                        right: 0
+                                    }}
+                                    className='threeContent_shadow'
+                                    onMouseOver={() => handleMouseOver(1)}
+                                    onMouseOut={handleMouseOut}
+                                >
+                                </div>
+                                {/* 左箭头 */}
+                                <IconFont
+                                    type='anticonzuotubiao'
+                                    style={{
+                                        display: (isMouseCarousel ? 'block' : 'none')
+                                    }}
+                                    className="removeFloat threeContent_arrow"
+                                    onMouseOver={() => handleMouseOver(0)}
+                                    onMouseOut={handleMouseOut}
+                                    onClick={handleLeftArrow}
+                                />
+                                {/* 右箭头 */}
+                                <IconFont
+                                    type='anticonyou'
+                                    style={{
+                                        right: 0,
+                                        display: (isMouseCarousel ? 'block' : 'none')
+                                    }}
+                                    className="removeFloat threeContent_arrow"
+                                    onMouseOver={() => handleMouseOver(1)}
+                                    onMouseOut={handleMouseOut}
+                                    onClick={handleRightArrow}
+                                />
+                            </>
+                    }
+
                 </div>
-                {/* 左箭头 */}
-                <IconFont
-                    type='anticonzuotubiao'
-                    style={{
-                        display: (isMouseCarousel ? 'block' : 'none')
-                    }}
-                    className="removeFloat threeContent_arrow"
-                    onMouseOver={() => handleMouseOver(0)}
-                    onMouseOut={handleMouseOut}
-                    onClick={handleLeftArrow}
-                />
-                {/* 右箭头 */}
-                <IconFont
-                    type='anticonyou'
-                    style={{
-                        right: 0,
-                        display: (isMouseCarousel ? 'block' : 'none')
-                    }}
-                    className="removeFloat threeContent_arrow"
-                    onMouseOver={() => handleMouseOver(1)}
-                    onMouseOut={handleMouseOut}
-                    onClick={handleRightArrow}
-                />
-            </div>
-            <div style={{
-                height: 30,
-                width: (imgData.length * 60),
-                margin: '40px auto',
-                display: 'flex',
-                justifyContent: 'space-between'
-            }}>
-                {generateCircleSection()}
+                <div style={{
+                    height: 30,
+                    width: (imgData.length * 60),
+                    margin: '40px auto',
+                    display: 'flex',
+                    justifyContent: 'space-between'
+                }}>
+                    {generateCircleSection()}
+                </div>
             </div>
         </div>
     )

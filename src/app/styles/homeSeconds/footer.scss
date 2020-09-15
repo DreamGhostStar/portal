@@ -11,10 +11,44 @@
 
     .footer_textRight {
         font-weight: bold;
-    
+
         .footer_image {
             width: 150px;
             height: 40px;
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .footer {
+        width: 100%;
+        margin: 0 auto;
+        display: block;
+        justify-content: normal;
+        position: relative;
+        padding: 30px 0;
+
+        .footer_text {
+            line-height: normal;
+            text-align: center;
+        }
+        .footer_text:nth-child(1) {
+            color: #bbb;
+            padding: 40px 0;
+        }
+        .footer_text:nth-child(2) {
+            color: #fff;
+            padding-bottom: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .footer_image {
+            width: 150px;
+            height: 40px;
+            position: relative;
+            left: 50%;
+            margin-left: -75px;
         }
     }
 }

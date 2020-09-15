@@ -25,12 +25,10 @@ export default function TableShow() {
     return (
         <div className='tableShow'>
             <div className='tableShow_piece'>
-                <div>
-                    <TableShowContent
-                        clickColumnID={clickColumnID}
-                        yearStr={yearStr}
-                    />
-                </div>
+                <TableShowContent
+                    clickColumnID={clickColumnID}
+                    yearStr={yearStr}
+                />
                 <div className='tableShow_sider'>
                     {
                         years.map((item, index) => {

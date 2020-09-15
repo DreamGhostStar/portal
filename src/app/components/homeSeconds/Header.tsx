@@ -34,15 +34,22 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
   )
   const lineRef = useRef(null);
 
+  // 改变线的位置
+  const setLineStyle = (style: string) => {
+    if(lineRef.current) {
+      (lineRef.current as any).style.right = style;
+    }
+  }
+
   const addActive = (index: number) => {
-    (lineRef.current as any).style.right = (5 - index) * 88 + 110 + 40 + 'px';
+    setLineStyle((5 - index) * 88 + 110 + 40 + 'px')
 
     setActiveIndex(index)
     setIsMouse(true)
   }
 
   const removeActive = (index: number) => {
-    (lineRef.current as any).style.right = '590px';
+    setLineStyle('590px');
 
     setActiveIndex(index)
     setIsMouse(false)
@@ -69,7 +76,7 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
     if (activeIndex === (index + 1) || activeIndex === (index - 1)) {
       if (!isMouse) {
         setActiveIndex(index);
-        (lineRef.current as any).style.right = (5 - index) * 88 + 110 + 40 + 'px';
+        setLineStyle((5 - index) * 88 + 110 + 40 + 'px');
       }
     }
   }
@@ -87,6 +94,9 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
           <IconFont
             type='anticoncaidan'
             className='header_icon'
+            style={{
+              color: textColor
+            }}
             onClick={() => setShowMobileNav(!showMobileNav)}
           />
         </div>
