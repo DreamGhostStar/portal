@@ -27,14 +27,17 @@ export const simpleFormatTime = (createTime: string): string => {
     return `${year}-${month}-${date}`
 }
 
+// 深拷贝
 export const deepCopy = (variate: any): any => {
     return JSON.parse(JSON.stringify(variate))
 }
 
+// 获取jwt的token
 export const getToken = (): string => {
     return cookies.load('Authorization')
 }
 
+// 根据ua判断使用的终端设备
 export const browser = {
     versions: function () {
         var u = navigator.userAgent, app = navigator.appVersion;
@@ -54,10 +57,12 @@ export const browser = {
     language: navigator.language.toLowerCase()
 }
 
+// 判断是否为手机
 export const isMobile = () => {
     return browser.versions.mobile ? true : false;
 }
 
+// 动态修改rem的值
 export const setRemUnit = () => {
     const radio = 18.75; // 375 / 18.75, 1rem = 20px
     const docElem = document.documentElement;

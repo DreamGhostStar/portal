@@ -78,11 +78,18 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
   const showNav = () => {
     return isMobile()
       ? <div>
-        <IconFont
-          type={showMobileNav ? 'anticoncha' : 'anticoncaidan'}
-          className='header_icon'
-          onClick={() => setShowMobileNav(!showMobileNav)}
-        />
+        <div
+          className='header_icon_layout'
+          style={{
+            backgroundColor: showMobileNav ? '#ccc' : 'transparent'
+          }}
+        >
+          <IconFont
+            type='anticoncaidan'
+            className='header_icon'
+            onClick={() => setShowMobileNav(!showMobileNav)}
+          />
+        </div>
         <div
           className='header_nav_mobile'
           style={{
@@ -95,7 +102,7 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
                 key={index}
                 style={{
                   display: showMobileNav ? 'block' : 'none', // 控制显示
-                  backgroundColor: activeIndex === index ? '#eee' : '#fff', // 激活样式
+                  // backgroundColor: activeIndex === index ? '#eee' : '#fff', // 激活样式
                 }}
                 className='header_nav_mobile_item'
               >

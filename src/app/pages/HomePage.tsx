@@ -97,7 +97,7 @@ export default function HomePage(props: any) {
                 />
             </Provider>
             <FirstContent />
-            {/* <div style={{
+            <div style={{
                 height: 900,
                 width: '100%',
                 paddingTop: 50,
@@ -106,7 +106,7 @@ export default function HomePage(props: any) {
             }} id='second'>
                 <SecondContent scrollIndex={scrollIndex} />
             </div>
-            <div style={{
+            {/* <div style={{
                 height: 900
             }} id='three'>
                 <ThreeContent />
