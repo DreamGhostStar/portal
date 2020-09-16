@@ -9,17 +9,21 @@ import staticData from 'static/headerNav.json'
 import store from '../../../redux/store'
 import { Provider } from 'react-redux'
 import NavItem from './NavItem';
-import { isMobile } from '../common/utils';
+import { isMobile, isLogin, getToken } from '../common/utils';
 import { IconFont } from '../common/config';
-import Driver from '../common/Driver';
+import userInfo from 'model/userInfo.json' // TODO: 需删除
 
 interface HeaderConfig {
   handleHeaderArchor: any,
   isFixed: boolean,
   scrollIndex: number
+  transform_user: (user: any) => {
+    type: string;
+    data: any;
+  }
 }
 
-export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: HeaderConfig) {
+export default function Header({ handleHeaderArchor, isFixed, scrollIndex, transform_user }: HeaderConfig) {
   const history = useHistory()
   const [activeIndex, setActiveIndex] = useState(0)
   const [isMouse, setIsMouse] = useState(false)
@@ -103,14 +107,20 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
             }}
             onClick={() => entryRouter('/blog/undefined')}
           />
-          <IconFont
-            type='anticondenglu'
-            className='header_icon'
-            style={{
-              color: textColor
-            }}
-            onClick={() => entryRouter('/login')}
-          />
+          {
+            isLogin()
+              ? <Provider store={store}>
+                <AuthorShow_container labelTop={65} isHome={true} />
+              </Provider>
+              : <IconFont
+                type='anticondenglu'
+                className='header_icon'
+                style={{
+                  color: textColor
+                }}
+                onClick={() => entryRouter('/login')}
+              />
+          }
         </div>
       </div>
       : <div className="header_nav">
@@ -207,6 +217,12 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
     }
     setAvatarShow(temp)
   }, [store.getState()])
+
+  useEffect(() => {
+    if (getToken()) {
+      transform_user(userInfo)
+    }
+  }, [])
   return (
     <Fragment>
       <div

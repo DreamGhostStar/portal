@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import { transform_user } from '../redux/actions'
-import Header from './../app/components/homeSeconds/Header'
+import LoginMobile from '../app/components/login/LoginMobile'
 export default connect(
-    (state: any) => ({
-        user: state.user
+    state => ({
+        data: state,
     }),
     { transform_user }
-)(Header)
+)(LoginMobile)

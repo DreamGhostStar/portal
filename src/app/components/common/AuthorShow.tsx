@@ -10,6 +10,7 @@ import { _getUserDetail, _getMessageNum } from './Api';
 import messageNum from 'model/messageNum.json'
 import userInfo from 'model/userInfo.json'
 import addTip from 'static/addTip.json'
+import { isMobile } from './utils';
 
 const stylePrefix = 'common-authorShow'
 
@@ -20,7 +21,7 @@ interface AuthorShowConfig {
     isHome: boolean
 }
 
-export default function AuthorShow({top, labelTop, remove_user, isHome}: AuthorShowConfig) {
+export default function AuthorShow({ top, labelTop, remove_user, isHome }: AuthorShowConfig) {
     const history = useHistory()
     const [isMouseAvator, setIsMouseAvator] = useState(false)
     const [unreadNum, setUnreadNum] = useState(0)
@@ -105,7 +106,7 @@ export default function AuthorShow({top, labelTop, remove_user, isHome}: AuthorS
             }
             <div
                 style={{
-                    paddingTop: (top || 10),
+                    paddingTop: (!isMobile() ? (top || 10) : 0),
                 }}
                 className={`removeFloat ${stylePrefix}-avatarShow`}
                 onMouseOver={() => { setIsMouseAvator(true) }}

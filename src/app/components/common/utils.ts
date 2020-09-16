@@ -69,3 +69,12 @@ export const setRemUnit = () => {
     const viewWidth = docElem.getBoundingClientRect().width || window.innerWidth;
     docElem.style.fontSize = viewWidth / radio + 'px';
 }
+
+// 判断用户是否登录
+export const isLogin = () =>{
+    if(store.getState().user && cookies.load('Authorization')) {
+        return true
+    }
+
+    return false;
+}

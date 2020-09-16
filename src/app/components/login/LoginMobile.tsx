@@ -7,15 +7,20 @@ import { Input, Checkbox, Button } from 'antd'
 import registerStatic from 'static/register.json'
 import enrollStatic from 'static/enroll.json'
 import { deepCopy } from '../common/utils'
+import cookies from 'react-cookies'
+import { useHistory } from 'react-router-dom'
+import userInfo from 'model/userInfo.json' // TODO: 需删除
 
 const stylePrefix = 'login-login-mobile'
 
 interface LoginMobileConfig {
     isLogin: boolean // true为登录，false为注册
     setReversalIndex: React.Dispatch<React.SetStateAction<number>>
+    transform_user: any
 }
 
-export default function LoginMobile({ isLogin, setReversalIndex }: LoginMobileConfig) {
+export default function LoginMobile({ isLogin, setReversalIndex, transform_user }: LoginMobileConfig) {
+    const history = useHistory()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [verifyPassword, setVerifyPassword] = useState('')
@@ -73,9 +78,15 @@ export default function LoginMobile({ isLogin, setReversalIndex }: LoginMobileCo
         }
     }
 
+    // 提交
     const submit = () => {
+        let inFifteenMinutes = new Date(new Date().getTime() + 7 * 24 * 3600 * 1000) // 7天
         if (isLogin) {
+            // TODO: 需修改
+            cookies.save('Authorization', 'xxx', { expires: inFifteenMinutes });
             console.log(username, password);
+            history.push('/home')
+            transform_user(userInfo)
         } else {
             console.log(username, password, verifyCode);
         }
