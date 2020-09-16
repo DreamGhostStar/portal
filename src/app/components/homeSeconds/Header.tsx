@@ -1,5 +1,5 @@
 import React, { useState, useRef, Fragment, useEffect } from 'react'
-import { HashRouter as Router, Link } from 'react-router-dom'
+import { HashRouter as Router, Link, useHistory } from 'react-router-dom'
 import TECHF5VELogoWhite from '../../../images/TechF5ve.png'
 import TECHF5VELogoBlack from '../../../images/TechF5veBlack.png'
 import AuthorShow_container from '../../../containers/AuthorShow_container';
@@ -20,13 +20,13 @@ interface HeaderConfig {
 }
 
 export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: HeaderConfig) {
+  const history = useHistory()
   const [activeIndex, setActiveIndex] = useState(0)
   const [isMouse, setIsMouse] = useState(false)
   const [textColor, setTextColor] = useState('#fff')
   const [headerBackColor, setHeaderBackColor] = useState('transparent')
   const [headerOpacity, setHeaderOpacity] = useState(0)
   const [imgIndex, setImgIndex] = useState(0)
-  const [showMobileNav, setShowMobileNav] = useState(false)
   const [avatarShow, setAvatarShow] = useState(
     < Link to="/login" className="header_button">
       登录 / 注册
@@ -36,7 +36,7 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
 
   // 改变线的位置
   const setLineStyle = (style: string) => {
-    if(lineRef.current) {
+    if (lineRef.current) {
       (lineRef.current as any).style.right = style;
     }
   }
@@ -59,7 +59,9 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
     const contrast = {
       first: 0,
       second: 1,
-      third: 2
+      third: 2,
+      four: 3,
+      five: 4,
     }
     if (anchorName) {
       let anchorElement = document.getElementById(anchorName);
@@ -81,47 +83,34 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex }: Hea
     }
   }
 
+  // 进入不同的路由
+  const entryRouter = (routerName: string) => {
+    history.push(routerName);
+  }
+
   // 处理右侧导航栏的移动端兼容
   const showNav = () => {
     return isMobile()
       ? <div>
         <div
           className='header_icon_layout'
-          style={{
-            backgroundColor: showMobileNav ? '#ccc' : 'transparent'
-          }}
         >
           <IconFont
-            type='anticoncaidan'
+            type='anticonjinru'
             className='header_icon'
             style={{
               color: textColor
             }}
-            onClick={() => setShowMobileNav(!showMobileNav)}
+            onClick={() => entryRouter('/blog/undefined')}
           />
-        </div>
-        <div
-          className='header_nav_mobile'
-          style={{
-            border: showMobileNav ? '1px solid #ccc' : 'none',
-          }}
-        >
-          {
-            staticData.map((navItem, index) => {
-              return <div
-                key={index}
-                style={{
-                  display: showMobileNav ? 'block' : 'none', // 控制显示
-                }}
-                className='header_nav_mobile_item'
-              >
-                <p className='header_nav_mobile_item_word'>{navItem.content}</p>
-                {
-                  index !== 4 && <Driver backgroundColor='#eee' height={1} />
-                }
-              </div>
-            })
-          }
+          <IconFont
+            type='anticondenglu'
+            className='header_icon'
+            style={{
+              color: textColor
+            }}
+            onClick={() => entryRouter('/login')}
+          />
         </div>
       </div>
       : <div className="header_nav">

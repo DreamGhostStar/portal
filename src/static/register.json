@@ -1,0 +1,14 @@
+[
+    {
+        "title": "用户名",
+        "placeholder": "用户名",
+        "isPassword": false,
+        "errorText": "请输入英文"
+    },
+    {
+        "title": "密码",
+        "placeholder": "密码",
+        "isPassword": true,
+        "errorText": "密码不能少于6位且不能包括中文"
+    }
+]

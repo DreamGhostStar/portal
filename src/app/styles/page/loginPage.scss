@@ -30,3 +30,30 @@
         transform: rotateY(0deg);
     }
 }
+
+$file-prefix: 'page-login-mobile';
+
+.#{$file-prefix}-layout {
+
+    .#{$file-prefix}-header {
+        height: 80px;
+        background-color: #383D41;
+        position: relative;
+
+        .#{$file-prefix}-logo {
+            width: 6rem;
+            height: 40px;
+            position: absolute;
+            left: 10px;
+            margin-top: 20px;
+        }
+
+        .#{$file-prefix}-title {
+            color: #fff;
+            text-align: center;
+            line-height: 80px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    }
+}

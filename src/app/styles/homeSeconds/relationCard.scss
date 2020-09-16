@@ -56,10 +56,11 @@ $file-prefix: 'home-relationCard';
 // TODO:有bug
 @media screen and (max-width: 700px) {
     .#{$file-prefix}-main {
-        width: 350px;
+        width: 80%;
         background-color: #fff;
         position: relative;
         transition-duration: .8s;
+        margin: 0 auto;
         margin-bottom: 40px;
 
         .#{$file-prefix}-icon-layout {

@@ -1,0 +1,20 @@
+[
+    {
+        "title": "用户名",
+        "placeholder": "用户名",
+        "isPassword": false,
+        "errorText": "请输入英文作为你的用户名"
+    },
+    {
+        "title": "密码",
+        "placeholder": "密码",
+        "isPassword": true,
+        "errorText": "密码不能少于6位且不能包括中文"
+    },
+    {
+        "title": "确认密码",
+        "placeholder": "请确认你的密码",
+        "isPassword": true,
+        "errorText": "密码输入不一致"
+    }
+]

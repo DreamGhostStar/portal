@@ -81,31 +81,33 @@ a {
 
                 .header_icon_layout {
                     padding: 20px;
+                    display: flex;
+                    justify-content: space-between;
 
                     .header_icon {
                         font-size: 40px;
-                        // color: #fff;
+                        padding-left: 20px;
                     }
                 }
 
-                .header_nav_mobile {
-                    position: absolute;
-                    top: 80px;
-                    right: 0;
-                    width: 50%;
-                    background-color: #fff;
+                // .header_nav_mobile {
+                //     position: absolute;
+                //     top: 80px;
+                //     right: 0;
+                //     width: 50%;
+                //     background-color: #fff;
 
-                    .header_nav_mobile_item {
-                        height: 40px;
-                        text-align: center;
-                        line-height: 40px;
+                //     .header_nav_mobile_item {
+                //         height: 40px;
+                //         text-align: center;
+                //         line-height: 40px;
 
-                        .header_nav_mobile_item_word {
-                            margin: 0;
-                            border: none;
-                        }
-                    }
-                }
+                //         .header_nav_mobile_item_word {
+                //             margin: 0;
+                //             border: none;
+                //         }
+                //     }
+                // }
             }
         }
     }

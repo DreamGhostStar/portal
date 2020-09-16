@@ -93,7 +93,7 @@ export default function HomePage(props: any) {
                 <HeaderContainer
                     isFixed={isFixed}
                     scrollIndex={scrollIndex}
-                    handleHeaderArchor={(index: number) => { setScrollIndex(index) }}
+                    handleHeaderArchor={(index: number) => setScrollIndex(index)}
                 />
             </Provider>
             <FirstContent />

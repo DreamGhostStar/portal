@@ -7,6 +7,11 @@ import cookies from 'react-cookies'
 
 import store from '../../redux/store'
 import { Provider } from 'react-redux'
+import { isMobile } from 'app/components/common/utils'
+import TECHF5VE from 'images/TechF5ve.png'
+import LoginMobile from 'app/components/login/LoginMobile'
+
+const stylePrefix = 'page-login-mobile'
 
 export default function LoginPage() {
     const [screenHeight, setScreenHeight] = useState(window.innerHeight)
@@ -27,32 +32,47 @@ export default function LoginPage() {
         }
     }, [])
     return (
-        <div style={{
-            height: screenHeight,
-            background: "url(" + loginBackGround + ") no-repeat center center fixed",
-            backgroundSize: 'cover'
-        }}>
-            <div
-                className={reversalIndex === 0 ? "element" : 'element middle-flip'}
-            >
-                <div style={{
-                    color: '#fff',
-                    textAlign: 'center',
-                    fontSize: 34,
-                    marginBottom: 20,
-                    width: 400
-                }}>
-                    TECH F5VE
-            </div>
-                <div className='front'>
-                    <Provider store={store}>
-                        <RegisterContainer enterEnroll={() => { setReversalIndex(1) }} />
-                    </Provider>
-                </div>
-                <div className='back'>
-                    <Enroll enterRegister={() => { setReversalIndex(0) }} />
-                </div>
-            </div>
-        </div>
+        <>
+            {
+                isMobile()
+                    ? <div className={`${stylePrefix}-layout`}>
+                        <header className={`${stylePrefix}-header`}>
+                            <img src={TECHF5VE} alt="logo" className={`${stylePrefix}-logo`} />
+                            <div className={`${stylePrefix}-title`}>{reversalIndex === 0 ? '登录' : '注册'}</div>
+                        </header>
+                        <LoginMobile
+                            isLogin={reversalIndex === 0}
+                            setReversalIndex={setReversalIndex}
+                        />
+                    </div>
+                    : <div style={{
+                        height: screenHeight,
+                        background: "url(" + loginBackGround + ") no-repeat center center fixed",
+                        backgroundSize: 'cover'
+                    }}>
+                        <div
+                            className={reversalIndex === 0 ? "element" : 'element middle-flip'}
+                        >
+                            <div style={{
+                                color: '#fff',
+                                textAlign: 'center',
+                                fontSize: 34,
+                                marginBottom: 20,
+                                width: 400
+                            }}>
+                                TECH F5VE
+                            </div>
+                            <div className='front'>
+                                <Provider store={store}>
+                                    <RegisterContainer enterEnroll={() => { setReversalIndex(1) }} />
+                                </Provider>
+                            </div>
+                            <div className='back'>
+                                <Enroll enterRegister={() => { setReversalIndex(0) }} />
+                            </div>
+                        </div>
+                    </div>
+            }
+        </>
     )
 }
