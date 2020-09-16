@@ -23,6 +23,16 @@ $file-prefix: 'blog-pagination';
         margin-left: 533px;
     }
 }
+@media screen and (max-width: 700px) {
+    .#{$file-prefix}-layout {
+        width: 100%;
+    
+        .#{$file-prefix}-main {
+            width: 100%;
+            margin-left: 0px;
+        }
+    }
+}
 
 .#{$file-prefix}-go-icon {
     width: 32px;

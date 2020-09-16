@@ -41,6 +41,12 @@ $file-prefix: 'blog-childrenComment';
             color: #bbb;
         }
     }
+    @media screen and (max-width: 700px) {
+        .#{$file-prefix}-main {
+            width: 100%;
+            padding-right: 5px;
+        }
+    }
 
     .#{$file-prefix}-content {
         padding-right: 20px;

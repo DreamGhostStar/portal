@@ -11,6 +11,7 @@ import { success, error } from '../common/config';
 import Loading2 from '../common/Loading2';
 
 import articleList from 'model/artileList.json' // TODO: 需删除
+import { isMobile } from '../common/utils';
 
 export interface ArticleItemConfig {
     articleID: number;
@@ -130,9 +131,11 @@ export default function LayoutContent({ }) {
     }
     return (
         <div className="layoutContent">
-            <Provider store={store}>
-                <BlogSider_container />
-            </Provider>
+            {
+                !isMobile() && <Provider store={store}>
+                    <BlogSider_container />
+                </Provider>
+            }
             <div
                 style={{
                     height: (loading ? 400 : 'auto'),

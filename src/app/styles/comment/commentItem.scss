@@ -3,8 +3,7 @@ $file-prefix: 'blog-commentItem';
 .#{$file-prefix}-layout {
     display: flex;
     justify-content: space-between;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 0 20px;
     margin-bottom: 20px;
 
     .#{$file-prefix}-avatar {
@@ -69,6 +68,11 @@ $file-prefix: 'blog-commentItem';
             .#{$file-prefix}-input {
                 width: 700px;
             }
+            @media screen and (max-width: 700px) {
+                .#{$file-prefix}-input {
+                    width: 100%;
+                }
+            }
 
             .#{$file-prefix}-emoji-icon {
                 font-size: 28px;
@@ -81,6 +85,17 @@ $file-prefix: 'blog-commentItem';
             position: absolute;
             right: 0;
             margin-top: 10px;
+        }
+    }
+
+    @media screen and (max-width: 700px) {
+        .#{$file-prefix}-main {
+            flex-grow: 1;
+            width: auto;
+
+            .#{$file-prefix}-content {
+                width: 100%;
+            }
         }
     }
 }

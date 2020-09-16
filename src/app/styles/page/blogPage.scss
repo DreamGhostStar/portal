@@ -8,9 +8,3 @@ $file-prefix: 'page-blog';
         margin-top: 20px;
     }
 }
-
-@media screen and (max-width: 500px) {
-    .#{$file-prefix}-main {
-        margin-left: 50px;
-    }
-}

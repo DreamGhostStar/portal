@@ -8,8 +8,7 @@ export const formatTime = (createTime: string): string => {
     let date = tempDate.getDate();
     let hour = tempDate.getHours();
     let minute = tempDate.getMinutes();
-    let seconds = tempDate.getSeconds()
-    return `${year}-${month}-${date} ${hour}:${minute}:${seconds}`
+    return `${year}-${month}-${date} ${hour}:${minute}`
 }
 
 export const getReduxUser = () => {

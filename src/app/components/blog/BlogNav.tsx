@@ -11,12 +11,18 @@ import { useHistory } from 'react-router-dom'
 import staticBlogHeader from 'static/blogHeader.json'
 
 import userInfo from 'model/userInfo.json' // TODO: 假数据，需删除
-import { userConfig, info } from '../common/config';
-import { getToken } from '../common/utils';
+import { userConfig, info, IconFont } from '../common/config';
+import { getToken, isMobile } from '../common/utils';
 
 import searchArticle from 'model/searchArticle.json'
 import AuthorShow_container from 'containers/AuthorShow_container';
+import menuData from 'static/articleKindList.json'
 const stylePrefix = 'blog-header';
+const blogNavWords = {
+    0: '博客',
+    1: '消息',
+    2: '问卷'
+}
 interface BlogNavConfig {
     activeIndex: number | null
     transform_user: any
@@ -30,9 +36,11 @@ interface searchArticleItemConfig {
 
 export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) {
     let history = useHistory()
-    const [displayActive, setDisplayActive] = useState<null | number>(activeIndex)
+    const [displayActive, setDisplayActive] = useState<null | number>(activeIndex) // 显示博客、消息和问卷索引
     const [isFocus, setIsFoucus] = useState(false)
     const [searchList, setSearchList] = useState<searchArticleItemConfig[]>([])
+    const [showMenu, setShowMenu] = useState(false)
+    const [blogKindIndex, setBlogKindIndex] = useState(0) // TODO: 需要与redux中进行比对
     const [userInfoShow, setUserInfoShow] = useState(
         <Link to="/login" className="blogButton">
             登录 / 注册
@@ -49,7 +57,7 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
         if (store.getState().user) {
             setUserInfoShow(
                 <Provider store={store}>
-                    <AuthorShow_container top={1} labelTop={60} isHome={false} />
+                    <AuthorShow_container top={isMobile() ? 10 : 1} labelTop={60} isHome={false} />
                 </Provider>
             )
         }
@@ -64,7 +72,6 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
 
     const addActive = (index: number) => {
         (lineRef.current as any).style.left = index * 80 + 'px';
-
         setDisplayActive(index)
     }
 
@@ -106,88 +113,153 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
         //     }
         // }
     }
+    const handleChangeSelectInMobile = (path: string) => {
+        history.push(path)
+    }
     return (
         <header className='blogNav'>
             <nav className={`${stylePrefix}-nav`}>
                 <div className={`${stylePrefix}-logo-layout`}>
-                    <img
-                        src={logo}
-                        height={60}
-                        onClick={() => history.push('/home')}
-                        alt="logo"
-                    />
-                </div>
-                <div style={{ marginLeft: 50, width: 310 }}>
                     {
-                        staticBlogHeader.map((headerData, index) => {
-                            return <Link
-                                key={index}
-                                to={{
-                                    pathname: headerData.path
-                                }}
-                                className="blogNavItem"
-                                style={{
-                                    color: (displayActive === index ? '#f00' : '#000')
-                                }}
-                                onMouseOver={() => addActive(index)}
-                                onMouseOut={() => removeActive()}
-                            >
-                                {headerData.value}
-                            </Link>
-                        })
-                    }
-                    <div
-                        ref={lineRef}
-                        className='blogRedLine'
-                        style={{
-                            display: (displayActive === null ? 'none' : 'block'),
-                            left: (displayActive !== null ? displayActive * 80 : 0),
-                        }}
-                    ></div>
-                </div>
-                <div>
-                    <input
-                        id="name"
-                        type="text"
-                        placeholder={isFocus ? '请输入要搜索的博客' : ''}
-                        autoComplete='off'
-                        style={{
-                            backgroundColor: (isFocus ? '#eee' : '#ddd'),
-                            right: (isFocus ? -58 : 0)
-                        }}
-                        className='blogInputSearch'
-                        onFocus={() => { setIsFoucus(true) }}
-                        onBlur={() => { setIsFoucus(false) }}
-                        ref={inputRef}
-                    />
-                    <SearchOutlined
-                        style={{
-                            transform: (isFocus ? 'translateX(28px)' : 'translateX(-30px)'),
-                        }}
-                        className='blogSearchIcon'
-                        onClick={handleClick}
-                        onMouseDown={(event: any) => handleMouseDown(event)}
-                    />
-                    <label className='blogSearchLabel'>文章</label>
-                    <div className={`${stylePrefix}-show-search`}>
-                        {
-                            searchList.length > 0
-                            && isFocus
-                            && searchList.map((item, index) => {
-                                return <div
-                                    className={`${stylePrefix}-search-item`}
-                                    key={index}
-                                    onMouseDown={(e) => { e.preventDefault() }} // 使得点击后不触发input的失去焦点事件
-                                    onClick={() => { showArticle(item.articleID) }}
+                        isMobile()
+                            ? <>
+                                <IconFont
+                                    type='anticoncaidan'
+                                    className={`${stylePrefix}-menu-icon`}
+                                    onClick={() => setShowMenu(!showMenu)}
+                                    style={{
+                                        backgroundColor: showMenu ? '#eee' : '#fff'
+                                    }}
+                                />
+                                <div
+                                    className={`${stylePrefix}-menu-content`}
+                                    style={{
+                                        display: showMenu ? 'block' : 'none',
+                                    }}
                                 >
-                                    {item.title}
+                                    {
+                                        menuData.map((menuItem, index) => {
+                                            return <div
+                                                key={index}
+                                                className={`${stylePrefix}-menu-item-layout`}
+                                                style={{
+                                                    backgroundColor: blogKindIndex === index ? '#0099FF' : '#eee'
+                                                }}
+                                                onClick={() => setBlogKindIndex(index)}
+                                            >
+                                                <IconFont
+                                                    type={menuItem.icon}
+                                                    className={`${stylePrefix}-menu-item-icon`}
+                                                />
+                                                <p style={{
+                                                    color: blogKindIndex === index ? '#fff' : '#000'
+                                                }}>{menuItem.title}</p>
+                                            </div>
+                                        })
+                                    }
                                 </div>
+                            </>
+                            : <img
+                                src={logo}
+                                height={60}
+                                onClick={() => history.push('/home')}
+                                alt="logo"
+                            />
+                    }
+                </div>
+                {
+                    !isMobile() && <div style={{ marginLeft: 50, width: 310 }}>
+                        {
+                            staticBlogHeader.map((headerData, index) => {
+                                return <Link
+                                    key={index}
+                                    to={{
+                                        pathname: headerData.path
+                                    }}
+                                    className="blogNavItem"
+                                    style={{
+                                        color: (displayActive === index ? '#f00' : '#000')
+                                    }}
+                                    onMouseOver={() => addActive(index)}
+                                    onMouseOut={() => removeActive()}
+                                >
+                                    {headerData.value}
+                                </Link>
                             })
                         }
+                        <div
+                            ref={lineRef}
+                            className='blogRedLine'
+                            style={{
+                                display: (displayActive === null ? 'none' : 'block'),
+                                left: (displayActive !== null ? displayActive * 80 : 0),
+                            }}
+                        ></div>
                     </div>
-                </div>
+                }
+                {
+                    !isMobile() && <div>
+                        <input
+                            id="name"
+                            type="text"
+                            placeholder={isFocus ? '请输入要搜索的博客' : ''}
+                            autoComplete='off'
+                            style={{
+                                backgroundColor: (isFocus ? '#eee' : '#ddd'),
+                                right: (isFocus ? -58 : 0)
+                            }}
+                            className='blogInputSearch'
+                            onFocus={() => { setIsFoucus(true) }}
+                            onBlur={() => { setIsFoucus(false) }}
+                            ref={inputRef}
+                        />
+                        <SearchOutlined
+                            style={{
+                                transform: (isFocus ? 'translateX(28px)' : 'translateX(-30px)'),
+                            }}
+                            className='blogSearchIcon'
+                            onClick={handleClick}
+                            onMouseDown={(event: any) => handleMouseDown(event)}
+                        />
+                        <label className='blogSearchLabel'>文章</label>
+                        <div className={`${stylePrefix}-show-search`}>
+                            {
+                                searchList.length > 0
+                                && isFocus
+                                && searchList.map((item, index) => {
+                                    return <div
+                                        className={`${stylePrefix}-search-item`}
+                                        key={index}
+                                        onMouseDown={(e) => { e.preventDefault() }} // 使得点击后不触发input的失去焦点事件
+                                        onClick={() => { showArticle(item.articleID) }}
+                                    >
+                                        {item.title}
+                                    </div>
+                                })
+                            }
+                        </div>
+                    </div>
+                }
             </nav>
+            {
+                isMobile() && <select
+                    defaultValue={blogNavWords[displayActive || 0]}
+                    className={`${stylePrefix}-select`}
+                    onChange={(e) => handleChangeSelectInMobile(e.target.value)}
+                >
+                    {
+                        staticBlogHeader.map((blogItem, index) => {
+                            return <option
+                                key={index}
+                                value={blogItem.path}
+                            >
+                                {blogItem.value}
+                            </option>
+                        })
+                    }
+                </select>
+            }
             {userInfoShow}
-        </header>
+        </header >
     )
 }

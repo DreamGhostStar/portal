@@ -76,3 +76,12 @@ $file-prefix: 'blog-articleShow';
         border: 1px solid #f00;
     }
 }
+@media screen and (max-width: 700px) {
+    .#{$file-prefix}-layout {
+        width: 100%;
+    
+        .#{$file-prefix}-main-layout {
+            width: 100%;
+        }
+    }
+}

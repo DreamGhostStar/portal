@@ -106,7 +106,7 @@ export default function AuthorShow({ top, labelTop, remove_user, isHome }: Autho
             }
             <div
                 style={{
-                    paddingTop: (!isMobile() ? (top || 10) : 0),
+                    paddingTop: (top === null ? 10 : top),
                 }}
                 className={`removeFloat ${stylePrefix}-avatarShow`}
                 onMouseOver={() => { setIsMouseAvator(true) }}

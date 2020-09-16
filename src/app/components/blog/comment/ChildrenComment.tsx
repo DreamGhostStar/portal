@@ -43,7 +43,7 @@ export default function ChildrenComment({ callback, item, isShowChildrenComments
         return (
             <>
                 <img src={avatorURL} alt="头僝" className={`${stylePrefix}-avatar`} />
-                <div>
+                <div style={{ width: '100%' }} >
                     <div className={`${stylePrefix}-main`}>
                         <div className={`${stylePrefix}-nickname`}>
                             <div>{item.commentNickname}</div>

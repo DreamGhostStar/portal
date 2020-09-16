@@ -110,7 +110,7 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex, trans
           {
             isLogin()
               ? <Provider store={store}>
-                <AuthorShow_container labelTop={65} isHome={true} />
+                <AuthorShow_container top={0} labelTop={65} isHome={true} />
               </Provider>
               : <IconFont
                 type='anticondenglu'
@@ -211,7 +211,7 @@ export default function Header({ handleHeaderArchor, isFixed, scrollIndex, trans
     if (user) {
       temp = <div style={{ width: 110 }}>
         <Provider store={store}>
-          <AuthorShow_container labelTop={65} isHome={true} />
+          <AuthorShow_container top={10} labelTop={65} isHome={true} />
         </Provider>
       </div>
     }

@@ -18,7 +18,7 @@ import { _getArticleDetail, _deleteArticle } from '../common/Api';
 
 import '../../styles/blog/articleShow.scss'
 import 'app/styles/blog/markdown.scss'
-import { simpleFormatTime } from '../common/utils';
+import { simpleFormatTime, isMobile } from '../common/utils';
 
 import articleDetail from 'model/articleDetail.json'
 import Loading2 from '../common/Loading2';
@@ -92,9 +92,11 @@ export default function ArticleShow({ articleID }: ArticleShowConfig) {
     }
     return (
         <div className={`${stylePrefix}-layout`}>
-            <Provider store={store}>
-                <BlogSiderContainer />
-            </Provider>
+            {
+                !isMobile() && <Provider store={store}>
+                    <BlogSiderContainer />
+                </Provider>
+            }
             <div className={`${stylePrefix}-main-layout`}>
                 {
                     articleLoading

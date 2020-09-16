@@ -10,6 +10,14 @@ $file-prefix: 'common-authorShow';
         font-size: 26px;
         cursor: pointer;
     }
+    @media screen and (max-width: 700px) {
+        .#{$file-prefix}-icon {
+            margin-top: 17px;
+            margin-right: 0px;
+            font-size: 26px;
+            cursor: pointer;
+        }
+    }
 
     .#{$file-prefix}-avatarShow {
         height: 60px;
