@@ -1,0 +1,25 @@
+$file-prefix: 'common-menuIcon';
+
+.#{$file-prefix}-main {
+    padding: 0 5px;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: 50%;
+    margin-top: -20px;
+
+    .#{$file-prefix}-line {
+        height: 2px;
+        background-color: #000;
+        margin-top: 10px;
+        transition-duration: .3s;
+    }
+
+    .#{$file-prefix}-rotate-right {
+        transform: translateY(10px) rotate(45deg);
+    }
+
+    .#{$file-prefix}-rotate-left {
+        transform: translateY(-1px) rotate(-45deg);
+    }
+}

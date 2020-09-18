@@ -84,3 +84,9 @@ $question-piece: 220px;
         }
     }
 }
+
+@media screen and (max-width: 700px) {
+    .#{$file-prefix}-main {
+        width: 100%;
+    }
+}

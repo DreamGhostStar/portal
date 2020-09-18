@@ -1,21 +1,17 @@
 [{
         "title": "作品",
-        "icon": "anticonyingxingonggao",
-        "display": true
+        "icon": "anticonyingxingonggao"
     },
     {
         "title": "活动",
-        "icon": "anticonjiaoliu",
-        "display": true
+        "icon": "anticonjiaoliu"
     },
     {
         "title": "交流会",
-        "icon": "anticonhuodong",
-        "display": true
+        "icon": "anticonhuodong"
     },
     {
         "title": "招新",
-        "icon": "anticontrh-member-home",
-        "display": true
+        "icon": "anticontrh-member-home"
     }
 ]

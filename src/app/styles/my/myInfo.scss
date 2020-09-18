@@ -9,6 +9,15 @@ $file-prefix: 'my-myInfo';
         z-index: 3;
     }
 
+    @media screen and (max-width: 700px) {
+        .#{$file-prefix}-imgSelectPos {
+            position: absolute;
+            left: 50%;
+            margin-left: -80px;
+            z-index: 3;
+        }
+    }
+
     .#{$file-prefix}-content {
         width: 850px;
         position: relative;
@@ -23,33 +32,33 @@ $file-prefix: 'my-myInfo';
         .#{$file-prefix}-input {
             width: 400px;
         }
-    
+
         .#{$file-prefix}-alterNickname {
             width: 400px;
             margin: 20px auto;
-    
+
             .#{$file-prefix}-operation {
                 display: flex;
                 justify-content: space-around;
                 margin-top: 10px;
             }
         }
-    
+
         .#{$file-prefix}-nickname {
             width: 400px;
             margin: 15px auto;
             position: relative;
-    
+
             .#{$file-prefix}-value {
                 text-align: center;
                 font-size: 40px;
                 font-weight: bold;
-    
+
                 &:hover+.tip {
                     opacity: 1;
                 }
             }
-    
+
             .#{$file-prefix}-tip {
                 position: absolute;
                 right: -80px;
@@ -63,22 +72,34 @@ $file-prefix: 'my-myInfo';
                 opacity: 0;
                 transition-duration: .3s;
                 cursor: pointer;
-    
+
                 &:hover {
                     opacity: 1;
                 }
-    
+
                 .#{$file-prefix}-icon {
                     margin-top: 23px;
                 }
             }
         }
-    
+
         .#{$file-prefix}-myInfoButton {
             width: 80px;
             height: 40px;
             margin-left: 385px;
             margin-top: 20px;
+        }
+        @media screen and (max-width: 700px) {
+            .#{$file-prefix}-myInfoButton {
+                position: relative;
+                left: 50%;
+                margin-left: -40px;
+            }
+        }
+    }
+    @media screen and (max-width: 700px) {
+        .#{$file-prefix}-content {
+            width: 100%;
         }
     }
 }

@@ -5,37 +5,35 @@
     z-index: 2;
 
     .myInfoPage_sider {
+        width: 1200px;
         margin-top: 50px;
         position: relative;
         left: 50%;
         display: flex;
         justify-content: space-between;
+        margin-left: -600px;
 
         .myInfoPage_subitem {
+            width: 300px;
             height: 120px;
             box-shadow: 1px 1px 21px #ccc;
         }
     }
 }
 
-@media screen and (min-width: 500px) {
-    .myInfoPage_sider {
-        width: 1200px;
-        margin-left: -600px;
+@media screen and (max-width: 700px) {
+    .myInfoPage {
+        width: 100%;
+        background-color: transparent;
 
-        .myInfoPage_subitem {
-            width: 300px;
-        }
-    }
-}
-
-@media screen and (max-width: 500px) {
-    .myInfoPage_sider {
-        width: 1100px;
-        margin-left: -550px;
-
-        .myInfoPage_subitem {
-            width: 230px;
+        .myInfoPage_sider {
+            width: 100%;
+            margin-top: 50px;
+            position: relative;
+            left: auto;
+            display: block;
+            justify-content: normal;
+            margin-left: 0px;
         }
     }
 }

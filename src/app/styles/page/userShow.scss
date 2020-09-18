@@ -110,4 +110,9 @@ $boxShadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12),
             height: 250px;
         }
     }
+    @media screen and (max-width: 700px) {
+        .#{$file-prefix}-main {
+            width: 100%;
+        }
+    }
 }

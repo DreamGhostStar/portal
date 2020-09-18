@@ -1,0 +1,70 @@
+$file-prefix: 'user-header';
+$boxShadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12),
+0 3px 1px -2px rgba(0, 0, 0, 0.06),
+0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+.#{$file-prefix}-main {
+    padding-right: 20px;
+    box-shadow: $boxShadow;
+    height: 60px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+
+    .#{$file-prefix}-menu-icon {
+        color: black;
+        font-size: 30px;
+        padding: 15px;
+    }
+
+    .#{$file-prefix}-logo {
+        width: 6rem;
+        height: 60px;
+    }
+
+    .#{$file-prefix}-title {
+        color: #000;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 60px;
+    }
+}
+
+.#{$file-prefix}-menu-layout {
+    background-color: #fff;
+    box-shadow: $boxShadow;
+
+    .#{$file-prefix}-menu-item {
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        height: 40px;
+        transition-duration: .4s;
+
+        .#{$file-prefix}-menu-item-words-layout {
+            display: flex;
+            justify-content: flex-start;
+
+            .#{$file-prefix}-menu-item-icon {
+                font-size: 16px;
+                margin-top: 12px;
+            }
+
+            .#{$file-prefix}-menu-item-word {
+                line-height: 40px;
+                margin-left: 10px;
+            }
+        }
+        .#{$file-prefix}-catalog-number {
+            width: 26px;
+            height: 16px;
+            line-height: 16px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+            border-radius: 10px;
+            background-color: #ccc;
+            color: #fff;
+        }
+    }
+}

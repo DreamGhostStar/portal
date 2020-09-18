@@ -18,11 +18,6 @@ import searchArticle from 'model/searchArticle.json'
 import AuthorShow_container from 'containers/AuthorShow_container';
 import menuData from 'static/articleKindList.json'
 const stylePrefix = 'blog-header';
-const blogNavWords = {
-    0: '博客',
-    1: '消息',
-    2: '问卷'
-}
 interface BlogNavConfig {
     activeIndex: number | null
     transform_user: any
@@ -243,7 +238,6 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
             </nav>
             {
                 isMobile() && <select
-                    defaultValue={blogNavWords[displayActive || 0]}
                     className={`${stylePrefix}-select`}
                     onChange={(e) => handleChangeSelectInMobile(e.target.value)}
                 >
@@ -252,6 +246,7 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
                             return <option
                                 key={index}
                                 value={blogItem.path}
+                                selected={displayActive === index}
                             >
                                 {blogItem.value}
                             </option>

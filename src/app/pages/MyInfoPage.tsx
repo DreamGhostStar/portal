@@ -6,6 +6,7 @@ import MyInfo from '../components/my/MyInfo';
 import '../styles/page/myInfoPage.scss'
 import staticSiderData from 'static/myInfoSider.json'
 import BackGround from 'app/components/common/BackGround';
+import { isMobile } from 'app/components/common/utils';
 
 export default function MyInfoPage(props: any) {
     const { type } = props.match.params;
@@ -31,15 +32,19 @@ export default function MyInfoPage(props: any) {
             <div className='myInfoPage'>
                 <BlogHeader activeIndex={1} />
                 <div className='myInfoPage_sider'>
-                    <div className='myInfoPage_subitem'>
-                        <MyInfoSider siderData={staticSiderData} siderIndex={clickIndex} />
-                    </div>
+                    {
+                        !isMobile() && <div className='myInfoPage_subitem'>
+                            <MyInfoSider siderData={staticSiderData} siderIndex={clickIndex} />
+                        </div>
+                    }
                     {
                         judgeShowPage(clickIndex)
                     }
                 </div>
             </div>
-            <BackGround/>
+            {
+                !isMobile() && <BackGround />
+            }
         </>
     )
 }

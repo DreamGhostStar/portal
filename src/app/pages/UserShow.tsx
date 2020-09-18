@@ -14,7 +14,8 @@ import BackGround from 'app/components/common/BackGround';
 import userBlogCatalogModel from 'model/userBlogCatalog.json'
 import userInfoModel from 'model/userInfo.json'
 import articleListModel from 'model/artileList.json'
-import { deepCopy } from 'app/components/common/utils'
+import { deepCopy, isMobile } from 'app/components/common/utils'
+import UserShowHeader from 'app/components/userShow/UserShowHeader'
 
 const stylePrefix = 'page-userShow'
 
@@ -75,6 +76,7 @@ export default function UserShow() {
         //窗口可视范围高度
         var clientHeight = window.innerHeight || Math.min(document.documentElement.clientHeight, document.body.clientHeight);
         if (clientHeight + scrollTop >= scrollHeight) {
+            console.log('xxxx');
             setLoadingBlog(true)
         }
     }
@@ -95,7 +97,6 @@ export default function UserShow() {
     const initArticleList = async () => {
         let articleListTemp: ArticleItemConfig[] = deepCopy(articleList)
         setTimeout(() => {
-            console.log(page)
             setPage(page + 1)
             if (articleListTemp.length === 0) {
                 setArticleList(articleListModel)
@@ -109,48 +110,52 @@ export default function UserShow() {
     return (
         <>
             <div className={`${stylePrefix}-layout`}>
-                <BlogHeader activeIndex={null} />
+                {
+                    isMobile() ? <UserShowHeader activeIndex={activeIndex} setActiveIndex={setActiveIndex} /> : <BlogHeader activeIndex={null} />
+                }
                 <div className={`${stylePrefix}-main`}>
-                    <div className={`${stylePrefix}-sider`}>
-                        <div className={`${stylePrefix}-catalog-layout`}>
-                            <div className={`${stylePrefix}-title`}>
-                                个人中心
+                    {
+                        !isMobile() && <div className={`${stylePrefix}-sider`}>
+                            <div className={`${stylePrefix}-catalog-layout`}>
+                                <div className={`${stylePrefix}-title`}>
+                                    个人中心
                         </div>
-                            <div className={`${stylePrefix}-catalog-main`}>
-                                {
-                                    catalog.map((catalogItem, index) => {
-                                        return <div
-                                            className={`${stylePrefix}-catalog-word-layout`}
-                                            key={index}
-                                            style={{
-                                                backgroundColor: activeIndex === index || mouseIndex === index ? '#eee' : '#fff'
-                                            }}
-                                            onMouseOver={() => setMouseIndex(index)}
-                                            onMouseOut={() => setMouseIndex(null)}
-                                            onClick={() => setActiveIndex(index)}
-                                        >
-                                            <div className={`${stylePrefix}-catalog-word-value`}>
-                                                <IconFont type={catalogIcons[catalogItem.typeID]} className={`${stylePrefix}-catalog-icon`} />
-                                                <div>{catalogItem.type}</div>
+                                <div className={`${stylePrefix}-catalog-main`}>
+                                    {
+                                        catalog.map((catalogItem, index) => {
+                                            return <div
+                                                className={`${stylePrefix}-catalog-word-layout`}
+                                                key={index}
+                                                style={{
+                                                    backgroundColor: activeIndex === index || mouseIndex === index ? '#eee' : '#fff'
+                                                }}
+                                                onMouseOver={() => setMouseIndex(index)}
+                                                onMouseOut={() => setMouseIndex(null)}
+                                                onClick={() => setActiveIndex(index)}
+                                            >
+                                                <div className={`${stylePrefix}-catalog-word-value`}>
+                                                    <IconFont type={catalogIcons[catalogItem.typeID]} className={`${stylePrefix}-catalog-icon`} />
+                                                    <div>{catalogItem.type}</div>
+                                                </div>
+                                                <div className={`${stylePrefix}-catalog-number`}>{catalogItem.number}</div>
                                             </div>
-                                            <div className={`${stylePrefix}-catalog-number`}>{catalogItem.number}</div>
-                                        </div>
-                                    })
-                                }
+                                        })
+                                    }
+                                </div>
                             </div>
+                            {
+                                loadingUserInfo
+                                    ? <div className={`${stylePrefix}-loading-layout`}>
+                                        <Loading2 />
+                                    </div>
+                                    : userInfo && <div className={`${stylePrefix}-info-layout`}>
+                                        <img src={userInfo.avatar} alt="头像" className={`${stylePrefix}-info-avatar`} />
+                                        <p className={`${stylePrefix}-nickname`}>{userInfo.nickname}</p>
+                                        <p className={`${stylePrefix}-motto`}>{userInfo.motto}</p>
+                                    </div>
+                            }
                         </div>
-                        {
-                            loadingUserInfo
-                                ? <div className={`${stylePrefix}-loading-layout`}>
-                                    <Loading2 />
-                                </div>
-                                : userInfo && <div className={`${stylePrefix}-info-layout`}>
-                                    <img src={userInfo.avatar} alt="头像" className={`${stylePrefix}-info-avatar`} />
-                                    <p className={`${stylePrefix}-nickname`}>{userInfo.nickname}</p>
-                                    <p className={`${stylePrefix}-motto`}>{userInfo.motto}</p>
-                                </div>
-                        }
-                    </div>
+                    }
                     <div className={`${stylePrefix}-blog-layout`}>
                         <div className={`${stylePrefix}-blog-main`}>
                             {
@@ -169,7 +174,10 @@ export default function UserShow() {
                             }
                         </div>
                         {
-                            loadingBlog && <div className={`${stylePrefix}-loading-layout`} style={{ width: 900 }}>
+                            loadingBlog && <div
+                                className={`${stylePrefix}-loading-layout`}
+                                style={{ width: isMobile() ? '100%' : '900px' }}
+                            >
                                 <Loading2 />
                             </div>
                         }

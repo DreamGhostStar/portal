@@ -7,6 +7,7 @@ import Driver from '../common/Driver'
 
 import '../common/config'
 import { error, IconFont } from '../common/config';
+import { isMobile } from '../common/utils';
 const { TextArea } = Input;
 const stylePrefix = 'my-myInfoSubItem'
 interface MyInfoSubItemConfig {
@@ -66,12 +67,14 @@ export default function MyInfoSubItem({ transformValue, label, type, saveOtherIn
                 >
                     {value || '空'}
                 </div>
-                <div className={`${stylePrefix}-alter`} style={{
-                    display: (isAlter ? 'none' : 'flex')
-                }}>
-                    <IconFont type='anticonxiugai1' className={`${stylePrefix}-icon`} onClick={() => { setIsAlter(true) }} />
-                    <div onClick={() => { setIsAlter(true) }}>修改</div>
-                </div>
+                {
+                    !isMobile() && <div className={`${stylePrefix}-alter`} style={{
+                        display: (isAlter ? 'none' : 'flex')
+                    }}>
+                        <IconFont type='anticonxiugai1' className={`${stylePrefix}-icon`} onClick={() => { setIsAlter(true) }} />
+                        <div onClick={() => { setIsAlter(true) }}>修改</div>
+                    </div>
+                }
                 <div style={{
                     display: (isAlter ? 'block' : 'none')
                 }}>

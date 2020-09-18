@@ -12,6 +12,7 @@ import Loading2 from '../common/Loading2';
 import store from 'redux/store';
 
 import userInfo from 'model/userInfo.json' // TODO: 需删除
+import { isMobile } from '../common/utils';
 
 const stylePrefix = 'my-myInfo';
 
@@ -41,7 +42,7 @@ export default function MyInfo() {
         // }
     }
 
-    const handleMyInfo = (tempMyInfo: any) =>{
+    const handleMyInfo = (tempMyInfo: any) => {
         return (tempMyInfo as userConfig)
     }
 
@@ -135,10 +136,12 @@ export default function MyInfo() {
                         }}
                     >
                         <div className={`${stylePrefix}-value`}>{myInfo.nickname}</div>
-                        <div className={`${stylePrefix}-tip`}>
-                            <IconFont type='anticonxiugai1' className={`${stylePrefix}-icon`} onClick={() => setIsAlter(true)} />
-                            <span onClick={() => setIsAlter(true)}>修改</span>
-                        </div>
+                        {
+                            !isMobile() && <div className={`${stylePrefix}-tip`}>
+                                <IconFont type='anticonxiugai1' className={`${stylePrefix}-icon`} onClick={() => setIsAlter(true)} />
+                                <span onClick={() => setIsAlter(true)}>修改</span>
+                            </div>
+                        }
                     </div>
                     <div
                         style={{
@@ -152,6 +155,9 @@ export default function MyInfo() {
                             maxLength={maxLength}
                             onChange={handleNickNameMaxLength}
                         />
+                        {/* 
+                          * TODO:需要添加移动端用户信息修改功能
+                        */}
                         <div className={`${stylePrefix}-operation`}>
                             <Button type="primary" onClick={saveNickNameData}>保存</Button>
                             <Button onClick={() => setIsAlter(false)}>取消</Button>
