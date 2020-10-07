@@ -52,7 +52,7 @@ export default function QuestionList() {
         setLoading(true)
         setTimeout(() => {
             setQuestionList(staticQuestionList.list)
-            setPageNum(page)
+            setPageNum(staticQuestionList.page)
             setLoading(false)
         }, 2000);
     }
@@ -103,8 +103,14 @@ export default function QuestionList() {
                                 })
                             }
                             <div className={`${stylePrefix}-btn-layout`} >
-                                <Button>Previous</Button>
-                                <Button>Next</Button>
+                                <Button
+                                    disabled={page === 1}
+                                    onClick={() => setPage(page - 1)}
+                                >Previous</Button>
+                                <Button
+                                    disabled={page === pageNum}
+                                    onClick={() => setPage(page + 1)}
+                                >Next</Button>
                             </div>
                         </>
                 }
