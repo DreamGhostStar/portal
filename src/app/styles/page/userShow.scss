@@ -21,6 +21,8 @@ $boxShadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12),
                 background-color: #fff;
                 box-shadow: $boxShadow;
                 margin-bottom: 20px;
+                position: sticky;
+                top: 80px;
 
                 .#{$file-prefix}-title {
                     height: 75px;
@@ -74,6 +76,8 @@ $boxShadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12),
                 background-color: #fff;
                 margin-top: 20px;
                 box-shadow: $boxShadow;
+                position: sticky;
+                top: 360px;
 
                 .#{$file-prefix}-info-avatar {
                     width: 120px;

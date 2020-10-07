@@ -5,6 +5,8 @@ $file-prefix: 'blog-blogSider';
     height: 238px;
     transition-duration: .3s;
     width: 260px;
+    position: sticky;
+    top: 80px;
 
     .#{$file-prefix}-search-layout {
         background-color: #66CCFF;

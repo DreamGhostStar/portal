@@ -26,6 +26,13 @@ export const simpleFormatTime = (createTime: string): string => {
     return `${year}-${month}-${date}`
 }
 
+export const simpleFormatTimeWithoutDate = (createTime: string): string => {
+    let tempDate = new Date(Number(createTime));
+    let year = tempDate.getFullYear();
+    let month = tempDate.getMonth() + 1;
+    return `${year}-${month}`
+}
+
 // 深拷贝
 export const deepCopy = (variate: any): any => {
     return JSON.parse(JSON.stringify(variate))

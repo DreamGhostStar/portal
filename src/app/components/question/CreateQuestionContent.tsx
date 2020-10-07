@@ -115,6 +115,7 @@ export default function CreateQuestionContent({ questionID }: CreateQuestionCont
         setAddSubjectList(tempAddSubjectList)
         setAddConfigVisible(true)
     }
+    // 增加问卷题目
     const changeSubject = () => {
         let tempAddSubjectList: subjectItemConfig[] = deepCopy(addSubjectList)
         let length = tempAddSubjectList.length;
@@ -145,13 +146,13 @@ export default function CreateQuestionContent({ questionID }: CreateQuestionCont
         setAddSubjectList(tempAddSubjectList)
         setValue(null)
     }
-    // 删除问卷项
+    // 删除问卷选项
     const deleteSubjectItem = (index: number) => {
         const tempSubjectList: subjectItemConfig[] = deepCopy(addSubjectList)
         tempSubjectList.splice(index, 1);
         setAddSubjectList(tempSubjectList)
     }
-    // 交换问卷项
+    // 交换问卷题目顺序
     const swapSubjectItem = (newIndex: number, oldIndex: number) => {
         const tempSubjectList: subjectItemConfig[] = deepCopy(addSubjectList)
         tempSubjectList[newIndex] = tempSubjectList.splice(oldIndex, 1, tempSubjectList[newIndex])[0];

@@ -1,5 +1,5 @@
 import React from 'react'
-import QuestionContent from '../components/writeQuestion/QuestionContent'
+import QuestionContent from '../components/createQuestion/QuestionContent'
 import staticData from 'model/questionContent.json'
 import 'app/styles/page/questionnaire.scss'
 import { optionItemConfig } from './Question'

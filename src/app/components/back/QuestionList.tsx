@@ -4,9 +4,10 @@ import 'app/styles/back/questionList.scss'
 import Loading2 from '../common/Loading2'
 import { Button, Modal } from 'antd'
 import { useHistory } from 'react-router-dom'
-import Item from 'antd/lib/list/Item'
+import { IconFont } from '../common/config'
+import { simpleFormatTime } from '../common/utils'
 const stylePrefix = 'back-questionList'
-interface questionItemConfig {
+export interface questionItemConfig {
     id: number;
     isWrite: boolean;
     title: string;
@@ -14,6 +15,7 @@ interface questionItemConfig {
     decoration: string;
     abortTime: string;
     startTime: string;
+    num: string;
 }
 
 export default function QuestionList() {
@@ -23,14 +25,18 @@ export default function QuestionList() {
     const [visible, setVisible] = useState(false)
     const [modalLoading, setModalLoading] = useState(false)
     const [deleteID, setDeleteID] = useState<number | null>(null)
+    const [page, setPage] = useState(1)
+    const [pageNum, setPageNum] = useState(1)
     useEffect(() => {
         getQuestionList()
-    }, [])
+    }, [page])
     const getQuestionList = async () => {
         setLoading(true)
         setTimeout(() => {
             setLoading(false)
-            setQuestionList(questionListModel)
+            console.log(page);
+            setQuestionList(questionListModel.list)
+            setPageNum(questionListModel.page)
         }, 1000);
     }
     const handleOk = () => {
@@ -48,33 +54,59 @@ export default function QuestionList() {
                     ? <div className={`${stylePrefix}-loading-layout`}>
                         <Loading2 backgroundColor='#eee' />
                     </div>
-                    : questionList.map((questionItem, index) => {
-                        return <div
-                            key={index}
-                            className={`${stylePrefix}-question-item`}
-                        >
-                            <div className={`${stylePrefix}-title`}>{questionItem.title}</div>
-                            <div className={`${stylePrefix}-author`}>{questionItem.author}</div>
-                            <div className={`${stylePrefix}-decoration`}>{questionItem.decoration}</div>
-                            <div className={`${stylePrefix}-btn-layout`}>
-                                <Button
-                                    type="primary"
-                                    shape="round"
-                                    onClick={() => history.push(`/editQuestion/${questionItem.id}`)}
-                                >
-                                    编辑
-                                </Button>
-                                <Button
-                                    danger
-                                    type="primary"
-                                    shape="round"
-                                    onClick={() => { setDeleteID(questionItem.id); setVisible(true) }}
-                                >
-                                    删除
-                                </Button>
-                            </div>
+                    : <>
+                        {
+                            questionList.map((questionItem, index) => {
+                                return (
+                                    <div
+                                        key={index}
+                                        className={`${stylePrefix}-question-item`}
+                                    >
+                                        <div className={`${stylePrefix}-header-layout`} >
+                                            <p className={`${stylePrefix}-num`} >提交人数：{questionItem.num}</p>
+                                            <div className={`${stylePrefix}-info`} >
+                                                <p className={`${stylePrefix}-title`}>{questionItem.title}</p>
+                                                <p className={`${stylePrefix}-author`}>{questionItem.author}</p>
+                                            </div>
+                                            <div className={`${stylePrefix}-btn-layout`}>
+                                                <IconFont
+                                                    type='anticonchakan'
+                                                    className={`${stylePrefix}-icon`}
+                                                    onClick={() => history.push(`/editQuestion/${questionItem.id}`)}
+                                                />
+                                                <IconFont
+                                                    type='anticonxiugai'
+                                                    className={`${stylePrefix}-icon`}
+                                                    onClick={() => history.push(`/editQuestion/${questionItem.id}`)}
+                                                />
+                                                <IconFont
+                                                    type='anticonshanchu'
+                                                    className={`${stylePrefix}-icon`}
+                                                    onClick={() => { setDeleteID(questionItem.id); setVisible(true) }}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className={`${stylePrefix}-decoration`}>{questionItem.decoration}</div>
+                                        <p className={`${stylePrefix}-time`} >
+                                            时间：{simpleFormatTime(questionItem.startTime)} - {simpleFormatTime(questionItem.abortTime)}
+                                        </p>
+                                    </div>
+                                )
+                            })
+                        }
+                        <div className={`${stylePrefix}-page-btn-layout`} >
+                            <Button
+                                size='large'
+                                onClick={() => setPage(page - 1)}
+                                disabled={page === 1}
+                            >Previous</Button>
+                            <Button
+                                size='large'
+                                onClick={() => setPage(page + 1)}
+                                disabled={page === pageNum}
+                            >Next</Button>
                         </div>
-                    })
+                    </>
             }
             <Modal
                 visible={visible}

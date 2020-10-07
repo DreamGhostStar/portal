@@ -8,7 +8,6 @@ import Activity from 'app/components/back/Activity'
 import ActivityDetail from 'app/components/back/ActivityDetail'
 import UserList from 'app/components/back/UserList'
 import QuestionList from 'app/components/back/QuestionList'
-import CreateQuestionContent from 'app/components/question/CreateQuestionContent'
 
 const stylePrefix = 'page-back'
 
@@ -41,7 +40,9 @@ export default function BackStage() {
             case 'user':
                 return <UserList />
             case 'questionNaire':
-                return <QuestionList />
+                if(params.id === 'list') {
+                    return <QuestionList />
+                }
         }
     }
     return (

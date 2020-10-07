@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import staticActivity from 'model/activity.json'
-import { simpleFormatTime, deepCopy } from '../common/utils';
+import { deepCopy, simpleFormatTimeWithoutDate } from '../common/utils';
 import 'app/styles/back/activity.scss'
 import Loading2 from '../common/Loading2';
 import { Button } from 'antd';
@@ -73,7 +73,7 @@ export default function Activity() {
                         key={index}
                         className={`${stylePrefix}-activity-layout`}
                     >
-                        <div className={`${stylePrefix}-title`}>{simpleFormatTime(activityInType.createTime)}</div>
+                        <div className={`${stylePrefix}-title`}>{simpleFormatTimeWithoutDate(activityInType.createTime)}</div>
                         <div className={`${stylePrefix}-activity-item-layout`}>
                             {
                                 activityInType.data.map((activityItem, index) => {

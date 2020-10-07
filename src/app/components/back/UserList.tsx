@@ -215,8 +215,8 @@ export default function UserList() {
                             }}
                             pagination={{
                                 current: current,
-                                pageSize: 6,
-                                total: 6 * pageSize,
+                                pageSize: 10,
+                                total: 10 * pageSize,
                                 showSizeChanger: false, // 不展示pageSize切换器
                             }}
                             columns={columns}

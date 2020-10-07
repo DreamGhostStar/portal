@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, Fragment } from 'react'
 import { Select, Tooltip } from 'antd';
 import { deepCopy } from '../common/utils';
-import { IconFont } from '../common/config';
+import { IconFont, error } from '../common/config';
 import 'app/styles/question/common.scss'
 import { subjectItemConfig, optionDefault } from './CreateQuestionContent';
 
@@ -29,10 +29,14 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
 
     // 增加选项
     const addOption = (index: number) => {
+        if(obj.options?.length === 10) {
+            error('一个问卷题目最多有10个选项')
+            return
+        }
         const tempObj: subjectItemConfig = deepCopy(obj)
         if (tempObj.options) {
             tempObj.options.splice(index + 1, 0, {
-                id: 5,
+                id: 5, // TODO: 有问题，待讨论
                 value: '请输入选项'
             })
 
@@ -47,6 +51,7 @@ export default function EditCheckBox({ subjectItem, handleInputData, isSubmit, i
             setObj(tempObj)
         }
     }
+    // 处理是否必选
     const handleChange = (value: string) => {
         const tempObj = deepCopy(obj)
 

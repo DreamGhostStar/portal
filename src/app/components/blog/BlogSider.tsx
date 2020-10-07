@@ -76,12 +76,7 @@ export default function BlogSider() {
     //     }
     // }
     return (
-        <div
-            style={{
-                top: (isFixed ? 20 : 80),
-            }}
-            className={`${stylePrefix}-layout`}
-        >
+        <div className={`${stylePrefix}-layout`}>
             <div className={`${stylePrefix}-search-layout`}>
                 <input
                     type="text"
