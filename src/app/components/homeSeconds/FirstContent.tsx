@@ -1,70 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../../styles/homeSeconds/firstContent.scss'
 import { isMobile } from '../common/utils'
-import Star from '../common/Star'
-
-// 星星位置
-const pos = [
-    {
-        top: 20,
-        left: 20,
-        scale: 0.5,
-        duration: '2s'
-    },
-    {
-        top: 370,
-        left: 1200,
-        scale: 0.3,
-        duration: '2.7s'
-    },
-    {
-        top: 200,
-        left: 400,
-        scale: 0.4,
-        duration: '3s'
-    },
-    {
-        top: 80,
-        left: 1500,
-        scale: 0.6,
-        duration: '2.3s'
-    },
-    {
-        top: 70,
-        left: 300,
-        scale: 0.3,
-        duration: '4s'
-    },
-]
+import WaveController from 'app/components/common/wave'
 
 export default function FirstContent() {
-    if (isMobile()) {
-        return (
-            <div className='homePage_firstContent' id='first'>
-                <div className='firstContent'>
-                    <div className='firstContent_text'>Grow Together</div>
-                    <div className='firstContent_text'>WHAT IS NOT VISIBLE IS NOT INVISIBLE</div>
-                    <br/>
-                    <div className='firstContent_text'>尝试科技与设计的工作室</div>
-                    <div className='firstContent_text'>APPLICATION/SECURITY/DESIGN</div>
-                </div>
+    useEffect(() => {
+        WaveController.start();
+    }, [])
+    return (
+        <div className='firstContent' >
+            <canvas id='canvas' className='canvas' ></canvas>
+            <div className='info-layout'>
+                <h1 className='title' >SOUNDS</h1>
+                <p>WHAT IS NOT VISIBLE IS NOT INVISIBLE</p>
+                <p>[ 尝试科技与设计的工作室 APPLICATION/SECURITY/DESIGN ]</p>
+                <button className='btn'>了解更多</button>
             </div>
-        )
-    } else {
-        return (
-            <div className='homePage_firstContent' id='first'>
-                <div className='firstContent'>
-                    <div className='firstContent_text'>Grow Together</div>
-                    <div className='firstContent_text'>WHAT IS NOT VISIBLE IS NOT INVISIBLE</div>
-                    <div className='firstContent_text'>尝试科技与设计的工作室 APPLICATION/SECURITY/DESIGN</div>
-                </div>
-                {
-                    // 遍历生成星星
-                    pos.map((item, index) => {
-                        return <Star item={item} key={index} screenWidth={window.innerWidth} />
-                    })
-                }
-            </div>
-        )
-    }
+        </div>
+    )
 }

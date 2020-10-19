@@ -39,3 +39,16 @@ html {
   border-radius: 10px;
   background: #EDEDED;
 }
+
+::-moz-selection{
+  background:#000;
+  color: #FFF
+}
+::selection{
+  background:#000;
+  color: #FFF
+}
+::-webkit-selection{
+  background:#000; 
+  color: #FFF
+}
