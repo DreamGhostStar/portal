@@ -30,25 +30,27 @@ html {
 
 ::-webkit-scrollbar-thumb {
   /*滚动条里面小方块*/
-  border-radius: 10px;
-  background: #bbb;
+  border-radius: 0px;
+  background: #000;
 }
 
 ::-webkit-scrollbar-track {
   /*滚动条里面轨道*/
   border-radius: 10px;
-  background: #EDEDED;
+  background: #fff;
 }
 
-::-moz-selection{
-  background:#000;
-  color: #FFF
+::-moz-selection {
+  background: #000;
+  color: #FFF;
 }
-::selection{
-  background:#000;
-  color: #FFF
+
+::selection {
+  background: #000 !important;
+  color: #FFF !important;
 }
-::-webkit-selection{
-  background:#000; 
-  color: #FFF
+
+::-webkit-selection {
+  background: #000;
+  color: #FFF;
 }

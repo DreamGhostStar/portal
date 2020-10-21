@@ -26,7 +26,7 @@
         .title {
             padding-top: 100px;
             color: #fff;
-            letter-spacing: 0.5em;
+            letter-spacing: 0.3em;
             font-size: 48px;
         }
 
@@ -40,6 +40,14 @@
             bottom: 0px;
             left: 50%;
             margin-left: -70px;
+            cursor: pointer;
+            transition-duration: .7s;
+            font-weight: bold;
+
+            &:hover {
+                background-color: #ccc;
+                color: #000;
+            }
         }
     }
 }
