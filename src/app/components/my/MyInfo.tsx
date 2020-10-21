@@ -166,7 +166,9 @@ export default function MyInfo() {
                     <MyInfoSubItem label='年级' transformValue={myInfo.year} type='year' saveOtherInfo={saveOtherInfo} />
                     <MyInfoSubItem label='座右铭' transformValue={myInfo.motto} type='motto' saveOtherInfo={saveOtherInfo} />
                     <MyInfoSubItem label='邮箱' transformValue={myInfo.email} type='email' saveOtherInfo={saveOtherInfo} />
-                    <Driver height={2} />
+                    <Driver style={{
+                        height: 2
+                    }} />
                     <Button type="primary" className={`${stylePrefix}-myInfoButton`} onClick={saveData}>保存</Button>
                 </div>
             </div>

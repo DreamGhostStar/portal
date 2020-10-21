@@ -16,22 +16,20 @@ import { getUser } from '../components/common/config';
 import { setRemUnit } from 'app/components/common/utils';
 
 export default function HomePage(props: any) {
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const [isFixed, setIsFixed] = useState(false)
     const [scrollIndex, setScrollIndex] = useState(0)
     let history = useHistory();
 
     const updateWindowStyle = (e: any) => {
-        const screenWidthTemp = e.target.innerWidth;
-        setScreenWidth(screenWidthTemp)
         setRemUnit();
     }
     const updateHeaderPos = (e: any) => {
         const scrollTop = document.documentElement.scrollTop;
+        console.log(scrollTop)
         if (scrollTop > 60) {
             switch (scrollIndex) {
                 case 0:
-                    if (scrollTop > 900) {
+                    if (scrollTop > 400) {
                         setScrollIndex(1)
                     }
                     break;

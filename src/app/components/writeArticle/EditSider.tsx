@@ -22,10 +22,10 @@ export default function EditSider({ handleClick, abstract, setArticleAbStract }:
     }
     return (
         <div className='editSider'>
-            <Driver
-                width={3}
-                backgroundColor='#fff'
-            />
+            <Driver style={{
+                width: 3,
+                backgroundColor: '#fff'
+            }} />
             <div>
                 <p className='editSider_label'>文章类别选择</p>
                 <SelectInput handleSelectType={(tempType: number) => setType(tempType)} />

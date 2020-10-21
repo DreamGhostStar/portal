@@ -55,7 +55,9 @@ export default function MyInfoSubItem({ transformValue, label, type, saveOtherIn
     }
     return (
         <>
-            <Driver height={2} />
+            <Driver style={{
+                height: 2
+            }} />
             <div className={`${stylePrefix}-layout`}>
                 <div className={`${stylePrefix}-label`}>{label}</div>
                 <div

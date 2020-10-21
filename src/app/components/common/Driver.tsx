@@ -1,21 +1,22 @@
-import React from 'react'
+import React from 'react';
+import 'app/styles/comon/driver.scss'
+import classnames from 'classnames'
 
-interface DriverConfig {
-    backgroundColor?: string,
-    height?: number,
-    width?: number
+interface BaseDriverProps {
 }
 
-export default function Driver({ backgroundColor, height, width }: DriverConfig) {
-    return (
-        <div style={{
-            backgroundColor: (backgroundColor || '#eee'),
-            height: (height || 'auto'),
-            marginRight: 20,
-            marginLeft: 20,
-            width: (width || 'auto')
-        }}>
+type NativeDriverProps = BaseDriverProps & React.HTMLAttributes<HTMLDivElement>
+type AnchorDriverProps = BaseDriverProps & React.AnchorHTMLAttributes<HTMLDivElement>
+export type DriverProps = Partial<NativeDriverProps & AnchorDriverProps>
 
-        </div>
+const Driver: React.FC<DriverProps> = (props) => {
+    const { className, style, ...restProps } = props
+    const classes = classnames('driver', {
+        [`${className}`]: className
+    })
+    return (
+        <div {...restProps} className={classes} style={style} ></div>
     )
 }
+
+export default Driver
