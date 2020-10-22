@@ -14,6 +14,7 @@ import store from '../../redux/store'
 import { Provider } from 'react-redux'
 import { getUser } from '../components/common/config';
 import { setRemUnit } from 'app/components/common/utils';
+import Seeker from 'app/components/homeSeconds/Seeker';
 
 export default function HomePage(props: any) {
     const [isFixed, setIsFixed] = useState(false)
@@ -25,7 +26,6 @@ export default function HomePage(props: any) {
     }
     const updateHeaderPos = (e: any) => {
         const scrollTop = document.documentElement.scrollTop;
-        console.log(scrollTop)
         if (scrollTop > 60) {
             switch (scrollIndex) {
                 case 0:
@@ -34,10 +34,8 @@ export default function HomePage(props: any) {
                     }
                     break;
                 case 1:
-                    if (scrollTop > 1800) {
+                    if (scrollTop > 800) {
                         setScrollIndex(2)
-                    } else if (scrollTop < 900) {
-                        setScrollIndex(0)
                     }
                     break;
                 case 2:
@@ -96,6 +94,7 @@ export default function HomePage(props: any) {
             </Provider>
             <FirstContent />
             <SecondContent scrollIndex={scrollIndex} />
+            <Seeker scrollIndex={scrollIndex} />
             <ThreeContent />
             <FourContent />
             <FiveContent />

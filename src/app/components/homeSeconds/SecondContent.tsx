@@ -8,7 +8,7 @@ import staticSecondContent from 'static/secondContent.json'
 import Driver from '../common/Driver'
 
 export default function SecondContent({ scrollIndex }: { scrollIndex: number }) {
-    const [isShow, setIsShow] = useState(scrollIndex === 1)
+    const [isShow, setIsShow] = useState(scrollIndex === 1) // js控制动画显示
     useEffect(() => {
         if (!isShow && scrollIndex === 1) {
             setIsShow(true)
