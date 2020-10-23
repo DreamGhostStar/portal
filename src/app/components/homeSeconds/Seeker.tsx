@@ -9,7 +9,7 @@ interface SeekerProps {
 }
 
 const spinItemArr = ['left', 'right'] // 轮播项类名
-const pointIndex = [0, 1]
+const pointIndexArr = [0, 1]
 
 const Seeker: FC<SeekerProps> = (props) => {
     const { scrollIndex } = props
@@ -35,7 +35,6 @@ const Seeker: FC<SeekerProps> = (props) => {
     }, [spinIndex])
     useEffect(() => {
         if (!isShow && scrollIndex === 2) {
-            console.log('xxxxx')
             setIsShow(true)
         }
     }, [scrollIndex])
@@ -73,7 +72,7 @@ const Seeker: FC<SeekerProps> = (props) => {
                 </div>
                 <div className='select-layout' >
                     {
-                        pointIndex.map(index => {
+                        pointIndexArr.map(index => {
                             return <div
                                 key={index}
                                 className={

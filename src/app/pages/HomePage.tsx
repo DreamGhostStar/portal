@@ -3,7 +3,7 @@ import HeaderContainer from '../../containers/Header_container'
 import { BackTop } from 'antd';
 import FirstContent from '../components/homeSeconds/FirstContent';
 import SecondContent from '../components/homeSeconds/SecondContent';
-import ThreeContent from '../components/homeSeconds/ThreeContent';
+import Production from '../components/homeSeconds/Production';
 import FourContent from '../components/homeSeconds/FourContent';
 import FiveContent from '../components/homeSeconds/FiveContent';
 import Footer from '../components/homeSeconds/Footer';
@@ -95,7 +95,7 @@ export default function HomePage(props: any) {
             <FirstContent />
             <SecondContent scrollIndex={scrollIndex} />
             <Seeker scrollIndex={scrollIndex} />
-            <ThreeContent />
+            <Production />
             <FourContent />
             <FiveContent />
             <Footer />
