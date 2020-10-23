@@ -4,7 +4,7 @@ import { BackTop } from 'antd';
 import FirstContent from '../components/homeSeconds/FirstContent';
 import SecondContent from '../components/homeSeconds/SecondContent';
 import Production from '../components/homeSeconds/Production';
-import FourContent from '../components/homeSeconds/FourContent';
+import Friend from '../components/homeSeconds/Friend';
 import FiveContent from '../components/homeSeconds/FiveContent';
 import Footer from '../components/homeSeconds/Footer';
 import { useHistory } from 'react-router-dom'
@@ -96,7 +96,7 @@ export default function HomePage(props: any) {
             <SecondContent scrollIndex={scrollIndex} />
             <Seeker scrollIndex={scrollIndex} />
             <Production />
-            <FourContent />
+            <Friend />
             <FiveContent />
             <Footer />
         </>

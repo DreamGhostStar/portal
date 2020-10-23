@@ -8,7 +8,7 @@ export default function FirstContent() {
         WaveController.start();
     }, [])
     return (
-        <div className='firstContent' >
+        <div className='firstContent' id='firstContent' >
             <canvas id='canvas' className='canvas' ></canvas>
             <div className='info-layout'>
                 <h1 className='title' >SOUNDS</h1>

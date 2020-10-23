@@ -1,0 +1,140 @@
+.friend {
+    margin-top: 100px;
+
+    .title {
+        font-size: 30px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .img {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 40px;
+    }
+
+    .friend-show-layout {
+        width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+
+        .controll-page-layout {
+            display: flex;
+            justify-content: center;
+        }
+
+        .friend-list-layout {
+            padding-bottom: 40px;
+
+            .year {
+                font-size: 24px;
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+            .friend-list {
+                height: 500px;
+                overflow-y: scroll;
+
+                .friend-item {
+                    display: flex;
+                    justify-content: flex-start;
+                    width: 290px;
+                    margin-bottom: 20px;
+
+                    .info-layout {
+                        margin-left: 20px;
+                    }
+
+                    .info-layout p {
+                        margin: 10px 0px;
+                    }
+
+                    .info-layout p:nth-child(1) {
+                        color: #333;
+                        font-size: 16px;
+                    }
+
+                    .info-layout p:nth-child(2) {
+                        color: #8c9398;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .love-up-layout {
+        height: 300px;
+        background: url(../../../images/keyboard-bg.jpg) no-repeat 50%;
+        background-size: cover;
+        background-attachment: fixed;
+        position: relative;
+
+        .love-icon {
+            font-size: 60px;
+            display: block;
+            margin: 0 auto;
+            padding-top: 40px;
+            animation: loveScale 1s infinite cubic-bezier(1, -.04, .01, 1.21);
+        }
+
+        @keyframes loveScale {
+            0% {
+                transform: scale(0.8);
+                color: #CC3333;
+            }
+
+            50% {
+                transform: scale(1.1);
+                color: red;
+            }
+
+            100% {
+                transform: scale(0.8);
+                color: #CC3333;
+            }
+        }
+
+        .description {
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .love-title {
+            font-size: 30px;
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .up-arrow-layout {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            margin-left: -25px;
+            background-color: rgba($color: #000000, $alpha: 0.4);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 22px;
+            transform: rotate(-90deg);
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba($color: #000000, $alpha: 0.7);
+            }
+
+            .up-arrow {
+                color: #fff;
+            }
+        }
+    }
+}

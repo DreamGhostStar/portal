@@ -1,3 +1,31 @@
+.select-layout {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px 40px 0px;
+
+    .select-point {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 3px solid #aaa;
+        transition-duration: .2s;
+        cursor: pointer;
+        margin-right: 20px;
+
+        &:hover {
+            background-color: #000;
+        }
+    }
+
+    .select-point:last-child {
+        margin-right: 0px;
+    }
+
+    .select-point-active {
+        background-color: #000;
+    }
+}
+
 .seeker {
     display: flex;
     justify-content: space-between;
@@ -62,33 +90,6 @@
             .spin-item-right-center {
                 transform: translate(-236px);
                 opacity: 1;
-            }
-        }
-
-        .select-layout {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-
-            .select-point {
-                width: 15px;
-                height: 15px;
-                border-radius: 50%;
-                border: 3px solid #aaa;
-                transition-duration: .2s;
-                cursor: pointer;
-
-                &:hover {
-                    background-color: #000;
-                }
-            }
-
-            .select-point:nth-child(1) {
-                margin-right: 20px;
-            }
-
-            .select-point-active {
-                background-color: #000;
             }
         }
     }

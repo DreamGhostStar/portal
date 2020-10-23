@@ -3,6 +3,7 @@ import RelationCard from './RelationCard';
 import staticData from 'static/relation.json'
 import 'app/styles/homeSeconds/fiveContent.scss'
 import { isMobile } from '../common/utils';
+import PointImg from 'images/point.png'
 const stylePrefix = 'home-fiveContent'
 
 export default function FiveContent() {
@@ -16,6 +17,7 @@ export default function FiveContent() {
                 <span className={`${stylePrefix}-word2`}>一定要</span>
                 <span>联系我们!</span>
             </div>
+            <img src={PointImg} alt="" className={`${stylePrefix}-point`}/>
             <div className={`${stylePrefix}-cards-layout`}>
                 {
                     staticData.map((item, index) => {
