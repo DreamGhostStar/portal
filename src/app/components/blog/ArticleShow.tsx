@@ -6,6 +6,7 @@ import BlogSiderContainer from '../../../containers/BlogSider_container'
 import { useHistory } from 'react-router-dom'
 
 import { Modal, Button } from 'antd';
+import marked from 'marked'
 import { error, success, IconFont } from '../common/config'
 
 import store from '../../../redux/store'
@@ -139,7 +140,7 @@ export default function ArticleShow({ articleID }: ArticleShowConfig) {
                             </div>
                             <div
                                 className={`for-preview for-markdown-preview ${stylePrefix}-content`}
-                                dangerouslySetInnerHTML={{ __html: article.content }}
+                                dangerouslySetInnerHTML={{ __html: marked(article.content) }}
                             >
                             </div>
                             <JoinButton lastTime={article.time} />

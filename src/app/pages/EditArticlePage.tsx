@@ -7,14 +7,15 @@ import { _addArticle } from '../components/common/Api'
 import '../styles/page/editArticlePage.scss'
 import EditHeader from '../components/common/Header'
 import EditSider from '../components/writeArticle/EditSider'
-import { success, error, abstractLength } from '../components/common/config'
+import { abstractLength } from '../components/common/config'
 import UploadMarkdownImg from '../components/common/UploadMarkdownImg'
 import { _getArticleDetail } from '../components/common/Api'
 
 import articleDetail from 'model/articleDetail.json'
+import { isMobile } from 'app/components/common/utils'
+import HintMessagePage from './HintMessagePage'
 
 export default function EditArticlePage(props: any) {
-    let history = useHistory();
     const [value, setValue] = useState('')
     const [title, setTitle] = useState('')
     const [articleID, setArticleID] = useState(null)
@@ -100,31 +101,33 @@ export default function EditArticlePage(props: any) {
         // }
     }
     return (
-        <div className='background'>
-            <EditHeader title={headerTitle} />
-            <div className='content'>
-                <div>
-                    <TitleInput
-                        title={title}
-                        saveTitle={(tempTitle: string) => setTitle(tempTitle)}
-                    />
-                    <div style={{
-                        height: 600,
-                        width: 1000,
-                        position: 'relative'
-                    }}>
-                        <Editor
-                            placeholder='编辑文章内容...'
-                            ref={$vm}
-                            value={value}
-                            onChange={tempValue => setValue(tempValue)}
-                            onSave={(tempValue) => handleSave(tempValue)}
+        isMobile()
+            ? <HintMessagePage />
+            : <div className='background'>
+                <EditHeader title={headerTitle} />
+                <div className='content'>
+                    <div>
+                        <TitleInput
+                            title={title}
+                            saveTitle={(tempTitle: string) => setTitle(tempTitle)}
                         />
-                        <UploadMarkdownImg saveImg={addImg} />
+                        <div style={{
+                            height: 600,
+                            width: 1000,
+                            position: 'relative'
+                        }}>
+                            <Editor
+                                placeholder='编辑文章内容...'
+                                ref={$vm}
+                                value={value}
+                                onChange={tempValue => setValue(tempValue)}
+                                onSave={(tempValue) => handleSave(tempValue)}
+                            />
+                            <UploadMarkdownImg saveImg={addImg} />
+                        </div>
                     </div>
+                    <EditSider handleClick={handleClick} abstract={articleAbstract} setArticleAbStract={setArticleAbStract} />
                 </div>
-                <EditSider handleClick={handleClick} abstract={articleAbstract} setArticleAbStract={setArticleAbStract} />
             </div>
-        </div>
     )
 }

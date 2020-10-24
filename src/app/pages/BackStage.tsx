@@ -8,6 +8,8 @@ import Activity from 'app/components/back/Activity'
 import ActivityDetail from 'app/components/back/ActivityDetail'
 import UserList from 'app/components/back/UserList'
 import QuestionList from 'app/components/back/QuestionList'
+import { isMobile } from 'app/components/common/utils'
+import HintMessagePage from './HintMessagePage'
 
 const stylePrefix = 'page-back'
 
@@ -40,42 +42,44 @@ export default function BackStage() {
             case 'user':
                 return <UserList />
             case 'questionNaire':
-                if(params.id === 'list') {
+                if (params.id === 'list') {
                     return <QuestionList />
                 }
         }
     }
     return (
-        <>
-            <BlogHeader activeIndex={null} />
-            <div className={`${stylePrefix}-header`}>
-                <div className={`${stylePrefix}-title`}>
-                    TECHF5VE 后台管理
-                </div>
-                <div className={`${stylePrefix}-nav`}>
-                    {
-                        staticNav.map((nav, index) => {
-                            return <div
-                                className={`${stylePrefix}-word`}
-                                key={index}
-                                onMouseOver={() => setMouseIndex(index)}
-                                onMouseOut={() => setMouseIndex(null)}
-                                style={{
-                                    borderBottom: (activeIndex === index || mouseIndex === index ? '2px solid #00CCFF' : 'none'),
-                                    color: (activeIndex === index ? '#00CCFF' : '#000')
-                                }}
-                                onClick={() => { handleClickNav(index) }}
-                            >
-                                {nav}
-                            </div>
-                        })
-                    }
-                </div>
+        isMobile()
+            ? <HintMessagePage />
+            : <>
+                <BlogHeader activeIndex={null} />
+                <div className={`${stylePrefix}-header`}>
+                    <div className={`${stylePrefix}-title`}>
+                        TECHF5VE 后台管理
             </div>
-            {
-                judgeShowMain()
-            }
-            <BackGround />
-        </>
+                    <div className={`${stylePrefix}-nav`}>
+                        {
+                            staticNav.map((nav, index) => {
+                                return <div
+                                    className={`${stylePrefix}-word`}
+                                    key={index}
+                                    onMouseOver={() => setMouseIndex(index)}
+                                    onMouseOut={() => setMouseIndex(null)}
+                                    style={{
+                                        borderBottom: (activeIndex === index || mouseIndex === index ? '2px solid #00CCFF' : 'none'),
+                                        color: (activeIndex === index ? '#00CCFF' : '#000')
+                                    }}
+                                    onClick={() => { handleClickNav(index) }}
+                                >
+                                    {nav}
+                                </div>
+                            })
+                        }
+                    </div>
+                </div>
+                {
+                    judgeShowMain()
+                }
+                <BackGround />
+            </>
     )
 }
