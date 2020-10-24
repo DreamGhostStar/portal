@@ -8,7 +8,7 @@ import cookies from 'react-cookies'
 import store from '../../redux/store'
 import { Provider } from 'react-redux'
 import { isMobile } from 'app/components/common/utils'
-import TECHF5VE from 'images/TechF5ve.png'
+import TECHF5VE from 'images/logo/TechF5ve.png'
 import LoginMobileContainer from 'containers/LoginMobile_container'
 
 const stylePrefix = 'page-login-mobile'

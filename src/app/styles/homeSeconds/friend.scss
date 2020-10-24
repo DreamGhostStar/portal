@@ -78,6 +78,7 @@
             margin: 0 auto;
             padding-top: 40px;
             animation: loveScale 1s infinite cubic-bezier(1, -.04, .01, 1.21);
+            width: 100px;
         }
 
         @keyframes loveScale {
@@ -134,6 +135,21 @@
 
             .up-arrow {
                 color: #fff;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .friend {
+        .friend-show-layout {
+            width: 100%;
+            display: inline;
+            justify-content: normal;
+
+            .friend-list-layout {
+                width: 80%;
+                margin: 0 auto;
             }
         }
     }

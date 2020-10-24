@@ -2,27 +2,28 @@
  * 第二部分三张卡片模型
 */
 import React, { useEffect, useState } from 'react'
-import '../../styles/homeSeconds/secondContent.scss'
+import '../../styles/homeSeconds/service.scss'
 import Point from 'images/point.png'
-import staticSecondContent from 'static/secondContent.json'
+import staticService from 'static/service.json'
 import Driver from '../common/Driver'
+import { isMobile } from '../common/utils'
 
 export default function SecondContent({ scrollIndex }: { scrollIndex: number }) {
-    const [isShow, setIsShow] = useState(scrollIndex === 1) // js控制动画显示
+    const [isShow, setIsShow] = useState(isMobile() || scrollIndex === 1) // js控制动画显示
     useEffect(() => {
         if (!isShow && scrollIndex === 1) {
             setIsShow(true)
         }
     }, [scrollIndex])
     return (
-        <div className='secondContent' >
+        <div className='service' id='service' >
             <h1 className='title-one' >I GOT 99 PROBLEMS</h1>
             <h3 className='title-two' >BUT <em>CREATION</em> AINT ONE</h3>
             <h2 className='description' >爱我所爱，随心所欲</h2>
             <img src={Point} alt="point" className='point' />
             <div className='apply-layout' >
                 {
-                    staticSecondContent.map((applyItem, index) => {
+                    staticService.map((applyItem, index) => {
                         return (
                             <div
                                 key={index}

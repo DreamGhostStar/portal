@@ -5,6 +5,7 @@ import FriendModel from 'model/friends.json'
 import AvatarShow from '../common/AvatarShow'
 import classnames from 'classnames'
 import { IconFont } from '../common/config'
+import { goToElement } from '../common/utils'
 
 interface FrinedsInYear {
     year: string;
@@ -42,12 +43,8 @@ export default function Friend() {
         }
         return arr
     }
-    const upHead = () => {
-        let anchorElement = document.getElementById('firstContent');
-        if (anchorElement) { anchorElement.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
-    }
     return (
-        <div className='friend'>
+        <div className='friend' id='friend'>
             <h1 className='title'>虚心, 勇敢</h1>
             <img src={PointImg} className='img' alt="" />
             <div className='friend-show-layout' >
@@ -88,7 +85,7 @@ export default function Friend() {
                 <p className='description' >9999 次up</p>
                 <h2 className='love-title'>来自隔着一个屏幕的 U</h2>
                 <div className='up-arrow-layout' >
-                    <IconFont type='anticonqianjin' className='up-arrow' onClick={upHead} />
+                    <IconFont type='anticonqianjin' className='up-arrow' onClick={() => goToElement('firstContent')} />
                 </div>
             </div>
         </div>

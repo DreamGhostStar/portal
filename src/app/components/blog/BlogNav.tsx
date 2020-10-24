@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { HashRouter as Router, Link } from 'react-router-dom'
 import '../../styles/blog/blogHeader.scss'
-import logo from 'images/TechF5veBlack.png'
+import logo from 'images/logo/TechF5veBlack.png'
 
 import store from '../../../redux/store'
 import { Provider } from 'react-redux'

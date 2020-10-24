@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import HeaderContainer from '../../containers/Header_container'
 import { BackTop } from 'antd';
 import FirstContent from '../components/homeSeconds/FirstContent';
-import SecondContent from '../components/homeSeconds/SecondContent';
+import Service from '../components/homeSeconds/Service';
 import Production from '../components/homeSeconds/Production';
 import Friend from '../components/homeSeconds/Friend';
-import FiveContent from '../components/homeSeconds/FiveContent';
+import Contact from '../components/homeSeconds/Contact';
 import Footer from '../components/homeSeconds/Footer';
 import { useHistory } from 'react-router-dom'
 import '../styles/page/homePage.scss'
@@ -87,17 +87,17 @@ export default function HomePage(props: any) {
             <BackTop visibilityHeight={900} />
             <Provider store={store}>
                 <HeaderContainer
-                    isFixed={isFixed}
-                    scrollIndex={scrollIndex}
-                    handleHeaderArchor={(index: number) => setScrollIndex(index)}
+                    // isFixed={isFixed}
+                    // scrollIndex={scrollIndex}
+                    // handleHeaderArchor={(index: number) => setScrollIndex(index)}
                 />
             </Provider>
             <FirstContent />
-            <SecondContent scrollIndex={scrollIndex} />
+            <Service scrollIndex={scrollIndex} />
             <Seeker scrollIndex={scrollIndex} />
             <Production />
             <Friend />
-            <FiveContent />
+            <Contact />
             <Footer />
         </>
     )

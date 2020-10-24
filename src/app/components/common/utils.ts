@@ -77,10 +77,17 @@ export const setRemUnit = () => {
 }
 
 // 判断用户是否登录
-export const isLogin = () =>{
-    if(store.getState().user && cookies.load('Authorization')) {
+export const isLogin = () => {
+    if (store.getState().user && cookies.load('Authorization')) {
         return true
     }
 
     return false;
+}
+
+export const goToElement = (id: string) => {
+    let anchorElement = document.getElementById(id);
+    if (anchorElement) {
+        anchorElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
 }

@@ -104,7 +104,7 @@ $file-prefix: 'home-relationCard';
         }
 
         .#{$file-prefix}-bottom-line {
-            width: 350px;
+            width: 100%;
             height: 5px;
             transition-duration: .8s;
         }

@@ -3,6 +3,7 @@ import 'app/styles/homeSeconds/seeker.scss'
 import StaticSeeker from 'static/seeker.json'
 import Point from 'images/point.png'
 import classnames from 'classnames'
+import { isMobile } from '../common/utils'
 
 interface SeekerProps {
     scrollIndex: number
@@ -40,13 +41,15 @@ const Seeker: FC<SeekerProps> = (props) => {
     }, [scrollIndex])
     return (
         <div className='seeker' >
-            <div className='iphone'>
-                <div className={
-                    classnames('iphone-img', {
-                        'iphone-img-show': isShow
-                    })
-                }></div>
-            </div>
+            {
+                !isMobile() && <div className='iphone'>
+                    <div className={
+                        classnames('iphone-img', {
+                            'iphone-img-show': isShow
+                        })
+                    }></div>
+                </div>
+            }
             <div className='main' >
                 <div className='turn-layout'>
                     {

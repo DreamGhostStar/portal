@@ -1,12 +1,12 @@
 import React from 'react'
-import TechF5ve from '../../../images/TechF5ve.png'
+import TechF5ve from '../../../images/logo/TechF5ve.png'
 import '../../styles/homeSeconds/footer.scss'
 import { isMobile } from '../common/utils'
 
 export default function Footer() {
     return (
         <div style={{
-            height: 230,
+            height: isMobile() ? 230 : 'auto',
             backgroundColor: '#000'
         }}>
             <div className='footer'>

@@ -21,15 +21,7 @@ export default function UserShowHeader({ activeIndex, setActiveIndex }: UserShow
     return (
         <>
             <div className={`${stylePrefix}-main`} >
-                {/* <IconFont
-                    type='anticoncaidan'
-                    className={`${stylePrefix}-menu-icon`}
-                    onClick={() => setShowMenu(!showMenu)}
-                    style={{
-                        backgroundColor: showMenu ? '#eee' : '#fff'
-                    }}
-                /> */}
-                <MenuIcon />
+                <MenuIcon showMenu={showMenu} setShowMenu={setShowMenu} />
                 <p className={`${stylePrefix}-title`}>个人中心</p>
                 <Provider store={store}>
                     <AuthorShow_container top={isMobile() ? 10 : 1} labelTop={60} isHome={false} />

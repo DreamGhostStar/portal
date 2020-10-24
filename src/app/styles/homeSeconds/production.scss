@@ -117,3 +117,18 @@
         }
     }
 }
+
+
+@media screen and (max-width: 700px) {
+    .production {
+
+        .main-layout {
+            .main {
+
+                .img-item-layout {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

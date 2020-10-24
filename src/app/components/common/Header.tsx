@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../../../images/TechF5veBlack.png'
+import logo from '../../../images/logo/TechF5veBlack.png'
 import '../../styles/comon/header.scss'
 import { useHistory } from 'react-router-dom'
 

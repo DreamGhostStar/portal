@@ -94,3 +94,31 @@
         }
     }
 }
+
+@media screen and (max-width: 700px) {
+    .seeker {
+        margin: 0px;
+        background-color: #f3f5f8;
+        .main {
+            width: 100%;
+
+            .turn-layout {
+                position: relative;
+
+                .spin-item-left-center {
+                    transform: none;
+                    position: absolute;
+                    left: 50%;
+                    margin-left: -118px;
+                }
+
+                .spin-item-right-center {
+                    transform: none;
+                    position: absolute;
+                    left: 50%;
+                    margin-left: -118px;
+                }
+            }
+        }
+    }
+}
