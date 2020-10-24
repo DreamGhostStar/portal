@@ -68,7 +68,7 @@ const Header: FC = () => {
   }, [])
   const handleClickNav = (nav: NavConfig) => {
     if (nav.href === 'blog') {
-      history.push('/blog')
+      history.push('/blog/undefined')
     } else {
       goToElement(nav.href)
     }

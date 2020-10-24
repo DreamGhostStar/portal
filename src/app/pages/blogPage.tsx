@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import Header from '../components/blog/BlogHeader'
 import ArticleShow from '../components/blog/ArticleShow'
 import '../styles/page/blogPage.scss'
@@ -10,25 +10,37 @@ import BackGround from 'app/components/common/BackGround'
 import { setRemUnit } from 'app/components/common/utils'
 
 const stylePrefix = 'page-blog'
+interface IArticleMenuContext {
+    index: number;
+    onClick?: React.Dispatch<React.SetStateAction<number>>;
+}
 
+export const SiderContext = createContext<IArticleMenuContext>({ index: 0 })
 export default function BlogPage(props: any) {
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
-    const monitor = (e: any) => {
-        const tempScreenWidth = e.target.innerWidth;
-        setScreenWidth(tempScreenWidth)
+    const [siderIndex, setSiderIndex] = useState(0)
+    const monitor = () => {
         setRemUnit()
     }
-
+    const menuContext: IArticleMenuContext = {
+        index: siderIndex,
+        onClick: setSiderIndex,
+    }
     // 判断显示文章列表还是具体文章
     const judgeArticle = (articleID: string) => {
         if (articleID === 'undefined') {
             return (
-                <Provider store={store}>
-                    <LayoutContentContainer />
-                </Provider>
+                <SiderContext.Provider value={menuContext} >
+                    <Provider store={store}>
+                        <LayoutContentContainer />
+                    </Provider>
+                </SiderContext.Provider>
             )
         } else {
-            return <ArticleShow articleID={parseInt(articleID)} />
+            return (
+                <SiderContext.Provider value={menuContext} >
+                    <ArticleShow articleID={parseInt(articleID)} />
+                </SiderContext.Provider>
+            )
         }
     }
 
@@ -55,7 +67,9 @@ export default function BlogPage(props: any) {
     return (
         <>
             <div className={`${stylePrefix}-layout`}>
-                <Header activeIndex={0}  />
+                <SiderContext.Provider value={menuContext}>
+                    <Header activeIndex={0} />
+                </SiderContext.Provider>
                 <div className={`${stylePrefix}-main`}>
                     {
                         judgeArticle(articleID)

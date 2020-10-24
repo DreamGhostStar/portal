@@ -2,27 +2,18 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { IconFont } from '../common/config'
 import 'app/styles/my/myInfoSider.scss'
+import { menuItemConfig } from '../blog/BlogNav'
 
 const stylePrefix = 'my-myInfoSider'
 
 interface MyInfoSiderConfig {
-    siderData: any[],
+    siderData: menuItemConfig[],
     siderIndex: number
 }
 
 export default function MyInfoSider({ siderData, siderIndex }: MyInfoSiderConfig) {
     const [mouseIndex, setMouseIndex] = useState<number | null>(null)
     let history = useHistory();
-
-    const handleIndex = (typeName: string) => { // 渲染侧边栏的数据
-        return (
-            <IconFont type={typeName} style={{
-                marginRight: 20,
-                fontSize: 30,
-                marginLeft: 30
-            }} />
-        )
-    }
 
     const handleClick = (index: number) => {
         console.log(index)
@@ -37,16 +28,6 @@ export default function MyInfoSider({ siderData, siderIndex }: MyInfoSiderConfig
         <>
             {
                 siderData.map((item, index) => {
-                    var temp;
-                    switch (index) {
-                        case 0:
-                            temp = handleIndex("anticonart2");
-                            break;
-                        case 1:
-                            temp = handleIndex("anticonwodexiaoxi");
-                            break;
-                        default:
-                    }
                     return (
                         <div
                             key={index}
@@ -62,8 +43,12 @@ export default function MyInfoSider({ siderData, siderIndex }: MyInfoSiderConfig
                             onMouseOut={() => { setMouseIndex(siderIndex) }}
                             onClick={() => handleClick(index)}
                         >
-                            {temp}
-                            <span className={`${stylePrefix}-word`}>{item}</span>
+                            <IconFont type={item.icon} style={{
+                                marginRight: 20,
+                                fontSize: 30,
+                                marginLeft: 30
+                            }} />
+                            <span className={`${stylePrefix}-word`}>{item.title}</span>
                         </div>
                     );
                 })

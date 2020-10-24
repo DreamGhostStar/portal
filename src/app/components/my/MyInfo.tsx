@@ -155,9 +155,6 @@ export default function MyInfo() {
                             maxLength={maxLength}
                             onChange={handleNickNameMaxLength}
                         />
-                        {/* 
-                          * TODO:需要添加移动端用户信息修改功能
-                        */}
                         <div className={`${stylePrefix}-operation`}>
                             <Button type="primary" onClick={saveNickNameData}>保存</Button>
                             <Button onClick={() => setIsAlter(false)}>取消</Button>
@@ -169,7 +166,15 @@ export default function MyInfo() {
                     <Driver style={{
                         height: 2
                     }} />
-                    <Button type="primary" className={`${stylePrefix}-myInfoButton`} onClick={saveData}>保存</Button>
+                    {
+                        isMobile()
+                            ? <div></div>
+                            : <Button
+                                type="primary"
+                                className={`${stylePrefix}-myInfoButton`}
+                                onClick={saveData}
+                            >保存</Button>
+                    }
                 </div>
             </div>
         }

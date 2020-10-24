@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import { HashRouter as Router, Link } from 'react-router-dom'
 import '../../styles/blog/blogHeader.scss'
 import logo from 'images/logo/TechF5veBlack.png'
@@ -11,12 +11,17 @@ import { useHistory } from 'react-router-dom'
 import staticBlogHeader from 'static/blogHeader.json'
 
 import userInfo from 'model/userInfo.json' // TODO: 假数据，需删除
-import { userConfig, info, IconFont } from '../common/config';
+import { info, IconFont } from '../common/config';
 import { getToken, isMobile } from '../common/utils';
 
 import searchArticle from 'model/searchArticle.json'
 import AuthorShow_container from 'containers/AuthorShow_container';
-import menuData from 'static/articleKindList.json'
+import articleMenuData from 'static/articleKindList.json'
+import myMenuData from 'static/myInfoSider.json'
+import classnames from 'classnames'
+import MenuIcon from '../common/MenuIcon'
+import { SiderContext } from 'app/pages/BlogPage'
+import { MySiderContext } from 'app/pages/MyInfoPage'
 const stylePrefix = 'blog-header';
 interface BlogNavConfig {
     activeIndex: number | null
@@ -29,13 +34,25 @@ interface searchArticleItemConfig {
     content?: string
 }
 
+export interface menuItemConfig {
+    title: string;
+    icon: string;
+}
+const menuMap = {
+    0: articleMenuData,
+    1: myMenuData,
+    2: []
+}
+
 export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) {
     let history = useHistory()
+    const articleContext = useContext(SiderContext)
+    const myContext = useContext(MySiderContext)
     const [displayActive, setDisplayActive] = useState<null | number>(activeIndex) // 显示博客、消息和问卷索引
     const [isFocus, setIsFoucus] = useState(false)
     const [searchList, setSearchList] = useState<searchArticleItemConfig[]>([])
     const [showMenu, setShowMenu] = useState(false)
-    const [blogKindIndex, setBlogKindIndex] = useState(0) // TODO: 需要与redux中进行比对
+    const [menuData, setMenuData] = useState<menuItemConfig[]>([])
     const [userInfoShow, setUserInfoShow] = useState(
         <Link to="/login" className="blogButton">
             登录 / 注册
@@ -46,9 +63,20 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
 
     useEffect(() => {
         getUser();
+        userDataLister()
+        // 监听state状态改变
+        store.subscribe(() => {
+            userDataLister()
+        })
     }, [])
 
     useEffect(() => {
+        if (displayActive !== null) {
+            setMenuData(menuMap[displayActive])
+        }
+    }, [displayActive])
+
+    const userDataLister = () => {
         if (store.getState().user) {
             setUserInfoShow(
                 <Provider store={store}>
@@ -63,7 +91,7 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
                 </Link>
             )
         }
-    }, [store.getState().user])
+    }
 
     const addActive = (index: number) => {
         (lineRef.current as any).style.left = index * 80 + 'px';
@@ -82,7 +110,6 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
             info('输入不能为空')
             return
         }
-        console.log((inputRef.current as any).value);
         setSearchList(searchArticle)
     }
 
@@ -108,8 +135,25 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
         //     }
         // }
     }
-    const handleChangeSelectInMobile = (path: string) => {
-        history.push(path)
+    const handleDisplayActive = (isAdd: boolean) => {
+        if (displayActive !== null) {
+            if (isAdd && displayActive !== 2) {
+                history.push(staticBlogHeader[displayActive + 1].path)
+            } else if (!isAdd && displayActive !== 0) {
+                history.push(staticBlogHeader[displayActive - 1].path)
+            }
+        }
+    }
+    const handleMenuClick = (index: number) => {
+        if (displayActive === 0) {
+            if (articleContext.onClick) {
+                articleContext.onClick(index)
+            }
+        } else if (displayActive === 1) {
+            if (myContext.onClick) {
+                myContext.onClick(index)
+            }
+        }
     }
     return (
         <header className='blogNav'>
@@ -118,37 +162,35 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
                     {
                         isMobile()
                             ? <>
-                                <IconFont
-                                    type='anticoncaidan'
-                                    className={`${stylePrefix}-menu-icon`}
-                                    onClick={() => setShowMenu(!showMenu)}
-                                    style={{
-                                        backgroundColor: showMenu ? '#eee' : '#fff'
-                                    }}
-                                />
-                                <div
-                                    className={`${stylePrefix}-menu-content`}
-                                    style={{
-                                        display: showMenu ? 'block' : 'none',
-                                    }}
-                                >
+                                <MenuIcon showMenu={showMenu} setShowMenu={setShowMenu} />
+                                <div className={
+                                    classnames(`${stylePrefix}-menu-layout`, {
+                                        [`${stylePrefix}-menu-layout-hidden`]: !showMenu
+                                    })
+                                } >
                                     {
-                                        menuData.map((menuItem, index) => {
+                                        menuData.map((menu, index) => {
                                             return <div
                                                 key={index}
-                                                className={`${stylePrefix}-menu-item-layout`}
-                                                style={{
-                                                    backgroundColor: blogKindIndex === index ? '#0099FF' : '#eee'
-                                                }}
-                                                onClick={() => setBlogKindIndex(index)}
+                                                className={
+                                                    classnames(`${stylePrefix}-menu-item`, {
+                                                        [`${stylePrefix}-menu-item-active`]:
+                                                            displayActive === 0
+                                                                ? articleContext.index === index
+                                                                : myContext.index === index
+                                                    })
+                                                }
+                                                onClick={() => handleMenuClick(index)}
                                             >
                                                 <IconFont
-                                                    type={menuItem.icon}
-                                                    className={`${stylePrefix}-menu-item-icon`}
+                                                    type={menu.icon}
+                                                    className={`${stylePrefix}-menu-icon`}
                                                 />
-                                                <p style={{
-                                                    color: blogKindIndex === index ? '#fff' : '#000'
-                                                }}>{menuItem.title}</p>
+                                                <p
+                                                    className={`${stylePrefix}-menu-title`}
+                                                >
+                                                    {menu.title}
+                                                </p>
                                             </div>
                                         })
                                     }
@@ -237,22 +279,29 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
                 }
             </nav>
             {
-                isMobile() && <select
-                    className={`${stylePrefix}-select`}
-                    onChange={(e) => handleChangeSelectInMobile(e.target.value)}
+                isMobile() && <div
+                    className={`${stylePrefix}-title-layout`}
                 >
-                    {
-                        staticBlogHeader.map((blogItem, index) => {
-                            return <option
-                                key={index}
-                                value={blogItem.path}
-                                selected={displayActive === index}
-                            >
-                                {blogItem.value}
-                            </option>
-                        })
-                    }
-                </select>
+                    <IconFont
+                        className={
+                            classnames(`${stylePrefix}-arrow`, {
+                                [`${stylePrefix}-arrow-hidden`]: !displayActive
+                            })
+                        }
+                        type='anticonqianjin-copy'
+                        onClick={() => handleDisplayActive(false)}
+                    />
+                    <h3 className={`${stylePrefix}-title`} >{displayActive ? staticBlogHeader[displayActive].value : '博客'}</h3>
+                    <IconFont
+                        className={
+                            classnames(`${stylePrefix}-arrow`, {
+                                [`${stylePrefix}-arrow-hidden`]: displayActive === 2
+                            })
+                        }
+                        type='anticonqianjin'
+                        onClick={() => handleDisplayActive(true)}
+                    />
+                </div>
             }
             {userInfoShow}
         </header >

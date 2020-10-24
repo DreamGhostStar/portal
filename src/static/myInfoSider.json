@@ -1,4 +1,10 @@
 [
-    "我的信息",
-    "我的消息"
+    {
+        "icon": "anticonart2",
+        "title": "我的信息"
+    },
+    {
+        "icon": "anticonwodexiaoxi",
+        "title": "我的信息"
+    }
 ]

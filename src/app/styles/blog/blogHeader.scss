@@ -199,45 +199,71 @@ $file-prefix: 'blog-header';
 @media screen and (max-width: 700px) {
     .blogNav {
         width: 100%;
-        padding-right: 20px;
+        padding-right: 10px;
 
-        .#{$file-prefix}-menu-icon {
-            color: black;
-            font-size: 30px;
-            padding: 15px;
-        }
-
-        .#{$file-prefix}-menu-content {
+        .#{$file-prefix}-menu-layout {
             position: absolute;
             top: 60px;
-            background-color: #eee;
-            width: 200px;
-            box-shadow: rgb(221, 221, 221) 0px 4px 5px;
-            border-radius: 5px;
+            transform: scaleY(1);
+            transition-duration: .2s;
+            transform-origin: top;
+            width: 100vw;
 
-            .#{$file-prefix}-menu-item-layout {
-                padding: 10px 20px;
+            .#{$file-prefix}-menu-item {
                 display: flex;
                 justify-content: flex-start;
+                height: 40px;
+                width: 100%;
+                background-color: #fff;
+                padding: 0px 30px;
 
-                .#{$file-prefix}-menu-item-icon {
-                    font-size: 20px;
+                .#{$file-prefix}-menu-icon {
+                    line-height: 40px;
                     margin-right: 20px;
                 }
+
+                .#{$file-prefix}-menu-title {
+                    line-height: 40px;
+                }
+            }
+
+            .#{$file-prefix}-menu-item-active {
+                background-color: #eee;
             }
         }
 
-        // TODO: 待美化
-        .#{$file-prefix}-select {
-            background: #fafdfe;
-            margin-top: 10px;
-            height: 40px;
-            width: 100px;
-            line-height: 40px;
-            border: 1px solid #9bc0dd;
-            -moz-border-radius: 2px;
-            -webkit-border-radius: 2px;
-            border-radius: 2px;
+        .#{$file-prefix}-menu-layout-hidden {
+            transform: scaleY(0);
+        }
+
+        .#{$file-prefix}-title-layout {
+            display: flex;
+            justify-content: flex-start;
+
+            .#{$file-prefix}-title {
+                color: #0099FF;
+                line-height: 58px;
+                margin-right: 20px;
+                font-size: 20px;
+            }
+
+            .#{$file-prefix}-arrow {
+                color: #0099FF;
+                line-height: 60px;
+                margin-right: 20px;
+
+                &:last-child {
+                    margin-right: 0px;
+                }
+            }
+
+            .#{$file-prefix}-arrow-hidden {
+                opacity: 0;
+            }
+        }
+
+        .blogButton {
+            width: 144px;
         }
     }
 }
