@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Editor from 'for-editor'
 import marked from 'marked'
-import { useHistory } from 'react-router-dom'
 import TitleInput from '../components/writeArticle/TitleInput'
 import { _addArticle } from '../components/common/Api'
 import '../styles/page/editArticlePage.scss'

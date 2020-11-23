@@ -18,9 +18,7 @@ export default function SelectInput({ handleSelectType }: SelectInputConfig) {
         setSelectName(tempSelectName)
     }
     return (
-        <div style={{
-            position: 'relative'
-        }}>
+        <div className='selectInputLayout'>
             <div
                 className='selectInput'
                 onClick={() => { setIsClick(true) }}

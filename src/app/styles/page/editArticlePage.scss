@@ -3,11 +3,9 @@
 
     .content {
         width: 100%;
-        padding-left: 100px;
-        padding-right: 100px;
-        display: flex;
-        justify-content: space-between;
         padding-top: 50px;
-        padding-bottom: 20px;
+        position: relative;
+        left: 50%;
+        margin-left: -500px;
     }
 }
