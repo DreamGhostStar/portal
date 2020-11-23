@@ -11,8 +11,8 @@ import { useHistory } from 'react-router-dom'
 import staticBlogHeader from 'static/blogHeader.json'
 
 import userInfo from 'model/userInfo.json' // TODO: 假数据，需删除
-import { info, IconFont } from '../common/config';
-import { getToken, isMobile } from '../common/utils';
+import { info, IconFont, error } from '../common/config';
+import { getToken, isMobile, isSuccess } from '../common/utils';
 
 import searchArticle from 'model/searchArticle.json'
 import AuthorShow_container from 'containers/AuthorShow_container';
@@ -22,6 +22,7 @@ import classnames from 'classnames'
 import MenuIcon from '../common/MenuIcon'
 import { SiderContext } from 'app/pages/BlogPage'
 import { MySiderContext } from 'app/pages/MyInfoPage'
+import { search_blog_api } from 'app/http/blog'
 const stylePrefix = 'blog-header';
 interface BlogNavConfig {
     activeIndex: number | null
@@ -104,13 +105,19 @@ export default function BlogNav({ activeIndex, transform_user }: BlogNavConfig) 
     }
 
     // 处理搜索框中数据
-    // TODO: 向后端请求相关文章
-    const handleClick = () => {
-        if (!(inputRef.current as any).value) {
+    const handleClick = async () => {
+        const value = (inputRef.current as any).value
+        if (!value) {
             info('输入不能为空')
             return
         }
-        setSearchList(searchArticle)
+
+        const res = await search_blog_api(value)
+        if (isSuccess(res.code)) {
+            setSearchList(res.data)
+        } else {
+            error(res.message)
+        }
     }
 
     // 处理搜索图标的bug

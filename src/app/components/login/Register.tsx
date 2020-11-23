@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import InputField from './InputField'
 import { Checkbox, Button } from 'antd';
 import { useHistory } from 'react-router-dom'
-import { _login } from '../common/Api';
 import cookies from 'react-cookies'
 import '../../styles/login/Register.scss'
 import md5 from 'md5'
 import { error, success } from '../common/config';
 
 import userInfo from 'model/userInfo.json' // TODO: 需删除
+import { ILoginApi, login_api } from 'app/http/user';
 const stylePrefix = 'login-register'
 
 export interface formConfig {
@@ -97,33 +97,29 @@ export default function Register({ enterEnroll, transform_user }: RegisterConfig
         cookies.save('Authorization', userInfo.token, {})
         success('登录成功');
         history.push("/home");
-        // interface loginConfig {
-        //     key?: string,
-        //     password?: string,
-        // }
-        // let obj: loginConfig = {};
-        // obj.key = username;
-        // obj.password = password;
+        let obj: ILoginApi = {};
+        obj.key = username;
+        obj.password = password;
 
-        // const res = await _login(obj);
+        const res = await login_api(obj);
 
-        // if (res) {
-            // if (res.data.code === 0) {
+        if (res) {
+            if (res.data.code === 0) {
                 // 向redux传递用户信息
-                // props.transform_user(res.data.data)
+                transform_user(res.data.data)
 
-                // // 使用cookie存放token
-                // cookies.save('Authorization', res.data.data.token, {})
+                // 使用cookie存放token
+                cookies.save('Authorization', res.data.data.token, {})
 
-                // // 提示成功信息
-                // success('登录成功');
+                // 提示成功信息
+                success('登录成功');
 
-                // // 跳转到首页
-                // history.push("/home");
-            // } else {
-                // error(res.data.message);
-            // }
-        // }
+                // 跳转到首页
+                history.push("/home");
+            } else {
+                error(res.data.message);
+            }
+        }
     }
 
     return (

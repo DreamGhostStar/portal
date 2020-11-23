@@ -19,10 +19,11 @@ import { _getArticleDetail, _deleteArticle } from '../common/Api';
 
 import '../../styles/blog/articleShow.scss'
 import 'app/styles/blog/markdown.scss'
-import { simpleFormatTime, isMobile } from '../common/utils';
+import { simpleFormatTime, isMobile, isSuccess } from '../common/utils';
 
 import articleDetail from 'model/articleDetail.json'
 import Loading2 from '../common/Loading2';
+import { delete_blog_api, get_blog_detail_api } from 'app/http/blog';
 
 const stylePrefix = 'blog-articleShow'
 
@@ -57,19 +58,18 @@ export default function ArticleShow({ articleID }: ArticleShowConfig) {
 
     // 删除文章
     const deleteArticle = async (articleID: number, deleteTitle: string) => {
-        console.log(articleID)
-        // const res = await _deleteArticle({
-        //     articleID
-        // });
+        const res = await delete_blog_api({
+            articleID
+        });
 
-        // if (res) {
-        //     if (res.data.code === 0) {
-        //         success(`《${deleteTitle}》删除成功`)
-        //         history.push('/blog')
-        //     } else {
-        //         error(res.data.message)
-        //     }
-        // }
+        if (res) {
+            if (res.code === 0) {
+                success(`《${deleteTitle}》删除成功`)
+                history.push('/blog/list')
+            } else {
+                error(res.message)
+            }
+        }
     }
 
     // 获取文章详细信息接口
@@ -79,17 +79,17 @@ export default function ArticleShow({ articleID }: ArticleShowConfig) {
         setTimeout(() => {
             setArticleLoading(false)
         }, 1000);
-        // const res = await _getArticleDetail({
-        //     articleID
-        // });
+        const res = await get_blog_detail_api({
+            articleID
+        });
 
-        // if (res) {
-        //     if (res.data.code === 0) {
-        //         setArticle(res.data.data)
-        //     } else {
-        //         error(res.data.message)
-        //     }
-        // }
+        if (res) {
+            if (isSuccess(res.code)) {
+                setArticle(res.data)
+            } else {
+                error(res.message)
+            }
+        }
     }
     return (
         <div className={`${stylePrefix}-layout`}>
@@ -113,7 +113,7 @@ export default function ArticleShow({ articleID }: ArticleShowConfig) {
                                 ref={titleRef}
                                 onMouseOver={() => { setLineWidth((titleRef.current as any).offsetWidth) }}
                                 onMouseOut={() => { setLineWidth(0) }}
-                                onClick={() => { history.push(`/blog/undefined`) }}
+                                onClick={() => { history.push(`/blog/list`) }}
                             >
                                 {article.title}
                             </span>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import 'app/styles/homeSeconds/friend.scss'
 import PointImg from 'images/point.png'
-import FriendModel from 'model/friends.json'
 import AvatarShow from '../common/AvatarShow'
 import classnames from 'classnames'
-import { IconFont } from '../common/config'
-import { goToElement } from '../common/utils'
+import { error, IconFont } from '../common/config'
+import { goToElement, isSuccess } from '../common/utils'
+import { get_friend_api } from 'app/http/user'
 
 interface FrinedsInYear {
     year: string;
@@ -24,8 +24,16 @@ export default function Friend() {
     const [friends, setFriends] = useState<FrinedsInYear[]>([])
     const [page, setPage] = useState(1)
     useEffect(() => {
-        setFriends(FriendModel)
+        getFriend()
     }, [])
+    const getFriend = async () => {
+        const res = await get_friend_api();
+        if(isSuccess(res.code)){
+            setFriends(res.data)
+        }else{
+            error(res.message)
+        }
+    }
     const buildControlPage = () => {
         const arr: any[] = [];
         for (let index = 0; index < friends.length / 3; index++) {

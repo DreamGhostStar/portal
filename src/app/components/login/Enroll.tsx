@@ -2,11 +2,12 @@ import React, { useState, useRef } from 'react'
 import InputField from './InputField'
 import { Input, Button } from 'antd';
 import VerifyImageShow from './VerifyImageShow';
-import { _enroll } from '../common/Api';
 import md5 from 'md5'
 import { formConfig, registerInputDataConfig } from './Register';
 import { error, success } from '../common/config';
 import 'app/styles/login/enroll.scss'
+import { enroll_api, IEnrollApi } from 'app/http/user';
+import { isSuccess } from '../common/utils';
 const stylePrefix = 'login-enroll'
 
 const form: formConfig[] = [
@@ -87,25 +88,20 @@ export default function Enroll({ enterRegister }: { enterRegister: any }) {
 
     // 注册接口
     const enrollUser = async (username: string, password: string, captcha: string) => {
-        interface enrollConfig {
-            username?: string,
-            password?: string,
-            captcha?: string,
-        }
-        let obj: enrollConfig = {};
+        let obj: IEnrollApi = {};
         obj.username = username;
         obj.password = password;
         obj.captcha = captcha;
 
-        const res = await _enroll(obj);
+        const res = await enroll_api(obj);
 
         if (res) {
-            if (res.data.code === 0) {
-                success('注册成功');
+            if (isSuccess(res.code)) {
+                success('注册成功，请重新输入账号');
 
                 enterRegister()
             } else {
-                error(res.data.message) // TODO：错误需刷新验证码
+                error(res.message) // TODO：错误需刷新验证码
             }
         }
     }

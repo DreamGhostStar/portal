@@ -4,6 +4,8 @@ import {
 import { createFromIconfontCN } from '@ant-design/icons';
 import { _getUserDetail } from './Api';
 
+export const backIP = "https://mock.yonyoucloud.com/mock/16295/api"; // 后端代码
+
 // 以下三个均为antd的信息提示
 export function error(msg: string) {
     message.error(msg);

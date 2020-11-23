@@ -24,8 +24,8 @@ export default function MenuItem({ display, index, item, transfrom_type }: MenuI
         }
         // 传递store
         transfrom_type(index);
-        if (window.location.hash !== '#/blog/undefined') {
-            history.push(`/blog/undefined`);
+        if (window.location.hash !== '#/blog/list') {
+            history.push(`/blog/list`);
         }
     }
     return (

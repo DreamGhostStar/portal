@@ -1,9 +1,10 @@
 .element {
-    top: 50%;
+    top: 55%;
     margin-top: -300px;
-    right: 0;
+    left: 50%;
+    margin-left: -200px;
     position: absolute;
-    transform: translate(-50%, -50%);
+    // transform: translate(-50%, -50%);
 
     .front,
     .back {

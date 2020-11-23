@@ -91,3 +91,7 @@ export const goToElement = (id: string) => {
         anchorElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
     }
 }
+
+export const isSuccess = (code: number) => {
+    return code === 0
+}

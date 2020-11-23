@@ -27,7 +27,7 @@ export default function BlogPage(props: any) {
     }
     // 判断显示文章列表还是具体文章
     const judgeArticle = (articleID: string) => {
-        if (articleID === 'undefined') {
+        if (articleID === 'list') {
             return (
                 <SiderContext.Provider value={menuContext} >
                     <Provider store={store}>
@@ -46,7 +46,7 @@ export default function BlogPage(props: any) {
 
     // 判断是否显示分页器
     const judgeShowPagination = (articleID: string) => {
-        if (articleID === 'undefined') {
+        if (articleID === 'list') {
             return (
                 <Provider store={store}>
                     <PaginationContainer />
