@@ -19,14 +19,14 @@ $file-prefix: 'common-uploadAvator';
     }
 
     .upload_shadow {
-        width: 176px;
-        height: 176px;
+        width: 160px;
+        height: 160px;
         border-radius: 50%;
         position: absolute;
         top: 0px;
         left: 0px;
         text-align: center;
-        line-height: 176px;
+        line-height: 160px;
         color: #fff;
         font-size: 20px;
         background-color: rgba($color: #000, $alpha: 0.5);

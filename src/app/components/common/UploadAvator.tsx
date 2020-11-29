@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Upload } from 'antd'
 import { PlusOutlined } from '@ant-design/icons';
-import { _getPictureToken } from './Api';
 import { error, BASE_QINIU_URL, QINIU_SERVER } from './config';
 import '../../styles/comon/uploadAvator.scss'
+import { get_upload_token_api } from 'app/http/common_api';
 
 interface UploadAvatorConfig {
     img: string,
@@ -17,7 +17,7 @@ export default function UploadAvator({ img, saveImg }: UploadAvatorConfig) {
     const [uploadProps, setUploadProps] = useState({})
 
     const getPictureToken = async () => {
-        const res = await _getPictureToken();
+        const res = await get_upload_token_api();
 
         if (res) {
             if (res.data.code === 0) {

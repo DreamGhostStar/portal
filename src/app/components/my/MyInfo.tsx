@@ -11,8 +11,8 @@ import '../common/config'
 import Loading2 from '../common/Loading2';
 import store from 'redux/store';
 
-import userInfo from 'model/userInfo.json' // TODO: 需删除
-import { isMobile } from '../common/utils';
+import { isMobile, isSuccess } from '../common/utils';
+import { alter_user_info_api, get_user_detail_api } from 'app/http/user';
 
 const stylePrefix = 'my-myInfo';
 
@@ -28,36 +28,34 @@ export default function MyInfo() {
 
     const getUserDetail = async () => {
         setLoading(true)
-        setMyInfo(userInfo)
+        const res = await get_user_detail_api({});
+
+        if (res) {
+            if (isSuccess(res.code)) {
+                setMyInfo(res.data)
+            } else {
+                error(res.message)
+            }
+        }
         setLoading(false)
-        // const res = await _getUserDetail();
-
-        // if (res) {
-        //     if (res.data.code === 0) {
-        //         setMyInfo(res.data.data)
-        //         setLoading(false)
-        //     } else {
-        //         error(res.data.message)
-        //     }
-        // }
-    }
-
-    const handleMyInfo = (tempMyInfo: any) => {
-        return (tempMyInfo as userConfig)
     }
 
     // 保存图片路径信息
     const saveImg = (avatar: string) => {
-        const tempMyInfo = myInfo;
-        handleMyInfo(tempMyInfo).avatar = avatar;
-        setMyInfo(tempMyInfo)
+        if (myInfo) {
+            const tempMyInfo = myInfo;
+            tempMyInfo.avatar = avatar;
+            setMyInfo(tempMyInfo)
+        }
     }
 
     // 保存除昵称和头像外的所有信息
     const saveOtherInfo = (type: string, value: string) => {
-        const tempMyInfo = myInfo;
-        handleMyInfo(tempMyInfo)[type] = value
-        setMyInfo(tempMyInfo)
+        if (myInfo) {
+            const tempMyInfo = myInfo;
+            tempMyInfo[type] = value
+            setMyInfo(tempMyInfo)
+        }
     }
 
     // 保存数据到后端数据库
@@ -67,22 +65,24 @@ export default function MyInfo() {
 
     // 修改用户信息
     const alterUserInfo = async () => {
-        console.log(myInfo)
-        // const res = await _alterUserInfo({
-        //     nickname: handleMyInfo(myInfo).nickname,
-        //     avator: handleMyInfo(myInfo).avatar,
-        //     grade: handleMyInfo(myInfo).year,
-        //     motto: handleMyInfo(myInfo).motto,
-        //     email: handleMyInfo(myInfo).email
-        // });
+        if(!myInfo){
+            return
+        }
+        const res = await alter_user_info_api({
+            nickname: myInfo.nickname,
+            avator: myInfo.avatar,
+            grade: myInfo.year,
+            motto: myInfo.motto,
+            email: myInfo.email
+        });
 
-        // if (res) {
-        //     if (res.data.code === 0) {
-        //         success('修改信息成功')
-        //     } else {
-        //         error(res.data.message)
-        //     }
-        // }
+        if (res) {
+            if (isSuccess(res.code)) {
+                success('修改信息成功')
+            } else {
+                error(res.message)
+            }
+        }
     }
 
     // 保存昵称的值
@@ -93,9 +93,11 @@ export default function MyInfo() {
             return;
         }
 
-        const tempMyInfo = myInfo;
-        handleMyInfo(tempMyInfo).nickname = nickname;
-        setMyInfo(tempMyInfo)
+        if (myInfo) {
+            const tempMyInfo = myInfo;
+            tempMyInfo.nickname = nickname;
+            setMyInfo(tempMyInfo)
+        }
         setIsAlter(false)
     }
 

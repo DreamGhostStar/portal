@@ -15,6 +15,13 @@ interface ISearchBlogApi {
     inputData: string;
 }
 
+interface IAddBlogApi {
+    title: string;
+    content: string;
+    type: number;
+    abstract: string;
+}
+
 // 获取博客列表
 export const get_list_blog_api = async (data: IGetListBolgApi) => {
     return await Http.request(`${backIP}/blog`, data, 'GET')
@@ -33,4 +40,9 @@ export const get_blog_detail_api = async (data: IDeleteBlogApi) => {
 // 搜索文章
 export const search_blog_api = async (data: ISearchBlogApi) => {
     return await Http.request(`${backIP}/blog/search`, data, 'GET')
+}
+
+// 增加文章
+export const add_blog_api = async (data: IAddBlogApi) => {
+    return await Http.request(`${backIP}/blog/add`, data, 'POST')
 }

@@ -6,24 +6,25 @@ import { _addArticle } from '../components/common/Api'
 import '../styles/page/editArticlePage.scss'
 import EditHeader from '../components/common/Header'
 import EditSider from '../components/writeArticle/EditSider'
-import { abstractLength } from '../components/common/config'
+import { abstractLength, error, success } from '../components/common/config'
 import UploadMarkdownImg from '../components/common/UploadMarkdownImg'
 import { _getArticleDetail } from '../components/common/Api'
 
 import articleDetail from 'model/articleDetail.json'
-import { isMobile } from 'app/components/common/utils'
+import { isMobile, isSuccess } from 'app/components/common/utils'
 import HintMessagePage from './HintMessagePage'
+import { add_blog_api, get_blog_detail_api } from 'app/http/blog'
+import { useHistory } from 'react-router-dom'
 
 export default function EditArticlePage(props: any) {
+    const history = useHistory()
     const [value, setValue] = useState('')
     const [title, setTitle] = useState('')
-    const [articleID, setArticleID] = useState(null)
     const [headerTitle, setHeaderTitle] = useState('新建文章')
     const [articleAbstract, setArticleAbStract] = useState('')
     const $vm = useRef(null)
     useEffect(() => {
         const tempArticleID = props.match.params.articleID;
-        setArticleID(tempArticleID)
         if (tempArticleID !== 'undefiend') {
             getArticleDetail(tempArticleID)
             setHeaderTitle('编辑文章')
@@ -36,18 +37,19 @@ export default function EditArticlePage(props: any) {
         setTitle(articleDetail.title)
         setValue(articleDetail.content)
         setArticleAbStract(articleDetail.abstract)
-        // const res = await _getArticleDetail({
-        //     articleID
-        // });
+        const res = await get_blog_detail_api({
+            articleID
+        });
 
-        // if (res) {
-        //     if (res.data.code === 0) {
-        //         setTitle(res.data.data.title)
-        //         setValue(res.data.data.content)
-        //     } else {
-        //         error(res.data.message)
-        //     }
-        // }
+        if (res) {
+            if (isSuccess(res.code)) {
+                // 填充数据
+                setTitle(res.data.title)
+                setValue(res.data.content)
+            } else {
+                error(res.data.message)
+            }
+        }
     }
 
     const addImg = (imgURL: string) => {
@@ -78,26 +80,21 @@ export default function EditArticlePage(props: any) {
 
     // 增加文章接口
     const addArticle = async (title: string, content: string, type: number, abstract: string) => {
-        console.log({
+        const res = await add_blog_api({
             title,
             content,
             type,
             abstract
-        })
-        // const res = await _addArticle({
-        //     title,
-        //     content,
-        //     type
-        // });
+        });
 
-        // if (res) {
-        //     if (res.data.code === 0) {
-        //         success('新建文章成功')
-        //         history.push(`/createQuestion`);
-        //     } else {
-        //         error(res.data.message)
-        //     }
-        // }
+        if (res) {
+            if (isSuccess(res.code)) {
+                success('新建文章成功')
+                history.push(`/blog/list`);
+            } else {
+                error(res.message)
+            }
+        }
     }
     return (
         isMobile()
@@ -125,7 +122,11 @@ export default function EditArticlePage(props: any) {
                             <UploadMarkdownImg saveImg={addImg} />
                         </div>
                     </div>
-                    <EditSider handleClick={handleClick} abstract={articleAbstract} setArticleAbStract={setArticleAbStract} />
+                    <EditSider
+                        handleClick={handleClick}
+                        abstract={articleAbstract}
+                        setArticleAbStract={setArticleAbStract}
+                    />
                 </div>
             </div>
     )

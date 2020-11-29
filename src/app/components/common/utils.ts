@@ -95,3 +95,9 @@ export const goToElement = (id: string) => {
 export const isSuccess = (code: number) => {
     return code === 0
 }
+
+export const getHeaders = ()=>{
+    return {
+        Authorization: getToken()
+    }
+}

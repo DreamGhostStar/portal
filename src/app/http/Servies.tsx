@@ -24,11 +24,11 @@ interface BaseHttpResponse {
 type IMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
 class Http {
-  static request(url: string, data: object, method: IMethod): Promise<BaseHttpResponse> {
+  static request(url: string, data: object, method: IMethod, headers?: object): Promise<BaseHttpResponse> {
     if (method === 'GET') {
       return new Promise((resolve, reject) => {
         axios
-          .get(url, data)
+          .get(url, { data: data, headers: headers })
           .then(res => {
             resolve(res.data);
           })
@@ -41,6 +41,7 @@ class Http {
         axios({
           method: method,
           data: data,
+          headers: headers,
           url: url
         }).then(res => {
           resolve(res.data);

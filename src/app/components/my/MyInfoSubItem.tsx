@@ -29,9 +29,17 @@ export default function MyInfoSubItem({ transformValue, label, type, saveOtherIn
     }
     const judgeInputType = () => {
         const contrast = {
-            year: <InputNumber ref={inputNumberRef} min={2000} max={2020} defaultValue={(value as number)} className='input' />,
-            motto: <TextArea ref={inputRef} rows={4} defaultValue={value} className='input' />,
-            email: <Input ref={inputRef} defaultValue={value} className='input' />
+            year: <InputNumber
+                ref={inputNumberRef}
+                min={2000}
+                max={2020}
+                defaultValue={(value as number)}
+                style={{
+                    width: 200
+                }}
+            />,
+            motto: <TextArea ref={inputRef} rows={4} defaultValue={value} />,
+            email: <Input ref={inputRef} defaultValue={value} />
         }
         return contrast[type]
     }

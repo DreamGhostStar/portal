@@ -21,13 +21,12 @@ $file-prefix: 'my-myInfo';
     .#{$file-prefix}-content {
         width: 850px;
         position: relative;
-        top: 80px;
+        top: 0px;
         z-index: 1;
         background-color: #fff;
-        padding-top: 80px;
+        padding: 80px 0px 20px 0px;
+        margin: 80px 0px 40px 0px;
         box-shadow: 1px 1px 21px #ccc;
-        padding-bottom: 20px;
-        margin-bottom: 40px;
 
         .#{$file-prefix}-input {
             width: 400px;
