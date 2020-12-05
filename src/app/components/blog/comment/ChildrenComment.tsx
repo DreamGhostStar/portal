@@ -1,10 +1,11 @@
 import React from 'react'
 import avatorURL from '../../../../images/profile photo.jpg'
-import { IconFont } from 'app/components/common/config'
-import { formatTime } from 'app/components/common/utils'
+import { error, IconFont, success } from 'app/components/common/config'
+import { formatTime, isSuccess } from 'app/components/common/utils'
 import 'app/styles/comment/childrenComment.scss'
 import { CommentItemChildrenInfoConfig } from './CommentShow'
 import store from 'redux/store'
+import { delete_comment_api } from 'app/http/comment'
 
 const stylePrefix = 'blog-childrenComment'
 
@@ -23,8 +24,13 @@ export default function ChildrenComment({ callback, item, isShowChildrenComments
 
     // 删除评论
     const deleteComment = async () => {
-        console.log(item.commentID)
         // TODO：对接接口
+        const res = await delete_comment_api({ commentID: item.commentID });
+        if (isSuccess(res.code)) {
+            success('删除成功')
+        } else {
+            error(res.message)
+        }
     }
 
     const judgeShow = () => {

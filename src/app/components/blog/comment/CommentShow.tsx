@@ -5,8 +5,8 @@ import { _getCommentList, _publishComment } from '../../common/Api';
 import '../../../styles/comment/commentShow.scss'
 import { error, success } from '../../common/config';
 import Loading2 from '../../common/Loading2';
-
-import commentList from 'model/comment.json'
+import { add_comment_api, get_comment_list_api } from 'app/http/comment';
+import { isSuccess } from 'app/components/common/utils';
 
 const stylePrefix = 'blog-commentShow'
 
@@ -43,46 +43,44 @@ export default function CommentShow({ articleID }: CommentShowConfig) {
     const [value, setValue] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const publishComment = async (articleID: number, content: string, userID: number, parentCommentID: number) => {
-        console.log({
+    // 发表评论
+    const publishComment = async (articleID: number,
+        content: string,
+        userID: number,
+        parentCommentID: number,
+    ) => {
+        const res = await add_comment_api({
             articleID,
             content,
             userID,
             parentCommentID
         })
-        // const res = await _publishComment({
-        //     articleID,
-        //     content,
-        //     userID,
-        //     parentCommentID
-        // })
 
-        // if (res) {
-        //     if (res.data.code === 0) {
-        //         success('评论成功')
-        //         getCommentList(articleID)
-        //     } else {
-        //         error(res.data.message)
-        //     }
-        // }
+        if (res) {
+            if (isSuccess(res.code)) {
+                success('评论成功')
+                getCommentList(articleID)
+            } else {
+                error(res.message)
+            }
+        }
     }
 
     // 获取列表评论接口
     const getCommentList = async (articleID: number) => {
-        setCommentData(commentList)
-        // setLoading(true)
-        // const res = await _getCommentList({
-        //     articleID
-        // });
+        setLoading(true)
+        const res = await get_comment_list_api({
+            articleID
+        });
 
-        // if (res) {
-        //     if (res.data.code === 0) {
-        //         setCommentData(res.data.data)
-        //         setLoading(false)
-        //     } else {
-        //         error(res.data.message)
-        //     }
-        // }
+        if (res) {
+            if (isSuccess(res.code)) {
+                setCommentData(res.data)
+            } else {
+                error(res.message)
+            }
+        }
+        setLoading(false)
     }
 
     // 在input改变的时候，保存其值
