@@ -3,16 +3,19 @@ import RadioShow from './RadioShow';
 import CheckBoxShow from './CheckBoxShow';
 import MultilineShow from './MultilineShow';
 import { Button } from 'antd';
-import { deepCopy } from '../common/utils';
+import { deepCopy, isSuccess } from '../common/utils';
 import 'app/styles/createQuestion/questionContent.scss'
 import { optionItemConfig } from 'app/pages/Question';
 import { textConfig, radioCheckConfig } from 'app/pages/Questionnaire';
-import { error } from '../common/config';
+import { error, success } from '../common/config';
+import { submit_question_api } from 'app/http/question';
+import { useHistory } from 'react-router-dom';
 
 const stylePrefix = 'create-questionContent'
 
 interface QuestionContentConfig {
     questionContent: (textConfig | radioCheckConfig)[]
+    id: number;
 }
 
 export interface WriteQuestionInputConfig {
@@ -43,9 +46,10 @@ interface verifyConfig {
     result: boolean
 }
 
-export default function QuestionContent({ questionContent }: QuestionContentConfig) {
+export default function QuestionContent({ questionContent, id }: QuestionContentConfig) {
     const [questionResult, setQuestionResult] = useState<questionResultConfig[]>([])
     const [verify, setVerify] = useState<verifyConfig[]>([])
+    const history = useHistory()
 
     const handleData: HandleDataConfig = (id, value, type) => {
         const contrast = {
@@ -59,7 +63,7 @@ export default function QuestionContent({ questionContent }: QuestionContentConf
         if (value) {
             const tempVerify: verifyConfig[] = deepCopy(verify)
             tempVerify.forEach(verifyItem => {
-                if(id === verifyItem.id){
+                if (id === verifyItem.id) {
                     verifyItem.result = true
                 }
             });
@@ -82,15 +86,25 @@ export default function QuestionContent({ questionContent }: QuestionContentConf
         tempQuestionResult.push(temp);
         setQuestionResult(tempQuestionResult)
     }
-    const handleSubmit = () => {
+    // 提交问卷
+    const handleSubmit = async () => {
         for (let index = 0; index < verify.length; index++) {
             const verifyItem = verify[index];
-            if(!verifyItem.result){
-                error(`第${verifyItem.order+1}题不能为空`)
+            if (!verifyItem.result) {
+                error(`第${verifyItem.order + 1}题不能为空`)
                 return
             }
         }
-        console.log(questionResult)
+        const res = await submit_question_api({
+            id: id,
+            values: questionResult
+        })
+        if (isSuccess(res.code)) {
+            success('提交问卷成功')
+            history.goBack()
+        } else {
+            error(res.message)
+        }
     }
     useEffect(() => {
         const tempVerify: verifyConfig[] = [];
@@ -154,7 +168,11 @@ export default function QuestionContent({ questionContent }: QuestionContentConf
                     return temp;
                 })
             }
-            <Button type="primary" className={`${stylePrefix}-btn`} onClick={handleSubmit}>提交</Button>
+            <Button
+                type="primary"
+                className={`${stylePrefix}-btn`}
+                onClick={handleSubmit}
+            >提交</Button>
         </div>
     )
 }

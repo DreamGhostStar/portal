@@ -4,16 +4,18 @@ import { Button } from 'antd'
 import BlogHeader from 'app/components/blog/BlogHeader'
 import 'app/styles/page/questionList.scss'
 import { useHistory } from 'react-router-dom'
-import { IconFont, info } from 'app/components/common/config'
+import { error, IconFont, info } from 'app/components/common/config'
 import { questionItemConfig } from 'app/components/back/QuestionList'
 import Loading2 from 'app/components/common/Loading2'
+import { get_question_list_api } from 'app/http/question'
+import { isSuccess } from 'app/components/common/utils'
 
 const stylePrefix = 'page-questionList'
 
 export default function QuestionList() {
     const history = useHistory()
-    const [page, setPage] = useState(1)
-    const [pageNum, setPageNum] = useState(1)
+    const [page, setPage] = useState(1) // 当前页
+    const [pageNum, setPageNum] = useState(1) // 总页数
     const [questionList, setQuestionList] = useState<questionItemConfig[]>([])
     const [loading, setLoading] = useState(false)
     const judgeQuestionNaireStatus = (abortTime: string, startTime: string) => {
@@ -48,13 +50,17 @@ export default function QuestionList() {
         }
         history.push(`/question/${id}`)
     }
+    // 获取问卷列表
     const getQuestionList = async () => {
         setLoading(true)
-        setTimeout(() => {
+        const res = await get_question_list_api({ page: page })
+        if (isSuccess(res.code)) {
             setQuestionList(staticQuestionList.list)
             setPageNum(staticQuestionList.page)
-            setLoading(false)
-        }, 2000);
+        } else {
+            error(res.message)
+        }
+        setLoading(false)
     }
     useEffect(() => {
         getQuestionList()
