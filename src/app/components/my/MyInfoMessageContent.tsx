@@ -4,8 +4,9 @@ import { _getMessageData, _readMessage } from '../common/Api';
 import { error, IconFont } from '../common/config';
 import Loading2 from '../common/Loading2';
 
-import messageList from 'model/messageList.json'
-import { formatTime } from '../common/utils';
+import { formatTime, isSuccess } from '../common/utils';
+import { click_message_api, get_message_list_api } from 'app/http/message_api';
+import { Button } from 'antd';
 
 const stylePrefix = 'my-myInfoMessageContent'
 
@@ -24,6 +25,8 @@ export default function MyInfoMessageContent() {
     const [clickIndex, setClickIndex] = useState<number | null>(null)
     const [messageData, setMessageData] = useState<messageConfig[]>([])
     const [loading, setLoading] = useState(true)
+    const [page, setPage] = useState(1)
+    const [pageNum, setPageNum] = useState(1)
 
     const handleClick = (index: number) => {
         if (index === clickIndex) {
@@ -35,20 +38,19 @@ export default function MyInfoMessageContent() {
 
     // 将消息变为已读
     const readMessage = async (id: number) => {
-        console.log(id)
-        // setLoading(true)
+        setLoading(true)
 
-        // const res = await _readMessage({
-        //     id
-        // });
+        const res = await click_message_api({
+            id
+        });
 
-        // if (res) {
-        //     if (res.data.code === 0) {
-        //         getMessageData()
-        //     } else {
-        //         error(res.data.message)
-        //     }
-        // }
+        if (res) {
+            if (isSuccess(res.code)) {
+                getMessageData()
+            } else {
+                error(res.message)
+            }
+        }
     }
 
     const handleIsShowLoading = () => {
@@ -95,6 +97,7 @@ export default function MyInfoMessageContent() {
                                 {item.content}
                             </div>
                         </div>
+
                     </div>
                 );
             })
@@ -104,33 +107,44 @@ export default function MyInfoMessageContent() {
 
     useEffect(() => {
         getMessageData()
-    }, [])
+    }, [page])
 
     // 获取消息列表
     const getMessageData = async () => {
         setLoading(true)
-        setMessageData(messageList)
-        setLoading(false)
-        // setLoading(true)
-        // const res = await _getMessageData();
+        const res = await get_message_list_api({ page: page });
 
-        // if (res) {
-        //     if (res.data.code === 0) {
-        //         setMessageData(res.data.data.reverse())
-        //         setLoading(false)
-        //     } else {
-        //         error(res.data.message)
-        //     }
-        // }
+        if (res) {
+            if (isSuccess(res.code)) {
+                setMessageData(res.data.data)
+                setPageNum(res.data.pageNum)
+            } else {
+                error(res.message)
+            }
+        }
+        setLoading(false)
     }
     return (
-        <div className={`${stylePrefix}-layout`} style={{
-            width: (loading ? 820 : 'auto'),
-            height: (loading ? 400 : 'auto')
-        }}>
-            {
-                handleIsShowLoading()
-            }
+        <div>
+            <div className={`${stylePrefix}-layout`} style={{
+                width: (loading ? 820 : 'auto'),
+                height: (loading ? 400 : 'auto')
+            }}>
+                {
+                    handleIsShowLoading()
+                }
+            </div>
+            <div className={`${stylePrefix}-button-layout`}>
+                <Button
+                    disabled={page === 1}
+                    onClick={() => setPage(page - 1)}
+                >Previous</Button>
+                <Button
+                    disabled={page === pageNum}
+                    onClick={() => setPage(page + 1)}
+                    type="primary"
+                >Next</Button>
+            </div>
         </div>
     )
 }

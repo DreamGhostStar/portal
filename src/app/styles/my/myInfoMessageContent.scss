@@ -6,6 +6,7 @@ $file-prefix: 'my-myInfoMessageContent';
     border-radius: 10px;
     padding: 0px 20px;
     margin-bottom: 40px;
+    padding-bottom: 20px;
 
     .#{$file-prefix}-piece {
         height: 80px;
@@ -112,4 +113,11 @@ $file-prefix: 'my-myInfoMessageContent';
             }
         }
     }
+}
+
+
+.#{$file-prefix}-button-layout {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
 }

@@ -6,11 +6,10 @@ import '../../styles/comon/authorShow.scss'
 
 import { error, IconFont } from './config';
 import { _getUserDetail, _getMessageNum } from './Api';
-
-import messageNum from 'model/messageNum.json'
 import userInfo from 'model/userInfo.json'
 import addTip from 'static/addTip.json'
-import { isMobile } from './utils';
+import { isSuccess } from './utils';
+import { get_unread_api } from 'app/http/message_api';
 
 const stylePrefix = 'common-authorShow'
 
@@ -54,16 +53,15 @@ export default function AuthorShow({ top, labelTop, remove_user, isHome }: Autho
     }
     // 获取未读消息数量
     const getUnreadNum = async () => {
-        setUnreadNum(messageNum)
-        // const res = await _getMessageNum();
+        const res = await get_unread_api();
 
-        // if (res) {
-        //     if (res.data.code === 0) {
-        //         setUnreadNum(res.data.data)
-        //     } else {
-        //         error(res.data.message)
-        //     }
-        // }
+        if (res) {
+            if (isSuccess(res.code)) {
+                setUnreadNum(res.data)
+            } else {
+                error(res.message)
+            }
+        }
     }
 
     // 退出登录，并且删除redux中的数据，清除cookie
