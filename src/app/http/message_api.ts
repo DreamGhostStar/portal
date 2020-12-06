@@ -10,6 +10,11 @@ export interface IGetMessageList {
     page: number;
 }
 
+interface ISendMessage {
+    users: number[];
+    data: string;
+}
+
 // 获取未读消息
 export const get_unread_api = async ()=>{
     return await Http.request(`${backIP}/blog/home/unread`, {}, 'GET', getHeaders())
@@ -23,4 +28,9 @@ export const click_message_api = async (data: IClickMessageApi)=>{
 // 获取消息列表
 export const get_message_list_api = async (data: IGetMessageList)=>{
     return await Http.request(`${backIP}/blog/message/list`, data, 'GET', getHeaders())
+}
+
+// 群发消息
+export const send_message_api = async (data: ISendMessage)=>{
+    return await Http.request(`${backIP}/message`, data, 'POST', getHeaders())
 }

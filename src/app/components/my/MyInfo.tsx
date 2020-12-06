@@ -70,7 +70,7 @@ export default function MyInfo() {
         }
         const res = await alter_user_info_api({
             nickname: myInfo.nickname,
-            avator: myInfo.avatar,
+            avatar: myInfo.avatar,
             grade: myInfo.year,
             motto: myInfo.motto,
             email: myInfo.email

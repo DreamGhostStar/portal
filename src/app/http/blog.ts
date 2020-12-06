@@ -7,6 +7,10 @@ interface IGetListBolgApi {
     userID?: number;
 }
 
+interface IGetListActivityApi {
+    page: number;
+}
+
 interface IDeleteBlogApi {
     articleID: number;
 }
@@ -45,4 +49,9 @@ export const search_blog_api = async (data: ISearchBlogApi) => {
 // 增加文章
 export const add_blog_api = async (data: IAddBlogApi) => {
     return await Http.request(`${backIP}/blog/add`, data, 'POST')
+}
+
+// 获取列表活动接口
+export const get_list_activity_api = async (data: IGetListActivityApi) => {
+    return await Http.request(`${backIP}/blog/activity`, data, 'GET')
 }

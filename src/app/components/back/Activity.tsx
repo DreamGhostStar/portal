@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import staticActivity from 'model/activity.json'
-import { deepCopy, simpleFormatTimeWithoutDate } from '../common/utils';
+import { isSuccess, simpleFormatTimeWithoutDate } from '../common/utils';
 import 'app/styles/back/activity.scss'
 import Loading2 from '../common/Loading2';
 import { Button } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { get_list_activity_api } from 'app/http/blog';
+import { error } from '../common/config';
 const stylePrefix = 'back-activity'
 
 interface ActivityConfig {
@@ -30,6 +31,7 @@ export default function Activity() {
     const history = useHistory()
     const [activity, setActivity] = useState<ActivityConfig[]>([])
     const [loading, setLoading] = useState(false)
+    const [page, setPage] = useState(1)
     // 滚动加载
     const loadMore = () => {
         //文档内容实际高度（包括超出视窗的溢出部分）
@@ -41,19 +43,18 @@ export default function Activity() {
 
         if (clientHeight + scrollTop >= scrollHeight) {
             setLoading(true)
+            setPage(page + 1)
         }
     }
+    // 获取列表活动
     const getActivity = async () => {
-        let tempActivity: ActivityConfig[] = deepCopy(activity)
-        setTimeout(() => {
-            if (tempActivity.length === 0) {
-                setActivity(staticActivity.data)
-            } else {
-                tempActivity = tempActivity.concat(staticActivity.data)
-                setActivity(tempActivity)
-            }
-            setLoading(false)
-        }, 3000);
+        const res = await get_list_activity_api({ page: page })
+        if (isSuccess(res.code)) {
+            setActivity([...activity, ...res.data])
+        } else {
+            error(res.message)
+        }
+        setLoading(false)
     }
     useEffect(() => {
         window.addEventListener('scroll', loadMore)
@@ -64,7 +65,7 @@ export default function Activity() {
     }, [])
     useEffect(() => {
         getActivity()
-    }, [loading])
+    }, [page])
     return (
         <div className={`${stylePrefix}-layout`}>
             {

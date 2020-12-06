@@ -4,9 +4,11 @@ import staticActivity from 'model/articleDetail.json'
 import Loading2 from '../common/Loading2'
 import 'app/styles/blog/markdown.scss'
 import marked from 'marked'
-import { IconFont } from '../common/config'
+import { error, IconFont, success } from '../common/config'
 import { useHistory } from 'react-router-dom'
 import { Modal, Button } from 'antd'
+import { delete_blog_api, get_blog_detail_api } from 'app/http/blog'
+import { isSuccess } from '../common/utils'
 
 const stylePrefix = 'back-activityDetail'
 
@@ -37,21 +39,28 @@ export default function ActivityDetail({ id }: ActivityDetailConfig) {
     const handleCancel = () => {
         setVisible(false)
     }
-    const handleOk = () => {
+    const handleOk = async () => {
         setConfirmLoading(true)
-        setTimeout(() => {
-            setVisible(false)
-            console.log(id)
-            setConfirmLoading(false)
-        }, 1000);
+        const res = await delete_blog_api({ articleID: id });
+        if (isSuccess(res.code)) {
+            success('删除成功')
+            history.goBack()
+        } else {
+            error(res.message)
+        }
+        setVisible(false)
+        setConfirmLoading(false)
     }
+    // 获取文章具体信息
     const getDetailActivity = async () => {
-        console.log(id)
         setLoading(true)
-        setTimeout(() => {
-            setActivity(staticActivity)
-            setLoading(false)
-        }, 3000);
+        const res = await get_blog_detail_api({ articleID: id })
+        if (isSuccess(res.code)) {
+            setActivity(res.data)
+        } else {
+            error(res.message)
+        }
+        setLoading(false)
     }
     return (
         <div className={`${stylePrefix}-layout`}>

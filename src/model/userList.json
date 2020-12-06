@@ -4,36 +4,42 @@
         "pageSize": 10,
         "data": [
             {
+                "avatar": "http://tf5.youchen-blog.cn/avatar.jpg",
                 "id": 1,
                 "username": "username1",
                 "nickname": "用户1",
                 "role": 3
             },
             {
+                "avatar": "http://tf5.youchen-blog.cn/avatar.jpg",
                 "id": 2,
                 "username": "username2",
                 "nickname": "用户2",
                 "role": 3
             },
             {
+                "avatar": "http://tf5.youchen-blog.cn/avatar.jpg",
                 "id": 3,
                 "username": "username3",
                 "nickname": "用户3",
                 "role": 3
             },
             {
+                "avatar": "http://tf5.youchen-blog.cn/avatar.jpg",
                 "id": 4,
                 "username": "username4",
                 "nickname": "用户4",
                 "role": 1
             },
             {
+                "avatar": "http://tf5.youchen-blog.cn/avatar.jpg",
                 "id": 5,
                 "username": "username5",
                 "nickname": "用户5",
                 "role": 2
             },
             {
+                "avatar": "http://tf5.youchen-blog.cn/avatar.jpg",
                 "id": 6,
                 "username": "username6",
                 "nickname": "用户6",
