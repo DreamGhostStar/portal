@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import questionListModel from 'model/questionList.json'
 import 'app/styles/back/questionList.scss'
 import Loading2 from '../common/Loading2'
 import { Button, Modal } from 'antd'
 import { useHistory } from 'react-router-dom'
-import { IconFont } from '../common/config'
-import { simpleFormatTime } from '../common/utils'
+import { error, IconFont, success } from '../common/config'
+import { isSuccess, simpleFormatTime } from '../common/utils'
+import { delete_question_template_api, get_question_list_api } from 'app/http/question'
 const stylePrefix = 'back-questionList'
 export interface questionItemConfig {
     id: number;
@@ -32,20 +32,29 @@ export default function QuestionList() {
     }, [page])
     const getQuestionList = async () => {
         setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-            console.log(page);
-            setQuestionList(questionListModel.list)
-            setPageNum(questionListModel.page)
-        }, 1000);
+        const res = await get_question_list_api({ page: page })
+        if (isSuccess(res.code)) {
+            setQuestionList(res.data.list)
+            setPageNum(res.data.page)
+        } else {
+            error(res.message)
+        }
+        setLoading(false)
     }
-    const handleOk = () => {
+    // 删除问卷样板
+    const handleOk = async () => {
+        if (deleteID === null) {
+            return
+        }
         setModalLoading(true)
-        setTimeout(() => {
-            console.log(deleteID)
-            setVisible(false)
-            setModalLoading(false)
-        }, 1000);
+        const res = await delete_question_template_api({ id: deleteID })
+        if (isSuccess(res.code)) {
+            success('删除成功')
+        } else {
+            error(res.message)
+        }
+        setVisible(false)
+        setModalLoading(false)
     }
     return (
         <div className={`${stylePrefix}-layout`}>

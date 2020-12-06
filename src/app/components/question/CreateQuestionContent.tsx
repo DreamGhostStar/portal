@@ -1,13 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal, Radio, Input, DatePicker } from 'antd';
 import SubjectShow from './SubjectShow';
 import EditQuestionTitle from './EditQuestionTitle';
 import moment from 'moment';
-import { IconFont, error } from '../common/config';
+import { IconFont, error, success } from '../common/config';
 import 'app/styles/createQuestion/createQuestionContent.scss'
-import { deepCopy, formatTime } from '../common/utils';
+import { deepCopy, formatTime, isSuccess } from '../common/utils';
 import { optionItemConfig } from 'app/pages/Question';
 import questionContentModel from 'model/questionContent.json'
+import { add_question_template_api, alter_question_template_api } from 'app/http/question';
+import { useHistory } from 'react-router-dom';
+import { tuple } from 'antd/lib/_util/type';
 
 const { RangePicker } = DatePicker;
 const stylePrefix = 'question-createQuestionContent';
@@ -46,6 +49,7 @@ interface CreateQuestionContentConfig {
 }
 
 export default function CreateQuestionContent({ questionID }: CreateQuestionContentConfig) {
+    const history = useHistory()
     const [addIsMouse, setAddIsMouse] = useState(false)
     const [addSubjectVisible, setAddSubjectVisible] = useState(false) // 增加题目的开关
     const [addConfigVisible, setAddConfigVisible] = useState(false) // 最后配置的开关
@@ -57,7 +61,7 @@ export default function CreateQuestionContent({ questionID }: CreateQuestionCont
     const [isSubmit, setIsSubmit] = useState(false)// 在对话框中选择不同选项所增加的题目
     const [startTime, setStartTime] = useState<string | null>(null)
     const [endTime, setEndTime] = useState<string | null>(null)
-    const [abstarct, setAbstract] = useState('')
+    const [abstract, setAbstract] = useState('')
     const [dropIndex, setDropIndex] = useState<number | null>(null) // 拖动元素暂存索引
     // 对话框中单选按钮的变化
     const onChange = (e: any) => {
@@ -94,19 +98,39 @@ export default function CreateQuestionContent({ questionID }: CreateQuestionCont
         setConfirmLoading(false)
     };
     // 最后配置的提交处理信息
-    const submit = () => {
-        if (!(startTime && endTime && abstarct)) {
+    const submit = async () => {
+        if (!(startTime && endTime && abstract)) {
             error('信息不能为空')
             return
         }
-        console.log({
-            title: inputValue,
-            content: addSubjectList,
-            startTime,
-            abortTime: endTime,
-            abstarct
-        });
-        // TODO: 传递数据给后端
+        setAddConfigLoading(true)
+        let res = null;
+        // 如果questionID不为null，说明为修改问卷样板
+        if (questionID !== null) {
+            res = await alter_question_template_api({
+                id: questionID,
+                title: inputValue,
+                content: addSubjectList,
+                startTime,
+                abortTime: endTime,
+                abstract
+            })
+        } else {
+            res = await add_question_template_api({
+                title: inputValue,
+                content: addSubjectList,
+                startTime,
+                abortTime: endTime,
+                abstract
+            })
+        }
+        if (isSuccess(res.code)) {
+            success('增加成功')
+            history.goBack()
+        } else {
+            error(res.message)
+        }
+        setAddConfigLoading(false)
     }
     // 在点击发布时处理问卷的信息
     const handleInputData = (obj: subjectItemConfig, index: number) => {
@@ -229,7 +253,7 @@ export default function CreateQuestionContent({ questionID }: CreateQuestionCont
             >
                 <div className={`${stylePrefix}-config-input-layout`}>
                     <div className={`${stylePrefix}-config-title`}>概要</div>
-                    <TextArea onChange={(e: any) => setAbstract(e.target.value)} rows={4} value={abstarct} />
+                    <TextArea onChange={(e: any) => setAbstract(e.target.value)} rows={4} value={abstract} />
                 </div>
                 <div className={`${stylePrefix}-config-input-layout`}>
                     <div className={`${stylePrefix}-config-title`}>开始与截止时间</div>
