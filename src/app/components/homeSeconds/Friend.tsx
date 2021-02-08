@@ -28,9 +28,9 @@ export default function Friend() {
     }, [])
     const getFriend = async () => {
         const res = await get_friend_api();
-        if(isSuccess(res.code)){
+        if (isSuccess(res.code)) {
             setFriends(res.data)
-        }else{
+        } else {
             error(res.message)
         }
     }
@@ -71,7 +71,14 @@ export default function Friend() {
                                                 key={index}
                                                 className='friend-item'
                                             >
-                                                <AvatarShow src={friendItem.avatar} userID={friendItem.id} />
+                                                {
+                                                    friendItem.isDefault
+                                                        ? <div className='img-default' >{friendItem.nickname[0]}</div>
+                                                        : <AvatarShow
+                                                            src={friendItem.avatar}
+                                                            userID={friendItem.id}
+                                                        />
+                                                }
                                                 <div className='info-layout'>
                                                     <p>{friendItem.nickname}</p>
                                                     <p>{friendItem.description}</p>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'app/styles/user/userShowHeader.scss'
 import { isMobile } from '../common/utils'
 import AuthorShow_container from 'containers/AuthorShow_container'
@@ -8,15 +8,17 @@ import { IconFont } from '../common/config'
 import userBlogCatalogModel from 'model/userBlogCatalog.json'
 import catalogIcons from 'static/userCatalogIcon.json'
 import MenuIcon from '../common/MenuIcon'
+import { catalogItemConfig } from 'app/pages/UserShow'
 
 const stylePrefix = 'user-header'
 
 interface UserShowHeaderConfig {
-    activeIndex: number
-    setActiveIndex: React.Dispatch<React.SetStateAction<number>>
+    activeIndex: number;
+    setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+    catalog: catalogItemConfig[];
 }
 
-export default function UserShowHeader({ activeIndex, setActiveIndex }: UserShowHeaderConfig) {
+export default function UserShowHeader({ activeIndex, setActiveIndex, catalog }: UserShowHeaderConfig) {
     const [showMenu, setShowMenu] = useState(false)
     return (
         <>
@@ -29,7 +31,7 @@ export default function UserShowHeader({ activeIndex, setActiveIndex }: UserShow
             </div>
             <div className={`${stylePrefix}-menu-layout`}>
                 {
-                    userBlogCatalogModel.data.map((userBlogCatalogItem, index) => {
+                    catalog.map((userBlogCatalogItem, index) => {
                         return <div
                             className={`${stylePrefix}-menu-item`}
                             key={index}

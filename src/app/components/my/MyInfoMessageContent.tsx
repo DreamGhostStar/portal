@@ -116,7 +116,7 @@ export default function MyInfoMessageContent() {
 
         if (res) {
             if (isSuccess(res.code)) {
-                setMessageData(res.data.data)
+                setMessageData(res.data)
                 setPageNum(res.data.pageNum)
             } else {
                 error(res.message)

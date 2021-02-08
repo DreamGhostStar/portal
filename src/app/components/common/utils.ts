@@ -1,5 +1,7 @@
 import store from "redux/store";
 import cookies from 'react-cookies'
+import { LocalStorage } from "./Storage";
+import { error } from "./config";
 
 export const formatTime = (createTime: string): string => {
     let tempDate = new Date(Number(createTime));
@@ -40,7 +42,7 @@ export const deepCopy = (variate: any): any => {
 
 // 获取jwt的token
 export const getToken = (): string => {
-    return cookies.load('Authorization')
+    return LocalStorage.get('Authorization');
 }
 
 // 根据ua判断使用的终端设备
@@ -96,7 +98,12 @@ export const isSuccess = (code: number) => {
     return code === 0
 }
 
-export const getHeaders = ()=>{
+export const getHeaders = () => {
+    const token: string | null = getToken();
+    if (token === null) {
+        error('您的登录信息已失效，请重新登录')
+        return
+    }
     return {
         Authorization: getToken()
     }

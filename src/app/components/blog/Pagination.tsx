@@ -1,32 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import store from '../../../redux/store'
 import { Provider } from 'react-redux'
 import PaginationItem_container from '../../../containers/PaginationItem_container'
-import { IconFont, info } from '../common/config'
+import { error, IconFont, info } from '../common/config'
 import 'app/styles/blog/pagination.scss'
-import pageNumber from 'model/page.json' // TODO: 需删除
+import { get_pages_api } from 'app/http/blog'
+import { isSuccess } from '../common/utils'
+import { SiderContext } from 'app/pages/BlogPage'
 
 const stylePrefix = 'blog-pagination'
 
 export default function Pagination(props: any) {
+    const articleContext = useContext(SiderContext)
     const [pages, setPages] = useState(1)
     const [currentPage, setCurrentPage] = useState(1)
-    const [type, setType] = useState(0)
     useEffect(() => {
         store.subscribe(() => { // 监听redux变化
             let obj = store.getState();
-
-            if (obj.type !== type) {
-                setCurrentPage(obj.page)
-                setType(obj.type)
-            } else {
-                setCurrentPage(obj.page)
-            }
+            setCurrentPage(obj.page)
         })
         getPages()
     }, [])
-    const getPages = () => {
-        setPages(pageNumber.pages)
+    // 获取总页数
+    const getPages = async () => {
+        const res = await get_pages_api({ type: articleContext.index })
+        if (isSuccess(res.code)) {
+            setPages(res.data)
+        } else {
+            error(res.message)
+        }
     }
     // 处理分页item传递的数据
     const handlePaginationItemData = (index: number) => {

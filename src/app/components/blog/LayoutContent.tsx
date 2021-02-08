@@ -9,7 +9,6 @@ import { Provider } from 'react-redux'
 import { success, error } from '../common/config';
 import Loading2 from '../common/Loading2';
 
-import articleList from 'model/artileList.json' // TODO: 需删除
 import { isMobile, isSuccess } from '../common/utils';
 import { delete_blog_api, get_list_blog_api } from 'app/http/blog';
 
@@ -45,7 +44,6 @@ export default function LayoutContent({ }) {
     }, [])
     // 获取列表文章接口
     const getBlog = async (tempType: number, tempPage: number) => {
-        // TODO: 与后端对接
         const res = await get_list_blog_api({
             type: tempType,
             page: tempPage

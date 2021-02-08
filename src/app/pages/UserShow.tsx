@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import 'app/styles/page/userShow.scss'
 import BlogHeader from 'app/components/blog/BlogHeader'
 import catalogIcons from 'static/userCatalogIcon.json'
-import { IconFont } from 'app/components/common/config'
+import { error, IconFont } from 'app/components/common/config'
 import Loading2 from 'app/components/common/Loading2'
 import { ArticleItemConfig } from 'app/components/blog/LayoutContent'
 import store from '../../redux/store'
@@ -11,11 +11,11 @@ import { Provider } from 'react-redux'
 import ArticleContentContainer from '../../containers/ArticleContent_container'
 import BackGround from 'app/components/common/BackGround';
 
-import userBlogCatalogModel from 'model/userBlogCatalog.json'
 import userInfoModel from 'model/userInfo.json'
 import articleListModel from 'model/artileList.json'
-import { deepCopy, isMobile } from 'app/components/common/utils'
+import { deepCopy, isMobile, isSuccess } from 'app/components/common/utils'
 import UserShowHeader from 'app/components/userShow/UserShowHeader'
+import { get_article_num_api } from 'app/http/blog'
 
 const stylePrefix = 'page-userShow'
 
@@ -23,7 +23,7 @@ interface UserShowRouterConfig {
     id: string
 }
 
-interface catalogItemConfig {
+export interface catalogItemConfig {
     typeID: number;
     type: string;
     number: string;
@@ -81,9 +81,14 @@ export default function UserShow() {
         }
     }
 
+    // 获取对应文章数量
     const initCatalog = async () => {
-        console.log(params.id)
-        setCatalog(userBlogCatalogModel.data);
+        const res = await get_article_num_api({ userID: Number(params.id) })
+        if (isSuccess(res.code)) {
+            setCatalog(res.data)
+        } else {
+            error(res.message)
+        }
     }
 
     const initUserInfo = async () => {
@@ -111,7 +116,11 @@ export default function UserShow() {
         <>
             <div className={`${stylePrefix}-layout`}>
                 {
-                    isMobile() ? <UserShowHeader activeIndex={activeIndex} setActiveIndex={setActiveIndex} /> : <BlogHeader activeIndex={null} />
+                    isMobile() ? <UserShowHeader
+                        catalog={catalog}
+                        activeIndex={activeIndex}
+                        setActiveIndex={setActiveIndex}
+                    /> : <BlogHeader activeIndex={null} />
                 }
                 <div className={`${stylePrefix}-main`}>
                     {

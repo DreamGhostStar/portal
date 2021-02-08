@@ -14,7 +14,6 @@ import userInfo from 'model/userInfo.json' // TODO: 假数据，需删除
 import { info, IconFont, error } from '../common/config';
 import { getToken, isMobile, isSuccess } from '../common/utils';
 
-import searchArticle from 'model/searchArticle.json'
 import AuthorShow_container from 'containers/AuthorShow_container';
 import articleMenuData from 'static/articleKindList.json'
 import myMenuData from 'static/myInfoSider.json'
